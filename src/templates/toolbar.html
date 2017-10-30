@@ -1,0 +1,14 @@
+<div class='typester-toolbar'>
+    <ul class='buttons-wrapper s--active'>
+        {{#each buttons as |button|}}
+            <li>
+                <a class='typester-menu-item' data-config-key='{{ configKey }}'>
+                    {{{ button.content }}}
+                </a>
+            </li>
+        {{/each}}
+    </ul>
+    <div class='inputs-wrapper'>
+        <input class='link-input' type='text' name='link-uri'/>
+    </div>
+</div>
