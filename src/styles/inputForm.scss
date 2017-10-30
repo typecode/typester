@@ -1,0 +1,50 @@
+.typester-input-form {
+    input[type=text] {
+        background: none;
+        border: none;
+        padding: 5px 15px;
+        height: 30px;
+        color: #FFF;
+        width: 250px;
+        outline: none;
+        vertical-align: top;
+    }
+
+    button {
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        background: none;
+        border: none;
+        color: #FFF;
+        cursor: pointer;
+        outline: none;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        vertical-align: top;
+
+        &:hover {
+            background: rgb(0, 174, 239);
+        }
+
+        svg {
+            display: block;
+            height: 16px;
+            width: 16px;
+            margin: 12px;
+            fill: #FFF;
+            stroke: #FFF;
+            text-align: center;
+        }
+    }
+}
+
+.typester-link-display {
+    a {
+        display: block;
+        cursor: pointer;
+        line-height: 20px;
+        padding: 10px;
+    }
+}

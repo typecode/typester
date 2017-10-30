@@ -1,0 +1,71 @@
+.typester-toolbar {
+    .buttons-wrapper,
+    .inputs-wrapper {
+        transition: opacity 200ms, transform 200ms;
+        transform: translateY(-40px);
+        opacity: 0;
+
+        &.s--active {
+            transform: translateY(0px);
+            opacity: 1;
+        }
+    }
+
+    .inputs-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    ul {
+        overflow: hidden;
+    }
+
+    li {
+        float: left;
+    }
+
+    .typester-menu-item {
+        // transition: width 200ms;
+        color: #FFF;
+        font-size: 16px;
+        width: 40px;
+        height: 40px;
+        display: block;
+        line-height: 40px;
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+
+        svg {
+            display: block;
+            fill: #FFF;
+            height: 16px;
+            width: 16px;
+            padding: 12px;
+        }
+
+        b {
+            font-weight: bold;
+        }
+
+        i {
+            font-style: italic;
+        }
+
+        &:hover {
+            background: rgb(0, 174, 239);
+        }
+
+        &.s--active {
+            background: darken(rgb(0, 174, 239), 10%);
+        }
+
+        &[disabled] {
+            width: 0;
+            overflow: hidden;
+        }
+    }
+}

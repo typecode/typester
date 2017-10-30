@@ -1,0 +1,16 @@
+.typester-content-editable {
+    &[data-placeholder] {
+        &:before {
+            content: attr(data-placeholder);
+            display: none;
+            color: rgb(160, 160, 160);
+            position: absolute;
+        }
+
+        &.show-placeholder {
+            &:before {
+                display: block;
+            }
+        }
+    }
+}
