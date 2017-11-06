@@ -53,7 +53,8 @@ const Selection = Module({
             'selection:collapse:toend': 'collapseToEnd',
             'selection:select:all': 'selectAll',
             'selection:select:coordinates': 'selectByCoordinates',
-            'selection:ensure:text:only' : 'ensureTextOnlySelection'
+            'selection:ensure:text:only' : 'ensureTextOnlySelection',
+            'selection:deselect': 'deSelect'
         }
     },
     methods: {
@@ -373,10 +374,10 @@ const Selection = Module({
 
             const pseudoSelection = document.createElement('span');
             pseudoSelection.classList.add('typester-pseudo-selection');
+            pseudoSelection.appendChild(currentRange.extractContents());
+            currentRange.insertNode(pseudoSelection);
 
             props.pseudoSelection = pseudoSelection;
-            currentRange.surroundContents(pseudoSelection);
-
             this.wrapElement(pseudoSelection);
         },
 
@@ -394,7 +395,10 @@ const Selection = Module({
             const { props } = this;
             let unwrappedNodes = [];
 
-            if (props.pseudoSelection) {
+            if (
+                props.pseudoSelection &&
+                props.pseudoSelection.tagName
+            ) {
                 unwrappedNodes = DOM.unwrap(props.pseudoSelection);
                 props.pseudoSelection = null;
             }
@@ -432,6 +436,11 @@ const Selection = Module({
             }
         },
 
+        deSelect () {
+            const currentSelection = this.getCurrentSelection();
+            currentSelection.removeAllRanges();
+        },
+
         isContentEditable (node) {
             return node && node.nodeType === Node.ELEMENT_NODE && node.hasAttribute('contenteditable');
         },
@@ -439,6 +448,7 @@ const Selection = Module({
         getSelectionBounds () {
             const currentRange = this.getCurrentRange();
             const rangeRects = currentRange ? currentRange.getClientRects() : [];
+            const rangeBoundingClientRect = currentRange ? currentRange.getBoundingClientRect() : null;
 
             let selectionBounds = {
                 top: null,
@@ -473,7 +483,10 @@ const Selection = Module({
             };
 
             const setInitialBoundary = function (rangeRect) {
-                if (rangeRect.top === selectionBounds.top) {
+                if (rangeBoundingClientRect) {
+                    selectionBounds.initialLeft = rangeBoundingClientRect.left;
+                    selectionBounds.initialWidth = rangeBoundingClientRect.width;
+                } else if (rangeRect.top === selectionBounds.top) {
                     if (selectionBounds.initialLeft === null) {
                         selectionBounds.initialLeft = rangeRect.left;
                     } else {

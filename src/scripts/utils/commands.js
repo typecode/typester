@@ -7,7 +7,7 @@ const commands = {
         if (command === 'formatBlock') {
             value = commands.prepBlockValue(value);
         }
-        const execStatus = contextDocument.execCommand(command, false, value);
+        contextDocument.execCommand(command, false, value);
     },
 
     formatBlock (style, contextDocument=document) {

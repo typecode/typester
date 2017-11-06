@@ -18,7 +18,10 @@ const LinkFormatter = Module({
         active: false,
         hasMouse: false,
         showing: null,
-        hideTimeout: null
+        hideTimeout: null,
+        initialEvent: null,
+        targetEl: null,
+        hasRendered: null
     },
     dom: {
         'userInput': '.user-input'
@@ -94,10 +97,11 @@ const LinkFormatter = Module({
 
             const linkDisplay = this.compileLinkDisplay({ href: anchor.href });
 
+            props.initialEvent = evnt;
+            props.targetEl = anchor;
             this.render({
                 content: linkDisplay,
-                flyoutPlacement: 'below',
-                targetEl: anchor
+                flyoutPlacement: 'below'
             });
             props.showing = 'linkDisplay';
             props.currentAnchor = anchor;
@@ -106,7 +110,7 @@ const LinkFormatter = Module({
         hideFlyout () {
             const { props } = this;
             props.hideTimeout = setTimeout(() => {
-                if (!this.isActive()) {
+                if (!this.isActive() && props.hasRendered) {
                     this.destroy();
                 }
             }, 350);
@@ -158,24 +162,46 @@ const LinkFormatter = Module({
             this.positionFlyout(opts);
             this.showFlyout();
 
+            props.hasRendered = true;
             return props.flyout.el;
         },
 
         positionFlyout (opts) {
             const { mediator, props } = this;
-            let targetBounds;
+            const { initialEvent, targetEl } = props;
+            let targetBounds, elStyles, elLineHeight, lineCount, lineStepHeight;
 
-            if (opts.targetEl) {
-                targetBounds = opts.targetEl.getBoundingClientRect();
+            if (targetEl) {
+                targetBounds = targetEl.getBoundingClientRect();
+                elStyles = window.getComputedStyle(targetEl);
+                elLineHeight = parseInt(elStyles.getPropertyValue('line-height'), 10);
+                lineCount = Math.ceil(targetBounds.height / elLineHeight);
+                lineStepHeight = targetBounds.height / lineCount;
             } else {
                 targetBounds = mediator.get('selection:bounds');
             }
 
             if (targetBounds.width > 0) {
                 const scrollOffset = DOM.getScrollOffset();
-                const docRelTop = (opts.flyoutPlacement === 'below' ? targetBounds.bottom : targetBounds.top) + scrollOffset.y;
-                const docRelLeft = targetBounds.left + scrollOffset.x;
-                const docRelCenter = targetBounds.width / 2 + docRelLeft;
+                let docRelTop, docRelCenter;
+
+                if (initialEvent) {
+                    const topDiff = initialEvent.clientY - targetBounds.top;
+
+                    docRelTop = initialEvent.clientY;
+                    docRelCenter = initialEvent.clientX;
+
+                    if (opts.flyoutPlacement === 'below') {
+                        docRelTop = targetBounds.top + (lineStepHeight * Math.ceil(topDiff / lineStepHeight));
+                    } else {
+                        docRelTop = targetBounds.top + (lineStepHeight * Math.floor(topDiff / lineStepHeight));
+                    }
+                } else {
+                    docRelTop = (opts.flyoutPlacement === 'below' ? targetBounds.bottom : targetBounds.top);
+                    docRelCenter = targetBounds.width / 2 + targetBounds.left + scrollOffset.x;
+                }
+
+                docRelTop += scrollOffset.y;
 
                 props.flyout.position({
                     left: docRelCenter + 'px',
@@ -228,12 +254,12 @@ const LinkFormatter = Module({
             }
         },
 
-        handleMouseOver (evnt) {
+        handleMouseOver () {
             const { props } = this;
             props.hasMouse = true;
         },
 
-        handleMouseOut (evnt) {
+        handleMouseOut () {
             const { props } = this;
             props.hasMouse = false;
 
@@ -267,7 +293,7 @@ const LinkFormatter = Module({
 
         isActive () {
             const { props, dom } = this;
-            return props.hasMouse || (dom && document.activeElement === dom.userInput[0]);
+            return props.hasMouse || (dom && document.activeElement === dom.userInput[0]) || props.showingLinkFlyout;
         },
 
         processForm () {
@@ -334,6 +360,7 @@ const LinkFormatter = Module({
             }
             props.showing = null;
             props.hasMouse = false;
+            props.hasRendered = null;
             mediator.exec('selection:select:remove:pseudo');
         }
     }
