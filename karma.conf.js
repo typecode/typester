@@ -50,17 +50,17 @@ module.exports = function (config) {
             moduleName: 'typester',
             sourceMap: 'inline'
         },
-        // logLevel: config.LOG_DEBUG,
+        logLevel: config.LOG_DEBUG,
         plugins: [
             'karma-rollup-preprocessor',
             'karma-jasmine',
             'karma-jasmine-jquery',
-            'karma-phantomjs-launcher',
             'karma-spec-reporter',
             'karma-sourcemap-loader',
-            'karma-coverage'
+            'karma-coverage',
+            'karma-phantomjs-launcher'
         ],
-        reporters: ['spec'],
+        reporters: ['spec'/*, 'coverage' */],
         coverageReporter: {
             type: 'html',
             dir: 'coverage/'
@@ -68,4 +68,43 @@ module.exports = function (config) {
         browsers: ['PhantomJS'],
         autoWatchBatchDelay: 3000
     });
+
+
+    if (process.env.NODE_ENV === 'ci') {
+        config.set({
+            plugins: config.plugins.concat([
+                'karma-junit-reporter',
+                'karma-chrome-launcher',
+                'karma-firefox-launcher'
+            ]),
+            reporters: ['junit'],
+            autoWatch: false,
+            browserDisconnectTolerance: 2,
+            concurrency: 1,
+            singleRun: true,
+            junitReporter: {
+                outputDir: 'coverage',
+                outputFile: 'report.xml',
+                suite: '',
+                useBrowserName: true
+            },
+            customLaunchers: {
+                'chrome': {
+                    base: 'Chrome',
+                    flags: ['--headless', '--no-sandbox', '--disable-gpu', '--remote-debugging-port=9222'],
+                    displayName: 'Typester-Chrome'
+                },
+                'firefox': {
+                    base: 'Firefox',
+                    flags: ['-headless'],
+                    displayName: 'Typester-Firefox'
+                },
+                'phantom': {
+                    base: 'PhantomJS',
+                    displayName: 'Typester-PhantomJS'
+                }
+            },
+            browsers: ['phantom', 'chrome', 'firefox']
+        });
+    }
 };

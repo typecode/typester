@@ -156,7 +156,7 @@ const ContentEditable = Module({
             return dom.el[0];
         },
 
-        cleanup (opts={}) {
+        cleanup () {
             const { dom, mediator } = this;
             const rootEl = dom.el[0];
             mediator.exec('format:clean', rootEl);

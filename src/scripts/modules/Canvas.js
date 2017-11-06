@@ -340,7 +340,7 @@ const Canvas = Module({
         destroy () {
             const { props } = this;
             const { iframe } = props;
-            // iframe.parentNode.removeChild(iframe);
+            iframe.parentNode.removeChild(iframe);
         }
     }
 });
