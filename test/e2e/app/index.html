@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Nightwatch.js Test</title>
+  </head>
+  <body>
+      <div id='content-editable' class='content-editable' style='margin-top: 200px'></div>
+      <script src='/js/typester.js'></script>
+      <script>
+        new typester({
+            el: document.getElementById('content-editable')
+        });
+        console.log('from index.html')
+      </script>
+  </body>
+</html>

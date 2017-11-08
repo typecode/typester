@@ -13,7 +13,7 @@ export default {
     entry: 'src/scripts/index.js',
     dest: 'build/js/typester.js',
     format: 'umd',
-    moduleName: 'typester',
+    moduleName: 'Typester',
     sourceMap: true,
     plugins: [
         resolve({
