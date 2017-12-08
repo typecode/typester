@@ -75,7 +75,7 @@ const Container = function Container(containerObj) {
     };
 
     const containerProto = {
-        [containerName]: function (opts={}) {
+        containerConstructor: function (opts={}) {
             const context = containerUtils.createContext();
             const boundMethods = containerUtils.bindMethods(containerMethods, context);
             context.extendWith(boundMethods);
@@ -112,7 +112,7 @@ const Container = function Container(containerObj) {
         }
     };
 
-    return containerProto[containerName];
+    return containerProto.containerConstructor;
 };
 
 export default Container;

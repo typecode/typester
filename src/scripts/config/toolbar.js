@@ -139,7 +139,7 @@ const Toolbar = {
         // Lists
         orderedlist: {
             formatter: 'list',
-            content: orderedlistIcon()[0].outerHTML,
+            content: orderedlistIcon({}, {}, true),
             opts: {
                 style: 'ordered',
                 validTags: ['OL', 'LI']
@@ -149,7 +149,7 @@ const Toolbar = {
 
         unorderedlist: {
             formatter: 'list',
-            content: unorderedlistIcon()[0].outerHTML,
+            content: unorderedlistIcon({}, {}, true),
             opts: {
                 style: 'unordered',
                 validTags: ['UL', 'LI']
@@ -160,7 +160,7 @@ const Toolbar = {
         // Block level elements
         quote: {
             formatter: 'block',
-            content: quoteIcon()[0].outerHTML,
+            content: quoteIcon({}, {}, true),
             opts: {
                 style: 'BLOCKQUOTE',
                 validTags: ['BLOCKQUOTE']
@@ -289,7 +289,7 @@ const Toolbar = {
             opts: {
                 validTags: ['A']
             },
-            content: linkIcon()[0].outerHTML,
+            content: linkIcon({}, {}, true),
             activeIn: ['A'],
             disabledIn (mediator) {
                 let disabled = mediator.get('selection:spans:multiple:blocks');
