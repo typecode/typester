@@ -1,3 +1,6 @@
+/**
+* @access protected
+*/
 export default {
     commands: {
         bold: {

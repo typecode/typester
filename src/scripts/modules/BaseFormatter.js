@@ -11,6 +11,9 @@ let validTags = toolbarConfig.getValidTags();
 let blockTags = toolbarConfig.getBlockTags();
 let listTags  = toolbarConfig.getListTags();
 
+/**
+* @access protected
+*/
 const BaseFormatter = Module({
     name: 'BaseFormatter',
     props: {},

@@ -1,6 +1,9 @@
 // jshint strict: false
 
 // Taken from medium editor: https://github.com/yabwe/medium-editor/blob/master/src/js/extensions/paste.js
+/**
+* @access protected
+*/
 const pasteUtils = {
     createReplacements () {
         return [

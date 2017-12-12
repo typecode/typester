@@ -6,6 +6,9 @@ import Module from '../core/Module';
 import pasteUtils from '../utils/paste';
 import DOM from '../utils/DOM';
 
+/**
+* @access protected
+*/
 const Paste = Module({
     name: 'Paste',
     props: {},

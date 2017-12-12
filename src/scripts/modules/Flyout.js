@@ -5,6 +5,9 @@ import DOM from '../utils/DOM';
 import flyoutTemplate from '../../templates/flyout.html';
 import flyoutStyles from '../../styles/flyout.scss';
 
+/**
+* @access protected
+*/
 const Flyout = Module({
     name: 'Flyout',
     dom: {},

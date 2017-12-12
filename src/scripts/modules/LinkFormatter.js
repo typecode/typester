@@ -9,6 +9,9 @@ import linkDisplayTemplate from '../../templates/linkDisplay.html';
 
 import inputFormStyles from '../../styles/inputForm.scss';
 
+/**
+* @access protected
+*/
 const LinkFormatter = Module({
     name: 'LinkFormatter',
     props: {

@@ -6,6 +6,9 @@ import keycodes from '../utils/keycodes';
 
 import contentEditableStyles from '../../styles/contentEditable.scss';
 
+/**
+* @access protected
+*/
 const ContentEditable = Module({
     name: 'ContentEditable',
     props: {

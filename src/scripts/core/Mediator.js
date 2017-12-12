@@ -1,6 +1,9 @@
 // jshint strict: false
 import guid from '../utils/guid';
 
+/**
+* @access protected
+*/
 const Mediator = function (opts={}) {
     const internal = {
         parent: opts.parent,

@@ -3,6 +3,9 @@
 import Module from '../core/Module';
 import commands from '../utils/commands';
 
+/**
+* @access protected
+*/
 const Formatter = Module({
     name: 'Formatter',
     requiredProps: ['contextWindow'],

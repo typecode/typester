@@ -6,6 +6,9 @@ import Toolbar from '../modules/Toolbar';
 import Flyout from '../modules/Flyout';
 import Mouse from '../modules/Mouse';
 
+/**
+* @access protected
+*/
 const UIContainer = Container({
     name: 'UIContainer',
     modules: [

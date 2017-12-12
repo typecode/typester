@@ -1,3 +1,6 @@
+/**
+* @access protected
+*/
 const formatters = {
     base: {
         blockElementNames: [

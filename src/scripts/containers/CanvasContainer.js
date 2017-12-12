@@ -4,6 +4,9 @@ import Container from '../core/Container';
 import Selection from '../modules/Selection';
 import Canvas from '../modules/Canvas';
 
+/**
+* @access protected
+*/
 const CanvasContainer = Container({
     name: 'CanvasContainer',
     modules: [

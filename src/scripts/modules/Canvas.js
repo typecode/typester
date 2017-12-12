@@ -6,6 +6,9 @@ import zeroWidthSpace from '../utils/zeroWidthSpace';
 
 import canvasStyles from '../../styles/canvas.scss';
 
+/**
+* @access protected
+*/
 const Canvas = Module({
     name: 'Canvas',
     props: {

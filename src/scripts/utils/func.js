@@ -1,5 +1,8 @@
 // jshint strict: false
 
+/**
+* @access protected
+*/
 const func = {
     bind (func, context) {
         return (...args) => {

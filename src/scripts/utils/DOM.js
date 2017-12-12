@@ -3,6 +3,9 @@
 
 import browser from './browser';
 
+/**
+* @access protected
+*/
 const DOM = {
     regex: {
         getById: /^#/,

@@ -9,6 +9,9 @@ import ListFormatter from '../modules/ListFormatter';
 import LinkFormatter from '../modules/LinkFormatter';
 import Paste from '../modules/Paste';
 
+/**
+* @access protected
+*/
 const FormatterContainer = Container({
     name: 'FormatterContainer',
     modules: [

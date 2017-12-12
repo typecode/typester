@@ -1,5 +1,8 @@
 // jshint strict: false
 
+/**
+* @access protected
+*/
 const Context = function (...contexts) {
     this.mixin(...contexts);
 };

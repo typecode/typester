@@ -4,6 +4,9 @@ import Mediator from './Mediator';
 import Context from './Context';
 import func from '../utils/func';
 
+/**
+* @access protected
+*/
 const Container = function Container(containerObj) {
     const {
         name: containerName,

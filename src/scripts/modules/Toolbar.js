@@ -6,6 +6,9 @@ import toolbarConfig from '../config/toolbar';
 import toolbarTemplate from '../../templates/toolbar.html';
 import toolbarStyles from '../../styles/toolbar.scss';
 
+/**
+* @access protected
+*/
 const Toolbar = Module({
     name: 'Toolbar',
     dom: {

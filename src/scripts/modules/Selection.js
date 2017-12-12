@@ -6,6 +6,9 @@ import toolbarConfig from '../config/toolbar';
 
 import DOM from '../utils/DOM';
 
+/**
+* @access protected
+*/
 const Selection = Module({
     name: 'Selection',
     props: {

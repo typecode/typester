@@ -11,6 +11,26 @@ import Selection from '../modules/Selection';
 
 let uiContainer, formatterContainer, canvasContainer;
 
+
+/**
+ * ### AppContainer
+ * The top most container for the Typester app stack. This
+ * container sets up the {@link FormatterContainer}, {@link UIContainer},
+ * and {@link CanvasContainer} containers which in return setup various
+ * modules that make up the app stack.
+ *
+ * @access protected
+ * @param  {object} opts={} instance options
+ * @param  {element} opts.dom.el The dom element to be the canvas for Typester
+ * @return {appContainer} AppContainer instance
+ *
+ * @example
+ * new AppContainer({
+ *   dom: {
+ *     el: domElement
+ *   }
+ * });
+ */
 const AppContainer = Container({
     name: 'AppContainer',
     modules: [
@@ -28,6 +48,9 @@ const AppContainer = Container({
         }
     },
     methods: {
+/**
+ * AppContainer:setup() - setup the child containers used to group other app components
+ */
         setup () {
             const { mediator } = this;
             formatterContainer = formatterContainer || new FormatterContainer({ mediator });

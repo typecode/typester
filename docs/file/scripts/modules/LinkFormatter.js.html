@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">scripts/modules/LinkFormatter.js | typester</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Typester">Typester</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#config">config</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-formatters">formatters</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Toolbar">Toolbar</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#containers">containers</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AppContainer">AppContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CanvasContainer">CanvasContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FormatterContainer">FormatterContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-UIContainer">UIContainer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#core">core</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Container">Container</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Context">Context</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Mediator">Mediator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Module">Module</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#modules">modules</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BaseFormatter">BaseFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BlockFormatter">BlockFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Canvas">Canvas</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ContentEditable">ContentEditable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Flyout">Flyout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Formatter">Formatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LinkFormatter">LinkFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ListFormatter">ListFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Paste">Paste</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Selection">Selection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TextFormatter">TextFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Toolbar">Toolbar</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-guid">guid</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DOM">DOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-browser">browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-commands">commands</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-func">func</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-keycodes">keycodes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pasteUtils">pasteUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-zeroWidthSpace">zeroWidthSpace</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">scripts/modules/LinkFormatter.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// jshint strict: false
+
+import Module from &apos;../core/Module&apos;;
+import commands from &apos;../utils/commands&apos;;
+import DOM from &apos;../utils/DOM&apos;;
+
+import inputFormTemplate from &apos;../../templates/inputForm.html&apos;;
+import linkDisplayTemplate from &apos;../../templates/linkDisplay.html&apos;;
+
+import inputFormStyles from &apos;../../styles/inputForm.scss&apos;;
+
+/**
+* @access protected
+*/
+const LinkFormatter = Module({
+    name: &apos;LinkFormatter&apos;,
+    props: {
+        urlRegex: /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&amp;//=]*)/,
+        styles: null,
+        currentAnchor: null,
+        active: false,
+        hasMouse: false,
+        showing: null,
+        hideTimeout: null,
+        initialEvent: null,
+        targetEl: null,
+        hasRendered: null
+    },
+    dom: {
+        &apos;userInput&apos;: &apos;.user-input&apos;
+    },
+    handlers: {
+        requests: {
+            &apos;format:link:active&apos;: &apos;isActive&apos;
+        },
+        commands: {
+            &apos;format:link&apos; : &apos;formatLink&apos;
+        },
+        events: {
+            &apos;app:destroy&apos; : &apos;destroy&apos;,
+            &apos;contenteditable:mouseover:anchor&apos; : &apos;showLinkFlyout&apos;,
+            &apos;contenteditable:mouseout:anchor&apos; : &apos;hideFlyout&apos;,
+            &apos;selection:update&apos;: &apos;handleSelectionChange&apos;,
+            &apos;selection:change&apos;: &apos;handleSelectionChange&apos;,
+            &apos;contenteditable:blur&apos;: &apos;handleContentEditableBlur&apos;
+        },
+        domEvents: {
+            &apos;submit&apos; : &apos;handleSubmit&apos;,
+            &apos;click&apos; : &apos;handleClick&apos;,
+            &apos;mouseover&apos;: &apos;handleMouseOver&apos;,
+            &apos;mouseout&apos; : &apos;handleMouseOut&apos;
+        }
+    },
+    methods: {
+        setup () {
+            this.appendStyles();
+        },
+
+        appendStyles () {
+            const { props } = this;
+            props.styles = DOM.addStyles(inputFormStyles);
+        },
+
+        formatLink () {
+            if (this.isInLink()) {
+                this.removeLink();
+            } else {
+                this.showLinkFormFlyout();
+            }
+        },
+
+        isInLink () {
+            const { mediator } = this;
+            return mediator.get(&apos;selection:in:or:contains&apos;, [&apos;A&apos;]);
+        },
+
+        showLinkFormFlyout (data) {
+            const { mediator, props } = this;
+            const linkForm = this.compileLinkForm(data);
+
+            props.showing = &apos;linkForm&apos;;
+            this.render({ content: linkForm });
+            mediator.exec(&apos;selection:wrap:pseudo&apos;);
+            this.focusInput();
+            this.bindInput();
+        },
+
+        showLinkFlyout (evnt) {
+            const { props, mediator } = this;
+            const anchor = DOM.getClosest(evnt.target, &apos;A&apos;);
+
+            if (
+                mediator.get(&apos;selection:contains:node&apos;, anchor) ||
+                props.showing === &apos;linkForm&apos;
+            ) {
+                return;
+            }
+
+            this.clearHideTimeout();
+
+            const linkDisplay = this.compileLinkDisplay({ href: anchor.href });
+
+            props.initialEvent = evnt;
+            props.targetEl = anchor;
+            this.render({
+                content: linkDisplay,
+                flyoutPlacement: &apos;below&apos;
+            });
+            props.showing = &apos;linkDisplay&apos;;
+            props.currentAnchor = anchor;
+        },
+
+        hideFlyout () {
+            const { props } = this;
+            props.hideTimeout = setTimeout(() =&gt; {
+                if (!this.isActive() &amp;&amp; props.hasRendered) {
+                    this.destroy();
+                }
+            }, 350);
+        },
+
+        clearHideTimeout () {
+            const { props } = this;
+            if (props.hideTimeout) {
+                clearTimeout(props.hideTimeout);
+                props.hideTimeout = null;
+            }
+        },
+
+        compileLinkForm (data) {
+            const wrapperEl = document.createElement(&apos;div&apos;);
+            let inputFormHTML = inputFormTemplate(data);
+
+            if (typeof inputFormHTML === &apos;string&apos;) {
+                wrapperEl.innerHTML = inputFormHTML;
+            } else {
+                wrapperEl.appendChild(inputFormHTML[0]);
+            }
+
+            return wrapperEl.childNodes[0];
+        },
+
+        compileLinkDisplay (data) {
+            const wrapperEl = document.createElement(&apos;div&apos;);
+            let inputFormHTML = linkDisplayTemplate(data);
+
+            if (typeof inputFormHTML === &apos;string&apos;) {
+                wrapperEl.innerHTML = inputFormHTML;
+            } else {
+                wrapperEl.appendChild(inputFormHTML[0]);
+            }
+
+            return wrapperEl.childNodes[0];
+        },
+
+        render (opts) {
+            const { mediator, props } = this;
+
+            props.hasMouse = false;
+            props.flyout = props.flyout || mediator.get(&apos;flyout:new&apos;);
+            props.flyout.clearContent();
+            props.flyout.setPlacement(opts.flyoutPlacement);
+            props.flyout.appendContent(opts.content);
+
+            this.positionFlyout(opts);
+            this.showFlyout();
+
+            props.hasRendered = true;
+            return props.flyout.el;
+        },
+
+        positionFlyout (opts) {
+            const { mediator, props } = this;
+            const { initialEvent, targetEl } = props;
+            let targetBounds, elStyles, elLineHeight, lineCount, lineStepHeight;
+
+            if (targetEl) {
+                targetBounds = targetEl.getBoundingClientRect();
+                elStyles = window.getComputedStyle(targetEl);
+                elLineHeight = parseInt(elStyles.getPropertyValue(&apos;line-height&apos;), 10);
+                lineCount = Math.ceil(targetBounds.height / elLineHeight);
+                lineStepHeight = targetBounds.height / lineCount;
+            } else {
+                targetBounds = mediator.get(&apos;selection:bounds&apos;);
+            }
+
+            if (targetBounds.width &gt; 0) {
+                const scrollOffset = DOM.getScrollOffset();
+                let docRelTop, docRelCenter;
+
+                if (initialEvent) {
+                    const topDiff = initialEvent.clientY - targetBounds.top;
+
+                    docRelTop = initialEvent.clientY;
+                    docRelCenter = initialEvent.clientX;
+
+                    if (opts.flyoutPlacement === &apos;below&apos;) {
+                        docRelTop = targetBounds.top + (lineStepHeight * Math.ceil(topDiff / lineStepHeight));
+                    } else {
+                        docRelTop = targetBounds.top + (lineStepHeight * Math.floor(topDiff / lineStepHeight));
+                    }
+                } else {
+                    docRelTop = (opts.flyoutPlacement === &apos;below&apos; ? targetBounds.bottom : targetBounds.top);
+                    docRelCenter = targetBounds.width / 2 + targetBounds.left + scrollOffset.x;
+                }
+
+                docRelTop += scrollOffset.y;
+
+                props.flyout.position({
+                    left: docRelCenter + &apos;px&apos;,
+                    top: docRelTop + &apos;px&apos;
+                });
+            }
+        },
+
+        showFlyout () {
+            const { mediator, props } = this;
+            props.flyout.show();
+            mediator.exec(&apos;toolbar:hide&apos;);
+        },
+
+        focusInput () {
+            const { dom } = this;
+            dom.userInput[0].focus();
+        },
+
+        bindInput () {
+            const { dom, props } = this;
+            dom.userInput[0].addEventListener(&apos;blur&apos;, this.handleBlur);
+            props.userInputBound = true;
+        },
+
+        unbindInput () {
+            const { dom, props } = this;
+            if (props.userInputBound) {
+                props.userInputBound = false;
+                dom.userInput[0].removeEventListener(&apos;blur&apos;, this.handleBlur);
+            }
+        },
+
+        handleSubmit (evnt) {
+            evnt.preventDefault();
+            const formJSON = this.processForm();
+            if (formJSON[&apos;user-input&apos;]) {
+                this.createLink(formJSON);
+            } else {
+                this.removeLink({ byPseudo: true });
+            }
+        },
+
+        handleClick (evnt) {
+            const { mediator, props } = this;
+            if (evnt.target.nodeName === &apos;A&apos;) {
+                evnt.preventDefault();
+                mediator.exec(&apos;selection:wrap:element&apos;, props.currentAnchor, { silent: true });
+                this.showLinkFormFlyout({ value: props.currentAnchor.href });
+            }
+        },
+
+        handleMouseOver () {
+            const { props } = this;
+            props.hasMouse = true;
+        },
+
+        handleMouseOut () {
+            const { props } = this;
+            props.hasMouse = false;
+
+            if (props.showing === &apos;linkDisplay&apos;) {
+                this.hideFlyout();
+            }
+        },
+
+        handleBlur () {
+            const { props } = this;
+            if (props.blurTimeout) {
+                clearTimeout(props.blurTimeout);
+            }
+
+            props.blurTimeout = setTimeout(() =&gt; {
+                this.hideFlyout();
+            }, 100);
+        },
+
+        handleSelectionChange () {
+            if (
+                !this.isActive()
+            ) {
+                this.hideFlyout();
+            }
+        },
+
+        handleContentEditableBlur () {
+            this.hideFlyout();
+        },
+
+        isActive () {
+            const { props, dom } = this;
+            return props.hasMouse || (dom &amp;&amp; document.activeElement === dom.userInput[0]) || props.showingLinkFlyout;
+        },
+
+        processForm () {
+            const { dom } = this;
+            const formInputs = dom.el[0].querySelectorAll(&apos;input, select, textarea&apos;);
+            let formJSON = {};
+
+            for (let i = 0; i &lt; formInputs.length; i++) {
+                let inputEl = formInputs[i];
+                let inputName = inputEl.name;
+                let inputValue = inputEl.value;
+
+                if (inputName) {
+                    formJSON[inputName] = inputValue;
+                }
+            }
+
+            return formJSON;
+        },
+
+        processLinkInput (linkInput) {
+            const { props } = this;
+
+            if (props.urlRegex.test(linkInput) &amp;&amp; linkInput.indexOf(&apos;//&apos;) &lt; 0) {
+                linkInput = &apos;http://&apos; + linkInput;
+            }
+
+            return linkInput;
+        },
+
+        createLink (formJSON) {
+            const { mediator } = this;
+
+            if (formJSON[&apos;user-input&apos;]) {
+                const linkURL = this.processLinkInput(formJSON[&apos;user-input&apos;]);
+                mediator.exec(&apos;selection:select:pseudo&apos;);
+                commands.exec(&apos;unlink&apos;);
+                commands.exec(&apos;createLink&apos;, linkURL);
+            }
+
+            this.destroy();
+        },
+
+        removeLink (opts={}) {
+            const { mediator } = this;
+
+            if (opts.byPseudo) {
+                mediator.exec(&apos;selection:select:pseudo&apos;);
+            } else {
+                const anchorNode = mediator.get(&apos;selection:anchornode&apos;);
+                const anchor = DOM.getClosest(anchorNode, &apos;A&apos;);
+                mediator.exec(&apos;selection:wrap:element&apos;, anchor);
+            }
+
+            commands.exec(&apos;unlink&apos;);
+            this.destroy();
+        },
+
+        destroy () {
+            const { props, mediator } = this;
+            if (props.flyout) {
+                this.unbindInput();
+                props.flyout.remove();
+            }
+            props.showing = null;
+            props.hasMouse = false;
+            props.hasRendered = null;
+            mediator.exec(&apos;selection:select:remove:pseudo&apos;);
+        }
+    }
+});
+
+export default LinkFormatter;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">scripts/modules/Paste.js | typester</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Typester">Typester</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#config">config</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-formatters">formatters</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Toolbar">Toolbar</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#containers">containers</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AppContainer">AppContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CanvasContainer">CanvasContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FormatterContainer">FormatterContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-UIContainer">UIContainer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#core">core</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Container">Container</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Context">Context</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Mediator">Mediator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Module">Module</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#modules">modules</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BaseFormatter">BaseFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BlockFormatter">BlockFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Canvas">Canvas</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ContentEditable">ContentEditable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Flyout">Flyout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Formatter">Formatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LinkFormatter">LinkFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ListFormatter">ListFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Paste">Paste</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Selection">Selection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TextFormatter">TextFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Toolbar">Toolbar</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-guid">guid</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DOM">DOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-browser">browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-commands">commands</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-func">func</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-keycodes">keycodes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pasteUtils">pasteUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-zeroWidthSpace">zeroWidthSpace</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">scripts/modules/Paste.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// jshint strict: false
+
+import DOMPurify from &apos;dompurify&apos;;
+
+import Module from &apos;../core/Module&apos;;
+import pasteUtils from &apos;../utils/paste&apos;;
+import DOM from &apos;../utils/DOM&apos;;
+
+/**
+* @access protected
+*/
+const Paste = Module({
+    name: &apos;Paste&apos;,
+    props: {},
+    handlers: {
+        commands: {},
+        requests: {},
+        events: {
+            &apos;contenteditable:paste&apos;: &apos;handlePaste&apos;
+        }
+    },
+    methods: {
+        init () {
+
+        },
+
+        handlePaste (evnt) {
+            evnt.preventDefault();
+
+            const { mediator } = this;
+            let {
+                &apos;text/html&apos;: pastedHTML,
+                &apos;text/plain&apos;: pastedPlain
+            } = this.getClipboardContent(evnt, window, document);
+
+            if (!pastedHTML) {
+                pastedHTML = pastedPlain.replace(/(?:\r\n|\r|\n)/g, &apos;&lt;br /&gt;&apos;);
+            }
+
+            pastedHTML = this.cleanPastedHTML(pastedHTML);
+            pastedHTML = DOMPurify.sanitize(pastedHTML);
+
+            mediator.exec(&apos;contenteditable:inserthtml&apos;, pastedHTML);
+        },
+
+        getClipboardContent (evnt, contextWindow, contextDocument) {
+            const dataTransfer = evnt.clipboardData || contextWindow.clipboardData || contextDocument.dataTransfer;
+            let data = {
+                pastedHTML: &apos;&apos;,
+                pastedPlain: &apos;&apos;
+            };
+
+            if (!dataTransfer) {
+                return data;
+            }
+
+            if (dataTransfer.getData) {
+                let legacyText = dataTransfer.getData(&apos;text&apos;);
+                if (legacyText &amp;&amp; legacyText.length &gt; 0) {
+                    data[&apos;text/plain&apos;] = legacyText;
+                }
+            }
+
+            if (dataTransfer.types) {
+                for (let i = 0; i &lt; dataTransfer.types.length; i++) {
+                    let contentType = dataTransfer.types[i];
+                    data[contentType] = dataTransfer.getData(contentType);
+                }
+            }
+
+            return data;
+        },
+
+        cleanPastedHTML (pastedHTML) {
+            const { mediator } = this;
+            const canvasDoc = mediator.get(&apos;canvas:document&apos;);
+            const canvasBody = mediator.get(&apos;canvas:body&apos;);
+            const replacements = pasteUtils.createReplacements();
+
+            for (let i = 0; i &lt; replacements.length; i++) {
+                let replacement = replacements[i];
+                pastedHTML = pastedHTML.replace(replacement[0], replacement[1]);
+            }
+
+            canvasBody.innerHTML = &apos;&lt;p&gt;&apos; + pastedHTML.split(&apos;&lt;br&gt;&lt;br&gt;&apos;).join(&apos;&lt;/p&gt;&lt;p&gt;&apos;) + &apos;&lt;/p&gt;&apos;;
+
+            let elList = canvasBody.querySelectorAll(&apos;a,p,div,br&apos;);
+            for (let i = 0; i &lt; elList.length; i++) {
+                let workEl = elList[i];
+
+                workEl.innerHTML = workEl.innerHTML.replace(/\n/gi, &apos; &apos;);
+            }
+
+            const pasteBlock = canvasDoc.createDocumentFragment();
+            const pasteBlockBody = canvasDoc.createElement(&apos;body&apos;);
+            pasteBlock.appendChild(pasteBlockBody);
+            pasteBlockBody.innerHTML = canvasBody.innerHTML;
+
+            this.cleanupSpans(pasteBlockBody);
+            this.cleanupDivs(pasteBlockBody);
+
+            elList = pasteBlockBody.querySelectorAll(&apos;*&apos;);
+            for (let i = 0; i &lt; elList.length; i++) {
+                let workEl = elList[i];
+                let elAttrs = [];
+
+                for (let j = 0; j &lt; workEl.attributes.length; j++) {
+                    elAttrs.push(workEl.attributes[j].name);
+                }
+
+                for (let k = 0; k &lt; elAttrs.length; k++) {
+                    let attrName = elAttrs[k];
+                    if (!(workEl.nodeName === &apos;A&apos; &amp;&amp; attrName === &apos;href&apos;)) {
+                        workEl.removeAttribute(attrName);
+                    }
+                }
+            }
+
+            canvasBody.innerHTML = pasteBlockBody.innerHTML;
+            mediator.exec(&apos;format:list:cleanup&apos;, canvasBody);
+            mediator.exec(&apos;format:clean&apos;, canvasBody);
+
+            pastedHTML = canvasBody.innerHTML;
+            return pastedHTML;
+        },
+
+        cleanupSpans (containerEl) {
+            let spans = containerEl.querySelectorAll(&apos;.replace-with&apos;);
+
+            for (let i = 0; i &lt; spans.length; i++) {
+                let span = spans[i];
+                let replaceBold = span.classList.contains(&apos;bold&apos;);
+                let replaceItalic = span.classList.contains(&apos;italic&apos;);
+                let replacement = document.createElement(replaceBold ? &apos;b&apos; : &apos;i&apos;);
+
+                if (replaceBold &amp;&amp; replaceItalic) {
+                    replacement.innerHTML = &apos;&lt;i&gt;&apos; + span.innerHTML + &apos;&lt;/i&gt;&apos;;
+                } else {
+                    replacement.innerHTML = span.innerHTML;
+                }
+
+                span.parentNode.replaceChild(replacement, span);
+            }
+
+            spans = containerEl.querySelectorAll(&apos;span&apos;);
+            for (let i = 0; i &lt; spans.length; i++) {
+                let span = spans[i];
+                DOM.unwrap(span);
+            }
+        },
+
+        cleanupDivs (containerEl) {
+            let divs = containerEl.querySelectorAll(&apos;div&apos;);
+            for (let i = divs.length - 1; i &gt;=0; i--) {
+                DOM.unwrap(divs[i]);
+            }
+        }
+    }
+});
+
+export default Paste;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

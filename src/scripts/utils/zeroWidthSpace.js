@@ -1,6 +1,12 @@
 // jshint strict: false
-
+/**
+* @access protected
+*/
 const zeroWidthSpaceEntity = '&ZeroWidthSpace;';
+
+/**
+* @access protected
+*/
 const zeroWidthSpace = {
     generate () {
         let tmpEl = document.createElement('span');

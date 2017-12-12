@@ -4,6 +4,9 @@ import Module from '../core/Module';
 import commands from '../utils/commands';
 import DOM from '../utils/DOM';
 
+/**
+* @access protected
+*/
 const ListFormatter = Module({
     name: 'ListFormatter',
     props: {},

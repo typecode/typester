@@ -4,6 +4,9 @@ import Context from './Context';
 import func from '../utils/func';
 import DOM from '../utils/DOM';
 
+/**
+* @access protected
+*/
 const Module = function (moduleObj) {
     const {
         name: moduleName,

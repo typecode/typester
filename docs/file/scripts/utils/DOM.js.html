@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">scripts/utils/DOM.js | typester</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Typester">Typester</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#config">config</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-formatters">formatters</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Toolbar">Toolbar</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#containers">containers</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AppContainer">AppContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CanvasContainer">CanvasContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FormatterContainer">FormatterContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-UIContainer">UIContainer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#core">core</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Container">Container</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Context">Context</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Mediator">Mediator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Module">Module</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#modules">modules</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BaseFormatter">BaseFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BlockFormatter">BlockFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Canvas">Canvas</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ContentEditable">ContentEditable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Flyout">Flyout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Formatter">Formatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LinkFormatter">LinkFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ListFormatter">ListFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Paste">Paste</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Selection">Selection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TextFormatter">TextFormatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Toolbar">Toolbar</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-guid">guid</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DOM">DOM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-browser">browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-commands">commands</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-func">func</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-keycodes">keycodes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pasteUtils">pasteUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-zeroWidthSpace">zeroWidthSpace</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">scripts/utils/DOM.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// jshint strict: false
+/* eslint-disable no-alert, no-console */
+
+import browser from &apos;./browser&apos;;
+
+/**
+* @access protected
+*/
+const DOM = {
+    regex: {
+        getById: /^#/,
+        getByClassName: /^\./,
+        getByTag: /^[a-z]/
+    },
+
+    getElements (elementsObj, rootEl) {
+        for (let elementKey in elementsObj) {
+            if (elementsObj.hasOwnProperty(elementKey) &amp;&amp; elementKey !== &apos;rootEl&apos;) {
+                let elementObj = elementsObj[elementKey];
+                let { selector } = elementObj;
+
+                rootEl = elementObj.rootEl || rootEl;
+                rootEl = typeof rootEl === &apos;function&apos; ? rootEl() : rootEl;
+
+                elementObj.el = DOM.get(selector, rootEl);
+            }
+        }
+    },
+
+    // Public methods
+    get(selector, domRoot = document) {
+        if (DOM.isElement(selector)) {
+            return [selector];
+        }
+        const getMethodName = DOM._getGetMethodName(selector);
+        return DOM[getMethodName](selector, domRoot);
+    },
+
+    getByClassName(className, domRoot = document) {
+        className = DOM._cleanSelector(className);
+        return domRoot.getElementsByClassName(className);
+    },
+
+    getByTag(tag, domRoot = document) {
+        tag = DOM._cleanSelector(tag);
+        return domRoot.getElementsByTagName(tag);
+    },
+
+    getById(id) {
+        return document.getElementById(id);
+    },
+
+    getClosest(node, selector, ceilNode) {
+        const rootEl = ceilNode || DOM.getRootEl();
+        const checkType = /^\[/.test(selector) ? &apos;attribute&apos; :
+                          /^\./.test(selector) ? &apos;class&apos; :
+                          /^\#/.test(selector) ? &apos;id&apos; :
+                          &apos;tag&apos;;
+
+        let returnNode = false;
+        let attrName, className, idStr, parentId;
+
+        if (node === rootEl) {
+            return null;
+        }
+
+        while (node.nodeType !== Node.ELEMENT_NODE) {
+            node = node.parentNode;
+        }
+
+        switch (checkType) {
+        case &apos;attribute&apos;:
+            attrName = selector.match(/\[(.*?)\]/)[1];
+            returnNode = node.hasAttribute(attrName);
+            break;
+        case &apos;class&apos;:
+            className = selector.replace(&apos;.&apos;, &apos;&apos;);
+            returnNode = node.classList &amp;&amp; node.classList.contains(className);
+            break;
+        case &apos;id&apos;:
+            idStr = selector.replace(&apos;#&apos;, &apos;&apos;);
+            parentId = node.getAttribute(&apos;id&apos;);
+            returnNode = idStr === parentId;
+            break;
+        case &apos;tag&apos;:
+            returnNode = node.nodeName.toLowerCase() === selector.toLowerCase();
+            break;
+        }
+
+        if (returnNode) {
+            return node;
+        } else {
+            return DOM.getClosest(node.parentNode, selector, rootEl);
+        }
+    },
+
+    getClosestInArray (node, nameArray, ceilNode) {
+        let parentNode = node;
+
+        while (nameArray.indexOf(parentNode.nodeName) &lt; 0 &amp;&amp; parentNode !== ceilNode) {
+            parentNode = parentNode.parentNode;
+        }
+
+        if (parentNode !== ceilNode) {
+            return parentNode;
+        } else {
+            return null;
+        }
+    },
+
+    getFurthest (node, selector) {
+        const rootEl = DOM.getRootEl();
+        let currentNode = node;
+        let furthest = null;
+
+        selector = selector instanceof Array ? selector : [selector];
+
+        while (currentNode &amp;&amp; currentNode !== rootEl) {
+            if (selector.indexOf(currentNode.nodeName) &gt; -1) {
+                furthest = currentNode;
+            }
+            currentNode = currentNode.parentNode || currentNode.parentElement;
+        }
+
+        return furthest;
+    },
+
+    nextNode (node) {
+        if (node.hasChildNodes()) {
+            return node.firstChild;
+        } else {
+            while (node &amp;&amp; !node.nextSibling) {
+                node = node.parentNode;
+            }
+            if (!node) {
+                return null;
+            }
+            return node.nextSibling;
+        }
+    },
+
+    appendTo(selector, tag) {
+        const htmlNode = DOM.isElement(tag) ? tag : document.createElement(tag);
+        const targetEl = DOM.get(selector);
+
+        for (let i = 0; i &lt; targetEl.length; i++) {
+            targetEl[i].appendChild(htmlNode);
+        }
+
+        return htmlNode;
+    },
+
+    addStyles(styles) {
+        const styleEl = DOM.appendTo(&apos;head&apos;, &apos;style&apos;);
+
+        styleEl.setAttribute(&apos;id&apos;, &apos;typester-styles&apos;);
+        styleEl.setAttribute(&apos;type&apos;, &apos;text/css&apos;);
+
+        if (styleEl.styleSheet) {
+            styleEl.styleSheet.cssText = styles;
+        } else {
+            styleEl.appendChild(document.createTextNode(styles));
+        }
+
+        return styleEl;
+    },
+
+    // From http://stackoverflow.com/questions/384286/javascript-isdom-how-do-you-check-if-a-javascript-object-is-a-dom-object
+    isNode(o) {
+        return (
+            typeof Node === &apos;object&apos; ? o instanceof Node :
+            o &amp;&amp; typeof o === &apos;object&apos; &amp;&amp; typeof o.nodeType === &apos;number&apos; &amp;&amp; typeof o.nodeName === &apos;string&apos;
+        );
+    },
+
+    isElement(elem) {
+        let isElement = false;
+
+        isElement = elem instanceof Window || elem instanceof Document;
+        isElement = isElement || typeof HTMLElement === &apos;object&apos; &amp;&amp; elem instanceof HTMLElement;
+        isElement = isElement || elem &amp;&amp; typeof elem === &apos;object&apos; &amp;&amp; elem !== null &amp;&amp; elem.nodeType === 1 &amp;&amp; typeof elem.nodeName === &apos;string&apos;;
+
+        return isElement;
+    },
+
+    isIn(node, nodeName, ceilNode) {
+        let isIn = false;
+        let currentNode = node;
+        let nameArray = nodeName instanceof Array ? nodeName : nodeName.split(&apos;/&apos;);
+
+        ceilNode = ceilNode || DOM.getRootEl();
+        nameArray = nameArray.map((name) =&gt; {
+            return name.toLowerCase();
+        });
+
+        while (!isIn &amp;&amp; currentNode !== ceilNode) {
+            isIn = nameArray.indexOf(currentNode.nodeName.toLowerCase()) &gt; -1;
+            currentNode = currentNode.parentNode;
+        }
+
+        return isIn;
+    },
+
+    isChildOf(childNode, parentNode) {
+        if (childNode instanceof Array) {
+            childNode = childNode[0];
+        }
+
+        if (parentNode instanceof Array) {
+            parentNode = parentNode[0];
+        }
+
+        return parentNode &amp;&amp; childNode &amp;&amp; parentNode.contains(childNode);
+    },
+
+    addClass(el, classStr) {
+        el.classList.add(classStr);
+    },
+
+    toggleClass(el, classStr, force) {
+        let addClass = force !== undefined ? force : !el.classList.contains(classStr);
+
+        if (addClass) {
+            DOM.addClass(el, classStr);
+        } else {
+            DOM.removeClass(el, classStr);
+        }
+    },
+
+    removeClass(el, classStr) {
+        el.classList.remove(classStr);
+    },
+
+    isBlock(node) {
+        return DOM.getStyle(node, &apos;display&apos;) === &apos;block&apos;;
+    },
+
+    closestElement(node) {
+        let returnNode = node;
+
+        while (returnNode.nodeType !== 1) {
+            returnNode = returnNode.parentNode;
+        }
+
+        return returnNode;
+    },
+
+    getStyles(node) {
+        const closestElement = DOM.closestElement(node);
+        const gcs = &apos;getComputedStyle&apos; in window;
+        return (gcs ? window.getComputedStyle(closestElement) : closestElement.currentStyle);
+    },
+
+    getStyle(node, property) {
+        const nodeStyles = DOM.getStyles(node);
+        return nodeStyles[property];
+    },
+
+    insertBefore (newNode, referenceNode) {
+        const parentNode = referenceNode.parentNode;
+        parentNode.insertBefore(newNode, referenceNode);
+    },
+
+    insertAfter(newNode, referenceNode) {
+        const parentNode = referenceNode.parentNode;
+
+        if (parentNode.lastChild === referenceNode) {
+            parentNode.appendChild(newNode);
+        } else {
+            parentNode.insertBefore(newNode, referenceNode.nextSibling);
+        }
+    },
+
+    isLastChild (node) {
+        return node === node.parentNode.lastChild;
+    },
+
+    isFirstChild (node) {
+        return node === node.parentNode.firstChild;
+    },
+
+    wrapRange (nodeName, nodeOpts) {
+        const sel = window.getSelection();
+        const range = sel.getRangeAt(0);
+        const wrapper = document.createElement(nodeName);
+
+        for (let optKey in nodeOpts) {
+            if (nodeOpts.hasOwnProperty(optKey)) {
+                wrapper[optKey] = nodeOpts[optKey];
+            }
+        }
+
+        range.surroundContents(wrapper);
+
+        return wrapper;
+    },
+
+    unwrap(node, opts={}) {
+        const unwrappedNodes = [];
+
+        if (node.childNodes) {
+            while (node.firstChild) {
+                unwrappedNodes.push(node.firstChild);
+                DOM.insertBefore(node.firstChild, node);
+            }
+        }
+
+        if (!opts.keepNode) {
+            DOM.removeNode(node);
+        }
+        return unwrappedNodes;
+    },
+
+    unwrapFrom (node, wrappers) {
+        const rootEl = DOM.getRootEl();
+        let currentNode = node;
+        let unwrappedNodes = [currentNode];
+
+        while (currentNode !== rootEl) {
+            let parentNode = currentNode.parentNode || currentNode.parentElement;
+
+            if (wrappers.indexOf(currentNode.nodeName) &gt; -1) {
+                unwrappedNodes = DOM.unwrap(currentNode);
+            }
+
+            currentNode = parentNode;
+        }
+
+        return unwrappedNodes;
+    },
+
+    unwrapToRoot (node) {
+        const rootEl = DOM.getRootEl();
+        let currentNode = node.parentNode;
+
+        while (currentNode !== rootEl) {
+            let parentNode = currentNode.parentNode;
+            DOM.unwrap(currentNode);
+            currentNode = parentNode;
+        }
+    },
+
+    removeNode (node) {
+        const parentNode = node.parentElement || node.parentNode;
+        if (parentNode) {
+            parentNode.removeChild(node);
+        }
+    },
+
+    replaceNode (node, newNode) {
+        const parentNode = node.parentNode || node.parentElement;
+        if (parentNode) {
+            parentNode.replaceChild(newNode, node);
+        }
+    },
+
+    getContainerZIndex (node) {
+        let container = node;
+        let topMostContainerZIndex = 0;
+
+        while (container &amp;&amp; container !== document.body) {
+            let containerZIndex = window.getComputedStyle(container).zIndex;
+            if (/^[0-9]+$/.test(containerZIndex)) {
+                topMostContainerZIndex = parseInt(containerZIndex);
+            }
+            container = container.parentNode;
+        }
+
+        return topMostContainerZIndex;
+    },
+
+    // // From http://stackoverflow.com/questions/6139107/programmatically-select-text-in-a-contenteditable-html-element
+    // selectNodeContents(node) {
+    //     node = node || DOM.getAnchorNode();
+    //     if (!node) {
+    //         return;
+    //     }
+    //
+    //     const nodes = node instanceof Array ? node : [node];
+    //     const startNode = nodes[0];
+    //     const endNode = nodes[nodes.length - 1];
+    //
+    //     const range = document.createRange();
+    //     range.setStart(startNode, 0);
+    //     range.setEnd(endNode, endNode.length);
+    //
+    //     const sel = window.getSelection();
+    //     if (sel.rangeCount &gt; 0) {
+    //         sel.removeAllRanges();
+    //     }
+    //     sel.addRange(range);
+    // },
+
+    getRootEl() {
+        const selection = document.getSelection();
+        const anchorNode = selection.anchorNode;
+
+        let rootEl = anchorNode;
+        while (rootEl &amp;&amp; !(rootEl.nodeType === Node.ELEMENT_NODE &amp;&amp; rootEl.hasAttribute(&apos;contenteditable&apos;))) {
+            rootEl = rootEl.parentNode;
+        }
+
+        return rootEl;
+    },
+
+    removeInvalidTagsUpward (node, acceptedTags) {
+        const rootEl = DOM.getRootEl();
+        let currentNode = node;
+        let invalidTags = [];
+        let unwrappedNodes = [node];
+
+        while (currentNode !== rootEl) {
+            if (currentNode.nodeType === 1 &amp;&amp; acceptedTags.indexOf(currentNode.nodeName) &lt; 0) {
+                invalidTags.push(currentNode);
+            }
+            currentNode = currentNode.parentNode || currentNode.parentElement;
+        }
+
+        for (let i = 0; i &lt; invalidTags.length; i++) {
+            let invalidTag = invalidTags[i];
+            unwrappedNodes = DOM.unwrap(invalidTag);
+        }
+
+        return unwrappedNodes;
+    },
+
+    // From: http://stackoverflow.com/questions/37025488/remove-whitespace-from-window-selection-in-js
+    trimSelection (opts) {
+        opts = opts || { fromEnd: true };
+
+        const sel = window.getSelection();
+        const range = sel.getRangeAt(0);
+        const selStr = sel.toString();
+
+        let regEx, container, method, regExResult,
+            offset = range.startOffset, rangeClone;
+
+        if (opts.bothEnds) {
+            opts.fromEnd = true;
+        }
+
+        if (opts.fromEnd) {
+            regEx = /\s+$/;
+            container = range.endContainer;
+            method = range.setEnd;
+        } else if (opts.fromStart) {
+            regEx = /[^\s]/;
+            container = range.startContainer;
+            method = range.setStart;
+        }
+
+
+        regExResult = regEx.exec(selStr);
+        if (regExResult &amp;&amp; regExResult.index &gt; 0) {
+            if (opts.fromEnd &amp;&amp; offset + regExResult.index &gt; container.length) {
+                regExResult = regEx.exec(container.textContent);
+                if (regExResult) {
+                    method.call(range, container, regExResult.index);
+                }
+            } else {
+                method.call(range, container, offset + regExResult.index);
+            }
+
+            rangeClone = range.cloneRange();
+            sel.removeAllRanges();
+            sel.addRange(rangeClone);
+        }
+
+        if (opts.bothEnds) {
+            if (opts.fromEnd) {
+                DOM.trimSelection({ fromStart: true });
+            } else {
+                DOM.trimSelection({ fromEnd: true });
+            }
+        }
+    },
+
+    createPseudoSelect () {
+        const rootEl = DOM.getRootEl();
+        const wrapper = DOM.wrapRange(&apos;SPAN&apos;, {
+            className: &apos;pseudo-selection&apos;
+        });
+        let selectionStyles;
+
+        if (browser.isFirefox()) {
+            selectionStyles = window.getComputedStyle(rootEl, &apos;::-moz-selection&apos;);
+        } else {
+            selectionStyles = window.getComputedStyle(rootEl, &apos;::selection&apos;);
+        }
+
+        wrapper.style[&apos;background-color&apos;] = selectionStyles[&apos;background-color&apos;];
+        if (wrapper.style[&apos;background-color&apos;] === &apos;transparent&apos;) {
+            wrapper.style[&apos;background-color&apos;] = &apos;#EEEEEE&apos;;
+        }
+        wrapper.style.color = selectionStyles.color;
+
+        return wrapper;
+    },
+
+    // From: https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
+    getScrollOffset () {
+        const supportPageOffset = window.pageXOffset !== undefined;
+        const isCSS1Compat = ((document.compatMode || &apos;&apos;) === &apos;CSS1Compat&apos;);
+
+        const x = supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft;
+        const y = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
+
+        return {x, y};
+    },
+
+    childIndex (node) {
+        let child = node;
+        let childIndex = 0;
+
+        while ((child = child.previousSibling) !== null) {
+            childIndex++;
+        }
+
+        return childIndex;
+    },
+
+    //Pseudo-private methods
+    _getGetMethodName(selector) {
+        let methodName = null;
+
+        Object.keys(DOM.regex).forEach((regexKey) =&gt; {
+            const regex = DOM.regex[regexKey];
+            if (regex.test(selector)) {
+                methodName = regexKey;
+            }
+        });
+
+        return methodName;
+    },
+
+    _cleanSelector(selector) {
+        return selector.replace(/^[\.#]/, &apos;&apos;);
+    },
+
+    _createEl(tag) {
+        return document.createElement(tag);
+    }
+};
+
+export default DOM;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

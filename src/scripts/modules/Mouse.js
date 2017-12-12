@@ -2,6 +2,9 @@
 
 import Module from '../core/Module';
 
+/**
+* @access protected
+*/
 const Mouse = Module({
     name: 'Mouse',
     props: {

@@ -5,6 +5,9 @@ import orderedlistIcon from '../../templates/icons/orderedlist.html';
 import unorderedlistIcon from '../../templates/icons/unorderedlist.html';
 import quoteIcon from '../../templates/icons/quote.html';
 
+/**
+* @access protected
+*/
 const Toolbar = {
     buttons: ['bold', 'italic', 'h1', 'h2', 'orderedlist', 'unorderedlist', 'quote', 'link'],
     preventNewlineDefault: ['ul', 'ol'],
