@@ -7,6 +7,7 @@ Coming soon!
 Install all the node modules
 ```
 ~> yarn
+~> cd test/e2e/test && yarn
 ```
 
 ## Build
