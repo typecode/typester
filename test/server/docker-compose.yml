@@ -1,0 +1,9 @@
+version: '3'
+services:
+    server:
+        image: nginx:1.12-alpine
+        volumes:
+            - ./html:/usr/share/nginx/html
+            - ../../build/js:/usr/share/nginx/html/js
+        ports:
+            - 4848:80

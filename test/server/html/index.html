@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+    <head>
+
+        <style>
+            #content-editable {
+                border: 1px solid #CCC;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Typester test server</h1>
+        <div id='content-editable'>
+
+        </div>
+
+        <script src='/js/typester.js'></script>
+        <script>
+          new Typester({
+              el: document.getElementById('content-editable')
+          });
+        </script>
+    </body>
+</html>

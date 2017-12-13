@@ -7,17 +7,17 @@ module.exports = function (config) {
         frameworks: ['jasmine-jquery', 'jasmine'],
 
         files: [
-            './test/setup.js',
+            './test/unit/setup.js',
             // {pattern: './src/scripts/**/*.js', included: false},
-            {pattern: './test/fixtures/**/*.html', included: false, served: true},
+            {pattern: './test/unit/fixtures/**/*.html', included: false, served: true},
             // {pattern: './test/helpers/**/*.js', included: false},
-            './test/**/*.spec.js'
+            './test/unit/**/*.spec.js'
         ],
 
         preprocessors: {
-            './test/setup.js': ['rollup'],
-            './src/scripts/**/*.js': ['rollup', 'sourcemap', 'coverage'],
-            './test/**/*.spec.js': ['rollup', 'sourcemap']
+            './test/unit/setup.js': ['rollup'],
+            './src/scripts/**/*.js': ['rollup', /*'sourcemap', 'coverage'*/],
+            './test/unit/**/*.spec.js': ['rollup', /*'sourcemap'*/]
         },
 
         rollupPreprocessor: {
@@ -40,7 +40,7 @@ module.exports = function (config) {
                 }),
                 require('rollup-plugin-commonjs')(),
                 require('rollup-plugin-istanbul')({
-                    exclude: ['./test/**/*.js', 'node_modules/**']
+                    exclude: ['./test/unit/**/*.js', 'node_modules/**']
                 }),
                 require('rollup-plugin-babel')({
                     exclude: 'node_modules/**'

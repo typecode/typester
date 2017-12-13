@@ -147,7 +147,7 @@ const Module = function (moduleObj) {
     };
 
     const moduleProto = {
-        [moduleName]: function (opts) {
+        moduleConstructor: function (opts) {
             moduleProto.prepModule(opts);
             moduleProto.buildModule(opts);
             moduleProto.setupModule(opts);
@@ -225,7 +225,7 @@ const Module = function (moduleObj) {
         }
     };
 
-    return moduleProto[moduleName];
+    return moduleProto.moduleConstructor;
 };
 
 export default Module;

@@ -20,15 +20,18 @@
 
     ul {
         overflow: hidden;
+        list-style: none;
     }
 
     li {
         float: left;
+        list-style: none;
     }
 
     .typester-menu-item {
         // transition: width 200ms;
         color: #FFF;
+        font-family: sans-serif;
         font-size: 16px;
         width: 40px;
         height: 40px;
