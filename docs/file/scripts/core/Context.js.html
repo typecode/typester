@@ -68,9 +68,15 @@
 <div class="content" data-ice="content"><h1 data-ice="title">scripts/core/Context.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// jshint strict: false
 
+
 /**
-* @access protected
-*/
+ * ## Context
+ * Instance safe context builder that can mixin multiple additional objects as
+ * contexts. These can then be used to bind methods into a shared context.
+ *
+ * @param  {array} contexts - A collection of contexts to mix into the returned context.
+ * @return {object} - A context
+ */
 const Context = function (...contexts) {
     this.mixin(...contexts);
 };

@@ -9,8 +9,9 @@ import AppContainer from './containers/AppContainer';
  * dom element
  *
  * @access public
- * @param  {object} opts={} instance options
- * @param  {element} opts.dom.el The dom element to be the canvas for Typester
+ * @param  {object} opts={} - instance options
+ * @param  {object} opts.dom - The dom components used by Typester
+ * @param  {element} opts.dom.el - The dom element to be the canvas for Typester
  * @return {appContainer} AppContainer instance
  *
  * @example
