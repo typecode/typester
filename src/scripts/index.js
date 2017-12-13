@@ -5,7 +5,7 @@ import './polyfills';
 import AppContainer from './containers/AppContainer';
 
 /**
- * Tyester() - Public interface to instatiate a Typester instance bound to a
+ * Tyester - Public interface to instatiate a Typester instance bound to a
  * dom element
  *
  * @access public

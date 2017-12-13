@@ -19,9 +19,8 @@ let uiContainer, formatterContainer, canvasContainer;
  * and {@link CanvasContainer} containers which in return setup various
  * modules that make up the app stack.
  *
- *
- *
  * @access protected
+ * 
  * @param  {object} opts={} - instance options
  * @param  {object} opts.dom - The dom components used by Typester
  * @param  {element} opts.dom.el - The dom element to be the canvas for Typester

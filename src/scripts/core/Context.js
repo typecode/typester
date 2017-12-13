@@ -6,6 +6,8 @@
  * Instance safe context builder that can mixin multiple additional objects as
  * contexts. These can then be used to bind methods into a shared context.
  *
+ * @access protected
+ * 
  * @param  {array} contexts - A collection of contexts to mix into the returned context.
  * @return {object} - A context
  */

@@ -6,10 +6,12 @@ import func from '../utils/func';
 
 
 /**
- * ## Container
+ * Container -
  * A factory for building container classes.
  * Containers are built up of a mediator instance that is shared with its child
  * modules.
+ *
+ * @access protected
  *
  * @param  {object} containerObj - **(Required)** A descriptor of the container
  * @param  {string} containerObj.name - **(Required)** The name of the container

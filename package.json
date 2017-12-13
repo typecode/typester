@@ -9,7 +9,8 @@
     "test_e2e": "cd ./test/e2e && docker-compose run --rm nightwatch",
     "build": "rollup -c",
     "watch": "./node_modules/.bin/watch \"npm run build\" src/",
-    "docs": "./node_modules/.bin/esdoc"
+    "docs": "./node_modules/.bin/esdoc",
+    "docs_watch": "./node_modules/.bin/watch \"yarn esdoc\" src/"
   },
   "author": "",
   "license": "ISC",
