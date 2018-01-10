@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>{{ site.title }} - {{ page.title }}</title>
+		<link rel="stylesheet" type="text/css" href="{{ "/css/main.css" | relative_url }}">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400|Roboto+Slab:300,700" rel="stylesheet">
+    </head>
+    <body>
+        {% include header.html %}
+        <main>
+            {{ content }}
+        </main>
+        {% include footer.html %}
+    </body>
+</html>
