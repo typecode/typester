@@ -3,6 +3,8 @@
         "include" : ["src/"]
     },
     "opts": {
-        "recurse": true
+        "recurse": true,
+        "destination": "./docs/",
+        "readme": "./README.md"
     }
 }

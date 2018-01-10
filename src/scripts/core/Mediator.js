@@ -1,10 +1,78 @@
 // jshint strict: false
-import guid from '../utils/guid';
-
 /**
-* @access protected
-*/
+ * Mediator - The glue that holds the entire app together. Nothing can cross
+ * communicate without going through the mediator.
+ *
+ * There are 3 kinds of messages: Commands, Requests, Events.
+ *
+ * Commands - One-to-one message with no response.
+ * Requests - One-to-one message with a response.
+ * Events - One-to-many message with no response.
+ *
+ * @access protected
+ * @module core/Mediator
+ *
+ * @requires utils/guid
+ *
+ * @example
+ * const mediator = new Mediator({
+ *   parent: someOtherMediator,
+ *   conceal: [/modulename:.*?/]
+ * });
+ *
+ * mediator.getId() // Returns the uid of the mediator
+ *
+ * // Register handlers
+ * mediator.registerRequestHandlers({ 'handler:call:string': function handler (opts) {} })
+ * mediator.registerCommandHandlers({ 'handler:call:string': function handler (opts) {} })
+ * mediator.registerEventHandlers({ 'event:emit:string': function handler (opts) {} })
+ * // registerHandler(type, handlerCallString, handlerFunction)
+ * mediator.registerHandler('request', 'handler:call:string', function handler (opts) {} )
+ *
+ * // Call a request handler
+ * mediator.request('handler:call:string', opts) // opts will be passed on to the handler
+ * mediator.get('handler:call:string', opts)
+ *
+ * // Call a command handler
+ * mediator.exec('handler:call:string', opts) // opts will be passed on to the handler
+ *
+ * // Emit an event and trigger an event handler
+ * mediator.emit('event:emit:string', opts) // opts will be passed on to the handler
+ *
+ * // Check if a handler has been registered and a call string or emit string can be handled
+ * mediator.canHandle('some:other:call:string') // --> true / false
+ *
+ * // Handle a call string or emit string message by type
+ * mediator.handle('request', 'request:call:string', args, opts) // args will be passed along to the handle, opts allows for call specific options
+ *
+ * // Register a child mediator
+ * mediator.registerChild(mediator)
+ *
+ * // Deregister a child mediator
+ * mediator.deregisterChild(mediator)
+ *
+ * // Set the parent for the mediator
+ * mediator.setParent(mediator)
+ *
+ * // Delegate a command, request, or event to either child mediators or parents.
+ * mediator.delegate('command', 'command:call:string', args, opts) // args will be passed along to the handle, opts allows for call specific options
+ *
+ */
+
+ import guid from '../utils/guid';
+
+ /**
+  * @constructor
+  * @param {object} opts - Mediator options
+  * @param {mediator} opts.parent - A parent mediator to delegate to if necessary
+  * @param {Array<RegExp>} opts.conceal - An array of regular expressions to test the request, command and event keys against to determine whether they should get delegated if unhandled
+  */
 const Mediator = function (opts={}) {
+
+    /**
+     * @prop {object} internal - The internal options and state object of the mediator instance
+     * @access protected
+     */
     const internal = {
         parent: opts.parent,
         children: [],
@@ -12,9 +80,26 @@ const Mediator = function (opts={}) {
         conceal: opts.conceal || []
     };
 
+    /**
+     * @prop {object} requests
+     * @namespace
+     * @desc The requests object that stores requests and offers methods to interact with them
+     * @access protected
+     */
     const requests = {
+
+        /**
+         * @prop {object} handlers - An enumerable object store of regitered request key/handler pairs.
+         */
         handlers: {},
 
+        /**
+         * @func new
+         * @desc register a new request key/handler pair. Check if an existing handler is present for the key and throw and error if there is
+         * @param  {string} requestKey     the key/call string for the handler. e.g. modulename:get:value
+         * @param  {function} requestHandler the handler method to be called
+         * @return {any}                the response from the handler method
+         */
         new (requestKey, requestHandler) {
             if (requests.handlers[requestKey]) {
                 throw new Error(`Only one requestHandler per requestKey: ${requestKey}`);
@@ -40,6 +125,9 @@ const Mediator = function (opts={}) {
         }
     };
 
+    /**
+     * @private
+     */
     const commands = {
         handlers: {},
 
@@ -67,6 +155,9 @@ const Mediator = function (opts={}) {
         }
     };
 
+    /**
+     * @private
+     */
     const events = {
         handlers: {},
 
@@ -91,6 +182,9 @@ const Mediator = function (opts={}) {
         }
     };
 
+    /**
+     * @private
+     */
     const registers = {
         registerHandler (type, typeKey, typeHandler) {
             switch (type) {
@@ -128,6 +222,9 @@ const Mediator = function (opts={}) {
         }
     };
 
+    /**
+     * @private
+     */
     const fn = {
         init () {
             if (internal.parent) {
@@ -248,6 +345,7 @@ const Mediator = function (opts={}) {
             fn.handle('event', eventKey, opts);
         },
 
+        // NB: Seems like this isn't actually being used.
         hasAttemptedToHandle (opts) {
             return opts.attemptedDelegates.indexOf(internal.id) > -1;
         },
@@ -275,6 +373,9 @@ const Mediator = function (opts={}) {
         }
     };
 
+    /**
+     * @public
+     */
     const api = {
         getId: fn.getId,
         registerRequestHandlers: registers.registerRequestHandlers,
@@ -292,6 +393,8 @@ const Mediator = function (opts={}) {
         deregisterChild: fn.deregisterChild,
         setParent: fn.setParent,
         delegate: fn.delegate,
+
+        // NB this also doesn't seem to be used anywhere.
         getHandlerKeys: function () {
             let handlers = [];
 

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: utils/paste.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: utils/paste.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// jshint strict: false
+
+// Taken from medium editor: https://github.com/yabwe/medium-editor/blob/master/src/js/extensions/paste.js
+/**
+* @access protected
+*/
+const pasteUtils = {
+    createReplacements () {
+        return [
+            // Remove anything but the contents within the BODY element
+            [new RegExp(/^[\s\S]*&lt;body[^>]*>\s*|\s*&lt;\/body[^>]*>[\s\S]*$/g), ''],
+
+            // cleanup comments added by Chrome when pasting html
+            [new RegExp(/&lt;!--StartFragment-->|&lt;!--EndFragment-->/g), ''],
+
+            // Trailing BR elements
+            [new RegExp(/&lt;br>$/i), ''],
+
+            // replace two bogus tags that begin pastes from google docs
+            [new RegExp(/&lt;[^>]*docs-internal-guid[^>]*>/gi), ''],
+            [new RegExp(/&lt;\/b>(&lt;br[^>]*>)?$/gi), ''],
+
+             // un-html spaces and newlines inserted by OS X
+            [new RegExp(/&lt;span class="Apple-converted-space">\s+&lt;\/span>/g), ' '],
+            [new RegExp(/&lt;br class="Apple-interchange-newline">/g), '&lt;br>'],
+
+            // replace google docs italics+bold with a span to be replaced once the html is inserted
+            [new RegExp(/&lt;span[^>]*(font-style:italic;font-weight:(bold|700)|font-weight:(bold|700);font-style:italic)[^>]*>/gi), '&lt;span class="replace-with italic bold">'],
+
+            // replace google docs italics with a span to be replaced once the html is inserted
+            [new RegExp(/&lt;span[^>]*font-style:italic[^>]*>/gi), '&lt;span class="replace-with italic">'],
+
+            //[replace google docs bolds with a span to be replaced once the html is inserted
+            [new RegExp(/&lt;span[^>]*font-weight:(bold|700)[^>]*>/gi), '&lt;span class="replace-with bold">'],
+
+             // replace manually entered b/i/a tags with real ones
+            [new RegExp(/&amp;lt;(\/?)(i|b|a)&amp;gt;/gi), '&lt;$1$2>'],
+
+             // replace manually a tags with real ones, converting smart-quotes from google docs
+            [new RegExp(/&amp;lt;a(?:(?!href).)+href=(?:&amp;quot;|&amp;rdquo;|&amp;ldquo;|"|“|”)(((?!&amp;quot;|&amp;rdquo;|&amp;ldquo;|"|“|”).)*)(?:&amp;quot;|&amp;rdquo;|&amp;ldquo;|"|“|”)(?:(?!&amp;gt;).)*&amp;gt;/gi), '&lt;a href="$1">'],
+
+            // Newlines between paragraphs in html have no syntactic value,
+            // but then have a tendency to accidentally become additional paragraphs down the line
+            [new RegExp(/&lt;\/p>\n+/gi), '&lt;/p>'],
+            [new RegExp(/\n+&lt;p/gi), '&lt;p'],
+
+            // Microsoft Word makes these odd tags, like &lt;o:p>&lt;/o:p>
+            [new RegExp(/&lt;\/?o:[a-z]*>/gi), ''],
+
+            // Microsoft Word adds some special elements around list items
+            [new RegExp(/&lt;!\[if !supportLists\]>(((?!&lt;!).)*)&lt;!\[endif]\>/gi), '$1']
+        ];
+    }
+};
+
+export default pasteUtils;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-containers_AppContainer.html">containers/AppContainer</a></li><li><a href="module-containers_CanvasContainer.html">containers/CanvasContainer</a></li><li><a href="module-containers_FormatterContainer.html">containers/FormatterContainer</a></li><li><a href="module-containers_UIContainer.html">containers/UIContainer</a></li><li><a href="module-core_Container.html">core/Container</a></li><li><a href="module-core_Context.html">core/Context</a></li><li><a href="module-core_Mediator.html">core/Mediator</a></li><li><a href="module-modules_ContentEditable.html">modules/ContentEditable</a></li><li><a href="module-modules_Selection.html">modules/Selection</a></li></ul><h3>Classes</h3><ul><li><a href="module-containers_AppContainer-AppContainer.html">AppContainer</a></li><li><a href="module-containers_CanvasContainer-CanvasContainer.html">CanvasContainer</a></li><li><a href="module-containers_FormatterContainer-FormatterContainer.html">FormatterContainer</a></li><li><a href="module-containers_UIContainer-UIContainer.html">UIContainer</a></li><li><a href="module-core_Context-Context.html">Context</a></li><li><a href="module-core_Mediator-Mediator.html">Mediator</a></li><li><a href="module-modules_ContentEditable-ContentEditable.html">ContentEditable</a></li><li><a href="module-modules_Selection-Selection.html">Selection</a></li></ul><h3>Events</h3><ul><li><a href="module-modules_ContentEditable.html#~event:contenteditable:focus">contenteditable:focus</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-core_Mediator-Mediator-requests.html">requests</a></li></ul><h3>Global</h3><ul><li><a href="global.html#BaseFormatter">BaseFormatter</a></li><li><a href="global.html#BlockFormatter">BlockFormatter</a></li><li><a href="global.html#browser">browser</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#commands">commands</a></li><li><a href="global.html#DOM">DOM</a></li><li><a href="global.html#Flyout">Flyout</a></li><li><a href="global.html#Formatter">Formatter</a></li><li><a href="global.html#formatters">formatters</a></li><li><a href="global.html#func">func</a></li><li><a href="global.html#guid">guid</a></li><li><a href="global.html#keycodes">keycodes</a></li><li><a href="global.html#LinkFormatter">LinkFormatter</a></li><li><a href="global.html#ListFormatter">ListFormatter</a></li><li><a href="global.html#Module">Module</a></li><li><a href="global.html#Mouse">Mouse</a></li><li><a href="global.html#Paste">Paste</a></li><li><a href="global.html#pasteUtils">pasteUtils</a></li><li><a href="global.html#TextFormatter">TextFormatter</a></li><li><a href="global.html#Toolbar">Toolbar</a></li><li><a href="global.html#Typester">Typester</a></li><li><a href="global.html#zeroWidthSpace">zeroWidthSpace</a></li><li><a href="global.html#zeroWidthSpaceEntity">zeroWidthSpaceEntity</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jan 09 2018 21:24:57 GMT+0200 (SAST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

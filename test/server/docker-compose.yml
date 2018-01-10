@@ -7,3 +7,10 @@ services:
             - ../../build/js:/usr/share/nginx/html/js
         ports:
             - 4848:80
+
+    docs_server:
+        image: nginx:1.12-alpine
+        volumes:
+            - ../../docs:/usr/share/nginx/html
+        ports:
+            - 4849:80

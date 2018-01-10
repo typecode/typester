@@ -1,16 +1,12 @@
 // jshint strict: false
 
-import Mediator from './Mediator';
-import Context from './Context';
-import func from '../utils/func';
-
-
 /**
  * Container -
  * A factory for building container classes.
  * Containers are built up of a mediator instance that is shared with its child
  * modules.
  *
+ * @module core/Container
  * @access protected
  *
  * @param  {object} containerObj - **(Required)** A descriptor of the container
@@ -59,6 +55,11 @@ import func from '../utils/func';
  * // myContainer has a method you can use to update the parent mediator using:
  * myContainer.setMediatorParent(mediatorInstance);
  */
+
+import Mediator from './Mediator';
+import Context from './Context';
+import func from '../utils/func';
+
 const Container = function Container(containerObj) {
 
     const {
@@ -87,6 +88,7 @@ const Container = function Container(containerObj) {
         initModules (modules=[], opts={}) {
             modules.forEach((module) => {
                 const moduleOpts = Object.assign({}, opts, (module.opts || {}));
+                console.log({moduleOpts});
                 module.instance = new module.class(moduleOpts);
             });
         },

@@ -1,4 +1,13 @@
 // jshint strict: false
+/**
+ * Selection
+ *
+ * A module to handle everything that happens with the user's selection and the
+ * selection range
+ *
+ * @access protected
+ * @module modules/Selection
+ */
 
 import Module from '../core/Module';
 import formattersConfig from '../config/formatters';
@@ -7,8 +16,9 @@ import toolbarConfig from '../config/toolbar';
 import DOM from '../utils/DOM';
 
 /**
-* @access protected
-*/
+ * Creates a new Selection handler
+ * @constructor Selection
+ */
 const Selection = Module({
     name: 'Selection',
     props: {

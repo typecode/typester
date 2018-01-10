@@ -1,14 +1,41 @@
 // jshint strict: false
 
+/**
+ * ContentEditable
+ *
+ * A module to handle everything that happens in the primary contenteditable=true dom element
+ *
+ * @access protected
+ * @module modules/ContentEditable
+ */
+
+ /**
+ * @event contenteditable:focus
+ * @desc Emitted by {@link modules/ContentEditable} when focused.
+ */
+
+/**
+ * @requires core/Module
+ * @requires utils/DOM
+ * @requires utils/keycodes
+ */
 import Module from '../core/Module';
 import DOM from '../utils/DOM';
 import keycodes from '../utils/keycodes';
 
 import contentEditableStyles from '../../styles/contentEditable.scss';
 
+
 /**
-* @access protected
-*/
+ * @constructor ContentEditable
+ *
+ * @param  {object} opts - instance options
+ * @param  {object} opts.dom - The dom components used by this module
+ * @param  {element} opts.dom.el - The root dom element for this module
+ * @param  {mediator} opts.mediator - The mediator this module can use to communicate with
+ *
+ * @return {container} AppContainer instance
+ */
 const ContentEditable = Module({
     name: 'ContentEditable',
     props: {
@@ -181,6 +208,13 @@ const ContentEditable = Module({
         },
 
         // DOM Event Handlers
+
+        /**
+         * On dom focus do some stuff and then let the rest of the app know.
+         *
+         * @method handleFocus
+         * @fires contenteditable:focus
+         */
         handleFocus () {
             const { mediator } = this;
             this.clearCleanupTimeout();
