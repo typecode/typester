@@ -1,0 +1,38 @@
+<section class='demo'>
+    <h1>Demo</h1>
+    <div class='demo-panes'>
+        <div class='demo-pane' contenteditable="true">
+            <h1>You can edit this!</h1>
+            <h2>That's right!</h2>
+            <p>
+                Give it a go! Type something! Come on, you know you want to!<br/>
+                Before you do though, you just need to keep doing the following:
+            </br/>
+            </p>
+            <ul>
+                <li>
+                    Keep an eye on the panel to the right. You'll see how beautiful
+                    and predictable the HTML in here is.
+                </li>
+                <li>
+                    Be creative and have fun!
+                </li>
+            </ul>
+        </div>
+        <div class='demo-pane'>
+            <pre>
+                <code>
+
+                </code>
+            </pre>
+        </div>
+    </div>
+</section>
+
+<script type='text/javascript'>
+    var editablePane = document.querySelector('.demo-pane[contenteditable]');
+    var codeDisplay = document.querySelector('.demo-pane code');
+    setInterval(function () {
+        codeDisplay.textContent = editablePane.innerHTML;
+    }, 100);
+</script>

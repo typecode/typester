@@ -1,0 +1,54 @@
+.features {
+    background-color: $pattens_blue;
+    color: $blue_whale;
+    padding: 5vw;
+    box-sizing: border-box;
+
+    h1 {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            right: 100%;
+            height: 1em;
+            width: 0.5em;
+            background-color: $mandy;
+            top: 0.2em;
+            margin-right: 0.2em;
+        }
+    }
+
+    .feature-box {
+        display: flex;
+        justify-content: space-between;
+        margin: 5vw auto;
+        align-items: stretch;
+        width: 100%;
+        max-width: 1500px;
+    }
+
+    .feature {
+        flex-grow: 1;
+        width: 30%;
+        padding: 1vw 2vw;
+        border-left: 1px solid #FFF;
+        box-sizing: border-box;
+
+        &:first-child {
+            border-left: none;
+        }
+
+        svg {
+            width: 50%;
+            height: auto;
+            fill: $mandy;
+            margin: 0 auto;
+            display: block;
+        }
+
+        h3 {
+            margin-bottom: 0.5em;
+        }
+    }
+}

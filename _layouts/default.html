@@ -4,7 +4,7 @@
         <meta charset="utf-8">
 
         <title>{{ site.title }} - {{ page.title }}</title>
-		<link rel="stylesheet" type="text/css" href="{{ "/css/main.css" | relative_url }}">
+		<link rel="stylesheet" type="text/css" href="{{ "/assets/css/main.css" | relative_url }}">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400|Roboto+Slab:300,700" rel="stylesheet">
     </head>
     <body>
@@ -13,5 +13,13 @@
             {{ content }}
         </main>
         {% include footer.html %}
+
+        <script type='text/javascript' src='{{ "/assets/js/typester.js" | relative_url }}'></script>
+        <script type='text/javascript'>
+            var contentEditableEls = document.querySelectorAll('[contenteditable]');
+            contentEditableEls.forEach(function (contentEditableEl) {
+                new Typester({ el: contentEditableEl });
+            });
+        </script>
     </body>
 </html>

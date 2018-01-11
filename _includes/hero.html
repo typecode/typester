@@ -1,0 +1,30 @@
+<section class='hero'>
+    <div class='titles'>
+        <h1>Typester<span class='caret'>|</span></h1>
+        <h3>A wysiwyg that gives you predictable and clean HTML</h3>
+        <div class='hero-links'>
+            <a class='btn'>Try It!</a>
+            <a class='btn primary'>Get It!</a>
+        </div>
+    </div>
+
+    <p class='footnote'>
+        (psst...all the text on this page <i>should be</i> editable)
+    </p>
+</section>
+
+<script>
+var doc = document.documentElement;
+var hero = document.querySelector('.hero');
+var titles = document.querySelector('.hero .titles');
+
+var scrollWatch = function () {
+    var top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+    var windowHalfHeight = (window.innerHeight / 3) * 2;
+
+    hero.style.opacity = (windowHalfHeight - top)/windowHalfHeight;
+    titles.style.top = window.innerHeight / 2 + top / 10 + 'px';
+    window.requestAnimationFrame(scrollWatch);
+}
+window.requestAnimationFrame(scrollWatch);
+</script>
