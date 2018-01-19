@@ -114,6 +114,27 @@ var Animation = function (opts) {
     };
 };
 
+var Nav = function (ref) {
+    var animation = ref.animation;
+
+    var navEl = document.querySelector('nav');
+    var navControlEl = navEl.querySelector('.nav-control');
+    var navPanelEl = navEl.querySelector('.nav-panel');
+    var state = {
+        open: false
+    };
+
+    navControlEl.addEventListener('click', function () {
+        state.open = !state.open;
+
+        if (state.open) {
+            navEl.classList.add('open');
+        } else {
+            navEl.classList.remove('open');
+        }
+    });
+};
+
 var Hero = function (opts) {
     var animation = opts.animation;
 
@@ -253,6 +274,7 @@ var animation = Animation();
 animation.start();
 
 [
+    Nav,
     Hero,
     Features,
     Demo
