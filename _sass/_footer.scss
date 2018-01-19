@@ -1,4 +1,24 @@
 footer {
-    display: block;
+    display: flex;
     position: relative;
+    padding: 5vw 0;
+    background: darken($blue_whale, 5%);
+
+    .footer-panel {
+        box-sizing: border-box;
+        padding: 0 5vw;
+
+        &:first-child {
+            width: 67%;
+        }
+
+        &:last-child {
+            border-left: 1px solid lighten($blue_whale, 10%);
+            width: 33%;
+        }
+    }
+
+    svg {
+        fill: $white;
+    }
 }
