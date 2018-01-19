@@ -6,6 +6,9 @@ body {
 h1, h2, h3, h4, h5, h6, nav a, .btn, blockquote {
     font-family: 'Roboto Slab', serif;
     font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
     line-height: 1.1em;
     margin-bottom: 2rem;
 }
@@ -30,6 +33,10 @@ p {
 
 i {
     font-style: italic;
+}
+
+b {
+    font-weight: bold;
 }
 
 code {
@@ -57,23 +64,30 @@ blockquote {
     font-size: 3.25rem;
     font-weight: 700;
     position: relative;
-    padding-left: 3rem;
+    padding-left: 1em;
     margin: 2em 0;
 
     &::before {
         content: '"';
         position: absolute;
-        top: 0rem;
-        left: -0.5rem;
-        font-size: 10rem;
+        top: -0.75rem;
+        left: -0.1em;
+        font-size: 3em;
         opacity: 0.3;
     }
 
     &::after {
         content: '"';
         position: absolute;
-        font-size: 10rem;
+        font-size: 3em;
         opacity: 0.3;
-        margin-top: 4rem;
+        margin-top: 0.05em;
     }
+}
+
+::selection {
+  background: $mandy; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: $mandy; /* Gecko Browsers */
 }

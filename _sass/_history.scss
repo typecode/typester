@@ -1,0 +1,25 @@
+.history {
+    background-color: $mandy;
+    display: flex;
+    align-items: center;
+    min-height: 0;
+
+    .history-panel {
+        width: 50%;
+        box-sizing: border-box;
+        padding: 10vw 5vw;
+
+        svg {
+            width: 30vw;
+            height: auto;
+            fill: $pattens_blue;
+        }
+    }
+
+    ::selection {
+      background: $cadet_blue; /* WebKit/Blink Browsers */
+    }
+    ::-moz-selection {
+      background: $cadet_blue; /* WebKit/Blink Browsers */
+    }
+}

@@ -44,6 +44,7 @@ var Animation = function (opts) {
             animationObj.observer.observe(elem, {
                 childList: true,
                 characterData: true,
+                attributes: true,
                 subtree: true
             });
 
@@ -80,6 +81,8 @@ var Animation = function (opts) {
                 right: elemBounds.right,
                 bottom: elemBounds.bottom + scroll.top,
                 left: elemBounds.left,
+                height: elemBounds.height,
+                width: elemBounds.width,
                 x: elemBounds.x,
                 y: elemBounds.y + scroll.top
             };
@@ -111,39 +114,6 @@ var Animation = function (opts) {
     };
 };
 
-
-
-// const animation = {
-//     animations: [],
-//     animate (elem, callback) {
-//         const animationObj = {
-//             elem,
-//             callback
-//         };
-//
-//         animation.animations.push(animationObj);
-//     },
-//
-//     runAnimations () {
-//         animation.animations.forEach(animationObj => {
-//             animationObj.callback();
-//         });
-//         window.requestAnimationFrame(animation.runAnimations);
-//     },
-//
-//     processAnimationElems () {
-//         const { animations } = animation;
-//
-//     },
-//
-//     start () {
-//         window.requestAnimationFrame(animation.runAnimations);
-//         setInterval(animation.processAnimationElems, 100);
-//     }
-// };
-//
-// export default animation;
-
 var Hero = function (opts) {
     var animation = opts.animation;
 
@@ -155,14 +125,27 @@ var Hero = function (opts) {
         var bounds = opts.bounds;
 
         var offsetTop = bounds.top - scroll.top;
-        var travelDist = scroll.height / 5;
-        var scrollRatio = offsetTop / scroll.height;
+        var travelDist = scroll.height * 0.6;
+        var scrollRatio = offsetTop / bounds.height;
         var travelRatio = travelDist * scrollRatio;
 
-        heroSectionEl.style.opacity = 1 + scrollRatio * 1.75;
-        titlesEl.style.transform = 'translateY(' + Math.round(0 - offsetTop - travelRatio) + 'px)';
+        heroSectionEl.style.opacity = scrollRatio < -0.6 ? 1.3 + scrollRatio : 1;
+        titlesEl.style.transform = 'translateY(' + Math.round(0 - travelRatio) + 'px)';
     };
 
+    var setSelection = function () {
+        var selection = window.getSelection();
+        var newRange = new Range();
+        var mainTitleH1 = heroSectionEl.querySelector('.main-title h1');
+        var h1TextNode = mainTitleH1.firstChild;
+
+        newRange.setStart(h1TextNode, 0);
+        newRange.setEnd(h1TextNode, 4);
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+    };
+
+    setTimeout(setSelection, 300);
     animation.animate(heroSectionEl, heroScroll);
 };
 
@@ -181,15 +164,88 @@ var Demo = function (opts) {
     var editablePaneEl = demoSectionEl.querySelector('.demo-pane[contenteditable]');
     var codeEl = demoSectionEl.querySelector('.demo-pane code');
 
-    var editObserver = new MutationObserver(function () { console.log('mutation!'); });
+    var openTag = function (elem) {
+        var tagString = '';
+
+        tagString += '<span class="tag">';
+        tagString += '&lt;';
+        tagString += elem.tagName.toLowerCase();
+
+        for (var i = 0; i < elem.attributes.length; i++) {
+            var attribute = elem.attributes[i];
+            tagString += ' ' + attribute.name + '="' + attribute.value + '"';
+        }
+
+        tagString += '&gt;';
+        tagString += '</span>';
+
+        return tagString;
+    };
+
+    var closeTag = function (elem) {
+        var tagString = '';
+
+        tagString += '<span class="tag">';
+        tagString += '&lt;/';
+        tagString += elem.tagName.toLowerCase();
+        tagString += '&gt;';
+        tagString += '</span>';
+
+        return tagString;
+    };
+
+    var elemToCodeStr = function (elem, indent, parentIsBlock) {
+        if (!elem.textContent.trim().length) { return ''; }
+        var elemHTML = '';
+        var tagName = elem.tagName;
+        var isBlockTag = ['H1', 'H2', 'P', 'UL', 'OL', 'LI', 'BLOCKQUOTE'].indexOf(tagName) > -1;
+        var inlineContent = ['H1', 'H2', 'UL', 'OL', 'A', 'SPAN'].indexOf(tagName) > -1;
+
+        if (isBlockTag) {
+            elemHTML += '<span class="code-line">';
+        }
+
+        if (elem.nodeType !== Node.ELEMENT_NODE) {
+            elemHTML += elem.textContent.replace(/\s+/g, ' ');
+        } else {
+            elemHTML += openTag(elem);
+            if (!inlineContent) {
+                elemHTML += '<span class="code-line">';
+            }
+            for (var i = 0; i < elem.childNodes.length; i++) {
+                elemHTML += elemToCodeStr(elem.childNodes[i], indent + 1, isBlockTag);
+            }
+            if (!inlineContent) {
+                elemHTML += '</span>';
+            }
+            elemHTML += closeTag(elem);
+        }
+
+        if (isBlockTag) {
+            elemHTML += '</span>';
+        }
+        return elemHTML;
+    };
+
+    var updateCodeDisplay = function () {
+        var codeDisplayHTML = '';
+        for (var i = 0; i < editablePaneEl.childNodes.length; i++) {
+            codeDisplayHTML += elemToCodeStr(editablePaneEl.childNodes[i], 0);
+        }
+        codeEl.innerHTML = codeDisplayHTML;
+    };
+
+    var editObserver = new MutationObserver(updateCodeDisplay);
     editObserver.observe(editablePaneEl, {
+        childList: true,
         characterData: true,
+        attributes: true,
         subtree: true
     });
+    updateCodeDisplay();
 };
 
 // Utils
-// Modules
 var animation = Animation();
 animation.start();
 

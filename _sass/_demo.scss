@@ -1,9 +1,11 @@
 .demo {
+    min-height: 0;
     .demo-panes {
         display: flex;
         justify-content: space-between;
         align-items: stretch;
         width: 100%;
+        overflow: hidden;
     }
 
     .demo-pane {
@@ -20,6 +22,35 @@
             background-color: $blue_whale;
             color: $pattens_blue;
             padding: 5vw 2vw;
+        }
+    }
+
+    .demo-pane[contenteditable] {
+        h1 {
+            font-size: 4rem;
+        }
+
+        h2 {
+            font-size: 3rem;
+        }
+
+        blockquote {
+            font-size: 2rem;
+        }
+    }
+
+    code {
+        .code-line {
+            display: block;
+            line-height: 1.2;
+
+            .code-line {
+                padding-left: 2em;
+            }
+        }
+
+        .tag {
+            color: $mandy;
         }
     }
 }

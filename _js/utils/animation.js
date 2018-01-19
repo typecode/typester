@@ -41,6 +41,7 @@ const Animation = function (opts) {
             animationObj.observer.observe(elem, {
                 childList: true,
                 characterData: true,
+                attributes: true,
                 subtree: true
             });
 
@@ -77,6 +78,8 @@ const Animation = function (opts) {
                 right: elemBounds.right,
                 bottom: elemBounds.bottom + scroll.top,
                 left: elemBounds.left,
+                height: elemBounds.height,
+                width: elemBounds.width,
                 x: elemBounds.x,
                 y: elemBounds.y + scroll.top
             };
@@ -109,34 +112,3 @@ const Animation = function (opts) {
 };
 
 export default Animation;
-
-// const animation = {
-//     animations: [],
-//     animate (elem, callback) {
-//         const animationObj = {
-//             elem,
-//             callback
-//         };
-//
-//         animation.animations.push(animationObj);
-//     },
-//
-//     runAnimations () {
-//         animation.animations.forEach(animationObj => {
-//             animationObj.callback();
-//         });
-//         window.requestAnimationFrame(animation.runAnimations);
-//     },
-//
-//     processAnimationElems () {
-//         const { animations } = animation;
-//
-//     },
-//
-//     start () {
-//         window.requestAnimationFrame(animation.runAnimations);
-//         setInterval(animation.processAnimationElems, 100);
-//     }
-// };
-//
-// export default animation;

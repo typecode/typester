@@ -8,14 +8,27 @@ const Hero = function (opts) {
         const { scroll, bounds } = opts;
 
         const offsetTop = bounds.top - scroll.top;
-        const travelDist = scroll.height / 5;
-        const scrollRatio = offsetTop / scroll.height;
+        const travelDist = scroll.height * 0.6;
+        const scrollRatio = offsetTop / bounds.height;
         const travelRatio = travelDist * scrollRatio;
 
-        heroSectionEl.style.opacity = 1 + scrollRatio * 1.75;
-        titlesEl.style.transform = 'translateY(' + Math.round(0 - offsetTop - travelRatio) + 'px)';
+        heroSectionEl.style.opacity = scrollRatio < -0.6 ? 1.3 + scrollRatio : 1;
+        titlesEl.style.transform = 'translateY(' + Math.round(0 - travelRatio) + 'px)';
     };
 
+    const setSelection = function () {
+        const selection = window.getSelection();
+        const newRange = new Range();
+        const mainTitleH1 = heroSectionEl.querySelector('.main-title h1');
+        const h1TextNode = mainTitleH1.firstChild;
+
+        newRange.setStart(h1TextNode, 0);
+        newRange.setEnd(h1TextNode, 4);
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+    };
+
+    setTimeout(setSelection, 300);
     animation.animate(heroSectionEl, heroScroll);
 };
 

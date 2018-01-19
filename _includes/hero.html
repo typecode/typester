@@ -1,30 +1,50 @@
 <section class='hero'>
     <div class='titles'>
-        <h1>Typester<span class='caret'>|</span></h1>
-        <h3>A wysiwyg that gives you predictable and clean HTML</h3>
+        <div class='main-title' contenteditable="" spellcheck="false">
+            <h1>Typester</h1>
+        </div>
+        <div class='overview'>
+            <div class='left' contenteditable="true">
+                <h2>
+                    A simple to use wysiwyg text editor inspired by Medium and
+                    Medium Editor that gives you clean and predictable HTML from
+                    your user's input.
+                </h2>
+                <p>
+                    Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                    <br />
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada.
+                </p>
+            </div>
+            <div class='right' contenteditable="true">
+                <h2>
+                    This package features:
+                </h2>
+                <ul>
+                    <li>
+                        <b>All its batteries included</b><br />
+                        No need for any additional dependencies
+                    </li>
+                    <li>
+                        <b>Engineered for modern JS modules</b><br />
+                        Simple to import and integrate
+                    </li>
+                    <li>
+                        <b>Minimal DOM footprint</b><br />
+                        It wont clutter your beautifully laid out markup.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <div class='hero-links'>
             <a class='btn'>Try It!</a>
             <a class='btn primary'>Get It!</a>
         </div>
+
+        <div class='typecode'>
+            <p>Brought to you by:</p>
+            {% include svg/tclogo.html %}
+        </div>
     </div>
-
-    <p class='footnote'>
-        (psst...all the text on this page <i>should be</i> editable)
-    </p>
 </section>
-
-<script>
-// var doc = document.documentElement;
-// var hero = document.querySelector('.hero');
-// var titles = document.querySelector('.hero .titles');
-//
-// var scrollWatch = function () {
-//     var top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
-//     var windowHalfHeight = (window.innerHeight / 3) * 2;
-//
-//     hero.style.opacity = (windowHalfHeight - top)/windowHalfHeight;
-//     titles.style.top = window.innerHeight / 2 + top / 10 + 'px';
-//     window.requestAnimationFrame(scrollWatch);
-// }
-// window.requestAnimationFrame(scrollWatch);
-</script>
