@@ -1,9 +1,8 @@
 <section class='demo'>
-    <h1>Demo</h1>
     <div class='demo-panes'>
         <div class='demo-pane' contenteditable="true">
-            <h1>You can edit this!</h1>
-            <h2>That's right!</h2>
+            <h1>This is the Demo</h1>
+            <h2>And you can edit this!</h2>
             <p>
                 Give it a go! Type something! Come on, you know you want to!<br/>
                 Before you do though, you just need to keep doing the following:
@@ -18,13 +17,12 @@
                     Be creative and have fun!
                 </li>
             </ul>
+            <blockquote>
+                Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
+            </blockquote>
         </div>
         <div class='demo-pane'>
-            <pre>
-                <code>
-
-                </code>
-            </pre>
+            <pre><code></code></pre>
         </div>
     </div>
 </section>
@@ -32,7 +30,61 @@
 <script type='text/javascript'>
     var editablePane = document.querySelector('.demo-pane[contenteditable]');
     var codeDisplay = document.querySelector('.demo-pane code');
-    setInterval(function () {
-        codeDisplay.textContent = editablePane.innerHTML;
-    }, 100);
+
+    var elemToCodeStr = function (elem, indent) {
+        var codeStr = '';
+        indent = indent || 0;
+
+        var indentStr = '';
+        for (var i = 0; i < indent; i++) {
+            indentStr += '    ';
+        }
+
+        for (var i = 0; i < elem.childNodes.length; i++) {
+            var childEl = elem.childNodes[i];
+            if (childEl.nodeType === Node.ELEMENT_NODE) {
+                var tagName = childEl.tagName.toLowerCase();
+                var childNodesLength = childEl.childNodes.length;
+
+                if (tagName !== 'br') {
+                    codeStr += indentStr + '<' + tagName + '>';
+                } else {
+                    codeStr += '<' + tagName + '>';
+                }
+                if (childNodesLength) {
+                    var childIndent = indent;
+                    if (['p', 'li'].indexOf(tagName) > -1 || childNodesLength > 1) {
+                        codeStr += '\n';
+                        childIndent += 1;
+                    }
+                    codeStr += elemToCodeStr(childEl, childIndent);
+                }
+
+                if (tagName !== 'br') {
+                    if (['li'].indexOf(tagName) > -1) {
+                        codeStr += '\n' + indentStr;
+                    }
+                    codeStr += '</' + tagName + '>';
+                }
+
+                codeStr += '\n';
+            } else {
+                var textContent = childEl.textContent.trim().replace(/\s\s+/g, ' ');
+                if (textContent.length) {
+                    codeStr += indentStr + textContent.trim().replace(/\s\s+/g, ' ');
+                }
+            }
+        }
+        return codeStr;
+    };
+    // setInterval(function () {
+        // editablePane.children.forEach(function (editableChild) {
+        //     console.log(editableChild)
+        // });
+        codeDisplay.textContent = elemToCodeStr(editablePane);
+
+    editablePane.addEventListener('change', function () {
+        codeDisplay.textContent = elemToCodeStr(editablePane);
+    });
+    // }, 100);
 </script>

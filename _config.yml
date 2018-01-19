@@ -40,10 +40,15 @@ defaults:
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
+exclude:
+    - rollup.config.js
+    - yarn-error.log
+    - Gemfile
+    - Gemfile.lock
+    - node_modules/
+    - package.json
+    - yarn.lock
+    - _js/
 #   - vendor/bundle/
 #   - vendor/cache/
 #   - vendor/gems/

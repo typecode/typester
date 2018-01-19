@@ -3,10 +3,11 @@ body {
     font-weight: 300;
 }
 
-h1, h2, h3, h4, h5, h6, nav a, .btn {
+h1, h2, h3, h4, h5, h6, nav a, .btn, blockquote {
     font-family: 'Roboto Slab', serif;
     font-weight: 300;
-    line-height: 1.4em;
+    line-height: 1.1em;
+    margin-bottom: 2rem;
 }
 
 h1 {
@@ -24,6 +25,7 @@ h3 {
 
 p {
     line-height: 1.4em;
+    margin-bottom: 1.4rem;
 }
 
 i {
@@ -32,4 +34,46 @@ i {
 
 code {
     font-family: monospace;
+    line-height: 1.4em;
+}
+
+figure {
+    margin-bottom: 1.4rem;
+    padding-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+li {
+    line-height: 1.4em;
+    margin-bottom: 0.7em;
+}
+
+ul {
+    list-style: circle;
+    margin-left: 1rem;
+}
+
+blockquote {
+    font-size: 3.25rem;
+    font-weight: 700;
+    position: relative;
+    padding-left: 3rem;
+    margin: 2em 0;
+
+    &::before {
+        content: '"';
+        position: absolute;
+        top: 0rem;
+        left: -0.5rem;
+        font-size: 10rem;
+        opacity: 0.3;
+    }
+
+    &::after {
+        content: '"';
+        position: absolute;
+        font-size: 10rem;
+        opacity: 0.3;
+        margin-top: 4rem;
+    }
 }

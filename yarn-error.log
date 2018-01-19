@@ -1,0 +1,37 @@
+Arguments: 
+  /home/fred/.nvm/versions/node/v6.11.1/bin/node /home/fred/.yarn/bin/yarn.js add rollup rollup-plugin-buble --dev
+
+PATH: 
+  /home/fred/.yarn/bin:/home/fred/.nvm/versions/node/v6.11.1/bin:/home/fred/.rvm/gems/ruby-2.4.1/bin:/home/fred/.rvm/gems/ruby-2.4.1@global/bin:/usr/share/rvm/rubies/ruby-2.4.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/share/rvm/bin
+
+Yarn version: 
+  1.2.0
+
+Node version: 
+  6.11.1
+
+Platform: 
+  linux x64
+
+npm manifest: 
+  {
+    "name": "typester-gh-page",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:typecode/typester.git",
+    "author": "Fred Every <fred@fredevery.co.za>",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: https://registry.yarnpkg.com/rollup: ETIMEDOUT
+      at Timeout._onTimeout (/home/fred/.yarn/lib/cli.js:123584:19)
+      at ontimeout (timers.js:386:14)
+      at tryOnTimeout (timers.js:250:5)
+      at Timer.listOnTimeout (timers.js:214:5)

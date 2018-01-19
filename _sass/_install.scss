@@ -1,3 +1,26 @@
 .install {
-    background-color: $chocolate;
+    // background-color: $chocolate;
+    padding: 5vw;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .content-wrapper {
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .instructions {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    pre {
+        text-align: left;
+    }
 }

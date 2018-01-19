@@ -6,12 +6,12 @@
 
 .hero {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 
     .titles {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate3d(-50%, -50%, 0);
     }
 
     h1 {

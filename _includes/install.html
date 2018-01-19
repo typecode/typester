@@ -1,3 +1,45 @@
 <section class='install'>
-    <h1>Install</h1>
+    <div class='content-wrapper'>
+        <h1>How to setup this bad boy</h1>
+        <div class='instructions'>
+            <h3>Via NPM/Yarn</h3>
+            {% highlight shell %}
+            $ npm install typester --save
+            # or
+            $ yarn add typester --save
+            {% endhighlight %}
+            <p>
+                And then in your code
+            </p>
+            {% highlight javascript %}
+            import Typester from 'typester';
+            // or
+            var Typester = require('typester');
+
+            new Typester({ el: document.querySelector('[contenteditable]') });
+            {% endhighlight %}
+            <p>
+                And that's that! (for now)
+            </p>
+        </div>
+    </div>
 </section>
+
+<script>
+    var installSection = document.querySelector('section.install');
+    var contentWrapper = document.querySelector('section.install .content-wrapper');
+    var scrollWatcher = function () {
+        var sectionBounds = installSection.getBoundingClientRect();
+        var winHeight = window.innerHeight;
+        var scrollRatio = sectionBounds.top/winHeight;
+        var travelDist = Math.round(winHeight / 5);
+
+        var travelRatio = travelDist * scrollRatio;
+
+        contentWrapper.style.transform = 'translateY(' + Math.round(0-sectionBounds.top - travelRatio)  + 'px)';
+
+        window.requestAnimationFrame(scrollWatcher);
+    };
+
+    window.requestAnimationFrame(scrollWatcher);
+</script>

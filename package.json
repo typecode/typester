@@ -1,0 +1,20 @@
+{
+  "name": "typester-gh-page",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:typecode/typester.git",
+  "author": "Fred Every <fred@fredevery.co.za>",
+  "license": "MIT",
+  "scripts": {
+    "watch": "rollup -cw",
+    "dev_server": "jekyll serve --host 0.0.0.0 --livereload"
+  },
+  "devDependencies": {
+    "rollup": "^0.54.0",
+    "rollup-plugin-buble": "^0.18.0",
+    "rollup-plugin-node-resolve": "^3.0.2"
+  },
+  "dependencies": {
+    "rollup-plugin-commonjs": "^8.2.6"
+  }
+}

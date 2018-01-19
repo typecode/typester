@@ -1,35 +1,25 @@
 .demo {
-    padding: 5vw;
-    box-sizing: border-box;
-
-    > h1:first-child {
-        position: relative;
-
-        &::before {
-            content: '';
-            position: absolute;
-            right: 100%;
-            height: 1em;
-            width: 0.5em;
-            background-color: $mandy;
-            top: 0.2em;
-            margin-right: 0.2em;
-        }
-    }
-
     .demo-panes {
         display: flex;
         justify-content: space-between;
-        margin: 5vw auto;
         align-items: stretch;
         width: 100%;
-        max-width: 1500px;
     }
 
     .demo-pane {
-        border: 1px solid $pattens_blue;
-        padding: 2vw;
-        width: 48%;
+        padding: 5vw;
+        width: 50%;
         box-sizing: border-box;
+
+        &:first-child {
+            background-color: $white;
+            color: $blue_whale;
+        }
+
+        &:last-child {
+            background-color: $blue_whale;
+            color: $pattens_blue;
+            padding: 5vw 2vw;
+        }
     }
 }

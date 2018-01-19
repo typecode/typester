@@ -1,6 +1,6 @@
 .features {
-    background-color: $pattens_blue;
-    color: $blue_whale;
+    background-color: $cadet_blue;
+    color: $pattens_blue;
     padding: 5vw;
     box-sizing: border-box;
 
@@ -25,14 +25,14 @@
         margin: 5vw auto;
         align-items: stretch;
         width: 100%;
-        max-width: 1500px;
+        // max-width: 1500px;
     }
 
     .feature {
         flex-grow: 1;
         width: 30%;
         padding: 1vw 2vw;
-        border-left: 1px solid #FFF;
+        // border-left: 1px solid $blue_whale;
         box-sizing: border-box;
 
         &:first-child {
@@ -43,12 +43,13 @@
             width: 50%;
             height: auto;
             fill: $mandy;
-            margin: 0 auto;
+            margin: 0 auto 4rem;
             display: block;
         }
 
         h3 {
             margin-bottom: 0.5em;
+            text-align: center;
         }
     }
 }

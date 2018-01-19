@@ -14,17 +14,17 @@
 </section>
 
 <script>
-var doc = document.documentElement;
-var hero = document.querySelector('.hero');
-var titles = document.querySelector('.hero .titles');
-
-var scrollWatch = function () {
-    var top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
-    var windowHalfHeight = (window.innerHeight / 3) * 2;
-
-    hero.style.opacity = (windowHalfHeight - top)/windowHalfHeight;
-    titles.style.top = window.innerHeight / 2 + top / 10 + 'px';
-    window.requestAnimationFrame(scrollWatch);
-}
-window.requestAnimationFrame(scrollWatch);
+// var doc = document.documentElement;
+// var hero = document.querySelector('.hero');
+// var titles = document.querySelector('.hero .titles');
+//
+// var scrollWatch = function () {
+//     var top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+//     var windowHalfHeight = (window.innerHeight / 3) * 2;
+//
+//     hero.style.opacity = (windowHalfHeight - top)/windowHalfHeight;
+//     titles.style.top = window.innerHeight / 2 + top / 10 + 'px';
+//     window.requestAnimationFrame(scrollWatch);
+// }
+// window.requestAnimationFrame(scrollWatch);
 </script>
