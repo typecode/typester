@@ -195,6 +195,9 @@ var Demo = function (opts) {
     };
 
     var elemToCodeStr = function (elem, indent, parentIsBlock) {
+        if (elem.nodeType === Node.ELEMENT_NODE && !elem.childNodes.length) {
+            return openTag(elem) + '</span><span class="code-line">';
+        }
         if (!elem.textContent.trim().length) { return ''; }
         var elemHTML = '';
         var tagName = elem.tagName;

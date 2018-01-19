@@ -1,17 +1,20 @@
 .btn {
     display: inline-block;
     font-size: 2rem;
-    border: 2px solid;
-    padding: 0.15em 3em;
+    border: 2px solid $pattens_blue;
+    padding: 0.5em 3em;
     margin: 1rem;
     cursor: pointer;
-    box-shadow: 0 4px 0.1em -2px rgba(0,0,0,0.75), inset 0 4px 0.1em -2px rgba(0,0,0,0.75);
-    text-shadow: 0 3px 0.1em rgba(0,0,0,0.75);
+    box-shadow: 0 4px 0.1em -2px rgba(0,0,0,0.75);
+    // text-shadow: 0 3px 0.1em rgba(0,0,0,0.75);
+    background-color: $pattens_blue;
+    color: $blue_whale;
 
     &:hover {
-        background-color: $pattens_blue;
-        color: $blue_whale;
+        background-color: $mandy;
+        color: $white;
         box-shadow: 0 4px 0.1em -2px rgba(0,0,0,0.75);
         text-shadow: none;
+        border-color: $mandy;
     }
 }

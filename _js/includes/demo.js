@@ -40,6 +40,9 @@ const Demo = function (opts) {
     };
 
     const elemToCodeStr = function (elem, indent, parentIsBlock) {
+        if (elem.nodeType === Node.ELEMENT_NODE && !elem.childNodes.length) {
+            return openTag(elem) + '</span><span class="code-line">';
+        }
         if (!elem.textContent.trim().length) { return ''; }
         let elemHTML = '';
         const { tagName } = elem;
