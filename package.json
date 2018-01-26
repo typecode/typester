@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "watch": "rollup -cw",
-    "dev_server": "jekyll serve --host 0.0.0.0 --livereload"
+    "dev_server": "bundle exec jekyll serve --host 0.0.0.0 --livereload"
   },
   "devDependencies": {
     "rollup": "^0.54.0",
