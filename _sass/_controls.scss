@@ -6,15 +6,23 @@
     margin: 1rem;
     cursor: pointer;
     box-shadow: 0 4px 0.1em -2px rgba(0,0,0,0.75);
-    // text-shadow: 0 3px 0.1em rgba(0,0,0,0.75);
     background-color: $pattens_blue;
     color: $blue_whale;
+    transition: transform 100ms;
+    transform: scale(1);
+
+    &.primary {
+        background-color: $mandy;
+        border-color: $mandy;
+        color: $white;
+    }
 
     &:hover {
-        background-color: $mandy;
+        background-color: $cadet_blue;
         color: $white;
         box-shadow: 0 4px 0.1em -2px rgba(0,0,0,0.75);
         text-shadow: none;
-        border-color: $mandy;
+        border-color: $cadet_blue;
+        transform: scale(1.1);
     }
 }

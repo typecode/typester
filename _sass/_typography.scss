@@ -31,12 +31,23 @@ p {
     margin-bottom: 1.4rem;
 }
 
+p, li {
+    a {
+        text-decoration: underline;
+    }
+}
+
 i {
     font-style: italic;
 }
 
 b {
     font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 code {

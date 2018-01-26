@@ -5,13 +5,38 @@
         <i class='pipe bottom'></i>
     </a>
     <div class='nav-panel'>
-        <ul>
-            <li>
-                <a>Nav Item 1</a>
-            </li>
-            <li>
-                <a>Nav Item 2</a>
-            </li>
-        </ul>
+        <div class='nav-wrapper'>
+            <h1>The Menu</h1>
+            <ul class='nav-primary'>
+                <li>
+                    <a href='#overview'>Overview</a>
+                </li>
+                <li>
+                    <a href='#history'>Another WYSIWYG? But why?</a>
+                </li>
+                <li>
+                    <a href='#demo'>This is the demo</a>
+                </li>
+                <li>
+                    <a href='#setup'>How to setup this bad boy</a>
+                </li>
+            </ul>
+            <ul class='nav-secondary'>
+                <li>
+                    <a href='https://github.com/typecode/typester/blob/devel/README.md'>Docs</a>
+                </li>
+                <li>
+                    <a href='https://typecode.com/'>Type/Code</a>
+                </li>
+                <li>
+                    <a href='https://github.com/typecode/typester'>Github</a>
+                </li>
+            </ul>
+        </div>
+        <div class='nav-logo'>
+            <a href='https://typecode.com'>
+                {% include svg/tclogo.html %}
+            </a>
+        </div>
     </div>
 </nav>

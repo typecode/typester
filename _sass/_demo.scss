@@ -26,8 +26,22 @@
     }
 
     .demo-pane[contenteditable] {
+        * {
+            opacity: 1;
+            transition: opacity 300ms;
+        }
+
         h1 {
             font-size: 4rem;
+
+            &:first-child {
+                &::after {
+                    content: '|';
+                    animation: blink-animation 1s steps(5, start) infinite;
+                    transform: scale(1, 1.2) translateY(-5%);
+                    display: inline-block;
+                }
+            }
         }
 
         h2 {
@@ -36,6 +50,16 @@
 
         blockquote {
             font-size: 2rem;
+        }
+
+        &.typing-in {
+            * {
+                opacity: 0;
+            }
+
+            h1 {
+                opacity: 1;
+            }
         }
     }
 
@@ -52,5 +76,14 @@
         .tag {
             color: $mandy;
         }
+    }
+
+    ::selection {
+      background: $cadet_blue; /* WebKit/Blink Browsers */
+      color: $white;
+    }
+    ::-moz-selection {
+      background: $cadet_blue; /* WebKit/Blink Browsers */
+      color: $white;
     }
 }

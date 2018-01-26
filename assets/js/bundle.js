@@ -9,6 +9,9 @@ var Animation = function (opts) {
             top: 0,
             bottom: 0
         },
+        animatedScroll: {
+            duration: 800
+        }
     };
 
     var fn = {
@@ -27,6 +30,35 @@ var Animation = function (opts) {
             };
         },
 
+        scrollTo: function scrollTo (elem) {
+            var animatedScroll = internal.animatedScroll;
+
+            var start = fn.scrollTop();
+            var to = elem.offsetTop;
+            var change = to - start;
+            var duration = animatedScroll.duration;
+            var startTime = Date.now();
+
+            var animateScroll = function () {
+                var elapsedTime = Date.now() - startTime;
+                var newScrollTop = ease(elapsedTime, start, change, duration);
+                fn.scrollTop(newScrollTop);
+                console.log(ease(elapsedTime, start, change, duration));
+                if (elapsedTime < duration) {
+                    requestAnimationFrame(animateScroll);
+                }
+            };
+
+            var ease = function (t, b, c, d) {
+                t /= d/2;
+                if (t < 1) { return c / 2 * t * t + b; }
+                t--;
+                return 0 - c / 2 * (t * (t - 2) - 1) + b;
+            };
+
+            animateScroll();
+        },
+
         // Private
         newAnimationObj: function newAnimationObj (elem, callback) {
             var animationObj = {
@@ -34,7 +66,10 @@ var Animation = function (opts) {
                 callback: callback,
                 bounds: {},
                 inView: false,
-                observer: null
+                observer: null,
+                stop: function stop () {
+                    fn.stop(this);
+                }
             };
 
             animationObj.observer = new MutationObserver(function () {
@@ -95,22 +130,39 @@ var Animation = function (opts) {
             return animationObj.bounds.top < scroll.bottom && animationObj.bounds.bottom > scroll.top;
         },
 
+        stop: function stop (animationObj) {
+            var animations = internal.animations;
+            var animIndex = animations.indexOf(animationObj);
+            animations.splice(animIndex, 1);
+        },
+
         //Utils
         updateScrollPosition: function updateScrollPosition () {
-            var doc = document.documentElement;
-            var scrollTop = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+            var scrollTop = fn.scrollTop();
 
             internal.scroll = {
                 top: scrollTop,
                 bottom: scrollTop + document.body.offsetHeight,
                 height: document.body.offsetHeight
             };
+        },
+
+        scrollTop: function scrollTop (setVal) {
+            if ( setVal === void 0 ) setVal = null;
+
+            var doc = document.documentElement;
+            if (!setVal) {
+                return (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+            } else {
+                doc.scrollTop = setVal;
+            }
         }
     };
 
     return {
         animate: fn.animate,
-        start: fn.start
+        start: fn.start,
+        scrollTo: fn.scrollTo
     };
 };
 
@@ -120,9 +172,13 @@ var Nav = function (ref) {
     var navEl = document.querySelector('nav');
     var navControlEl = navEl.querySelector('.nav-control');
     var navPanelEl = navEl.querySelector('.nav-panel');
+    var linkEls = document.querySelectorAll('a[href]');
+
     var state = {
         open: false
     };
+
+    console.log(linkEls);
 
     navControlEl.addEventListener('click', function () {
         state.open = !state.open;
@@ -133,6 +189,15 @@ var Nav = function (ref) {
             navEl.classList.remove('open');
         }
     });
+
+    linkEls.forEach(function (linkEl) {
+        if (!linkEl.hash) { return; }
+        var linkTargetEl = document.querySelector(linkEl.hash);
+        linkEl.addEventListener('click', function (evnt) {
+            evnt.preventDefault();
+            animation.scrollTo(linkTargetEl);
+        });
+    });
 };
 
 var Hero = function (opts) {
@@ -141,9 +206,11 @@ var Hero = function (opts) {
     var heroSectionEl = document.querySelector('section.hero');
     var titlesEl = heroSectionEl.querySelector('.titles');
 
+    var prevScrollTop = null;
     var heroScroll = function (opts) {
         var scroll = opts.scroll;
         var bounds = opts.bounds;
+        if (scroll.top === prevScrollTop) { return; }
 
         var offsetTop = bounds.top - scroll.top;
         var travelDist = scroll.height * 0.6;
@@ -152,6 +219,8 @@ var Hero = function (opts) {
 
         heroSectionEl.style.opacity = scrollRatio < -0.6 ? 1.3 + scrollRatio : 1;
         titlesEl.style.transform = 'translateY(' + Math.round(0 - travelRatio) + 'px)';
+
+        prevScrollTop = scroll.top;
     };
 
     var setSelection = function () {
@@ -167,7 +236,7 @@ var Hero = function (opts) {
     };
 
     setTimeout(setSelection, 300);
-    animation.animate(heroSectionEl, heroScroll);
+    var heroAnimation = animation.animate(heroSectionEl, heroScroll);
 };
 
 var Features = function (opts) {
@@ -267,6 +336,99 @@ var Demo = function (opts) {
         subtree: true
     });
     updateCodeDisplay();
+
+    var textNodes = [];
+    var editablePaneHTML = editablePaneEl.innerHTML;
+    var textNode;
+
+    editablePaneEl.style.height = editablePaneEl.offsetHeight + 'px';
+
+    var h1Clone = editablePaneEl.querySelector('h1').cloneNode(true);
+    editablePaneEl.innerHTML = '';
+    editablePaneEl.appendChild(h1Clone);
+    editablePaneEl.classList.add('typing-in');
+
+    var textWalker = document.createTreeWalker(editablePaneEl.querySelector('h1'), NodeFilter.SHOW_TEXT, null, false);
+
+    while (textNode = textWalker.nextNode()) {
+        textNodes.push({
+            charArray: Array.from(textNode.textContent),
+            node: textNode,
+            delay: textNodes.length * 100
+        });
+        textNode.textContent = '';
+    }
+
+    var skippedFrames = 0;
+    var typeInEffect = function () {
+        if (skippedFrames < 2) {
+            skippedFrames++;
+            requestAnimationFrame(typeInEffect);
+            return;
+        }
+        skippedFrames = 0;
+
+        var textNode = textNodes[0];
+        textNode.node.textContent += textNode.charArray.shift();
+
+        if (!textNode.charArray.length) {
+            textNodes.shift();
+        }
+
+        if (textNodes.length) {
+            requestAnimationFrame(typeInEffect);
+        } else {
+            setTimeout(finishTypeInEffect, 200);
+        }
+    };
+
+    var finishTypeInEffect = function () {
+        editablePaneEl.innerHTML = editablePaneHTML;
+        editablePaneEl.style.height = 'auto';
+        requestAnimationFrame(function () {
+            editablePaneEl.classList.remove('typing-in');
+        });
+    };
+
+    var startTypeInEffect = function (ref) {
+        var scroll = ref.scroll;
+        var bounds = ref.bounds;
+
+        console.log(scroll.top, bounds.top - scroll.height / 2 );
+        if (scroll.top >= bounds.top - scroll.height / 2) {
+            typeInEffect();
+            typeInAnimation.stop();
+        }
+    };
+
+    var typeInAnimation = animation.animate(demoSectionEl, startTypeInEffect);
+};
+
+var Install = function (opts) {
+    var animation = opts.animation;
+
+    var installSectionEl = document.querySelector('section.install');
+    var contentWrapperEl = installSectionEl.querySelector('.content-wrapper');
+
+    var prevScrollTop = null;
+    var installScroll = function (opts) {
+        var scroll = opts.scroll;
+        var bounds = opts.bounds;
+
+        if (scroll.top === prevScrollTop) { return; }
+
+        var offsetTop = bounds.top - scroll.top;
+        var travelDist = Math.round(scroll.height * 0.1);
+        var scrollRatio = offsetTop / bounds.height;
+        var travelRatio = travelDist * scrollRatio;
+
+        contentWrapperEl.style.opacity = Math.min(1, 1 - scrollRatio);
+        contentWrapperEl.style.transform = "translateY(" + (Math.round(0 - offsetTop - travelRatio)) + "px)";
+
+        prevScrollTop = scroll.top;
+    };
+
+    animation.animate(installSectionEl, installScroll);
 };
 
 // Utils
@@ -277,7 +439,8 @@ animation.start();
     Nav,
     Hero,
     Features,
-    Demo
+    Demo,
+    Install
 ].forEach(function (Module) {
     Module({
         animation: animation

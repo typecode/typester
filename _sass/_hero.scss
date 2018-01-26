@@ -10,6 +10,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    transition: opacity 200ms;
 
     .titles {
         max-width: 70vw;
@@ -75,10 +76,22 @@
         text-shadow: 0 0.04em 2px rgba(0,0,0,0.5);
     }
 
-    .footnote {
-        position: fixed;
-        bottom: 1em;
-        left: 50%;
-        transform: translateX(-50%);
+    .fork-ribbon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: $mandy;
+        padding: 0.7em 5em;
+        color: $white;
+        font-family: 'Roboto Slab', serif;
+        font-weight: bold;
+        transform: rotate(-45deg) translate3d(-5.5em, 0, 0);
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
+        transition: box-shadow 200ms;
+
+        &:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
     }
+
 }

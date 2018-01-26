@@ -6,6 +6,9 @@ const Animation = function (opts) {
             top: 0,
             bottom: 0
         },
+        animatedScroll: {
+            duration: 800
+        }
     };
 
     const fn = {
@@ -24,6 +27,35 @@ const Animation = function (opts) {
             };
         },
 
+        scrollTo (elem) {
+            const { animatedScroll } = internal;
+
+            const start = fn.scrollTop();
+            const to = elem.offsetTop;
+            const change = to - start;
+            const duration = animatedScroll.duration;
+            const startTime = Date.now();
+
+            const animateScroll = function () {
+                let elapsedTime = Date.now() - startTime;
+                const newScrollTop = ease(elapsedTime, start, change, duration);
+                fn.scrollTop(newScrollTop);
+                console.log(ease(elapsedTime, start, change, duration));
+                if (elapsedTime < duration) {
+                    requestAnimationFrame(animateScroll);
+                }
+            };
+
+            const ease = function (t, b, c, d) {
+                t /= d/2;
+                if (t < 1) { return c / 2 * t * t + b; }
+                t--;
+                return 0 - c / 2 * (t * (t - 2) - 1) + b;
+            };
+
+            animateScroll();
+        },
+
         // Private
         newAnimationObj (elem, callback) {
             const animationObj = {
@@ -31,7 +63,10 @@ const Animation = function (opts) {
                 callback,
                 bounds: {},
                 inView: false,
-                observer: null
+                observer: null,
+                stop () {
+                    fn.stop(this);
+                }
             };
 
             animationObj.observer = new MutationObserver(() => {
@@ -92,22 +127,37 @@ const Animation = function (opts) {
             return animationObj.bounds.top < scroll.bottom && animationObj.bounds.bottom > scroll.top;
         },
 
+        stop (animationObj) {
+            const { animations } = internal;
+            const animIndex = animations.indexOf(animationObj);
+            animations.splice(animIndex, 1);
+        },
+
         //Utils
         updateScrollPosition () {
-            const doc = document.documentElement;
-            const scrollTop = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)
+            const scrollTop = fn.scrollTop();
 
             internal.scroll = {
                 top: scrollTop,
                 bottom: scrollTop + document.body.offsetHeight,
                 height: document.body.offsetHeight
             };
+        },
+
+        scrollTop (setVal = null) {
+            const doc = document.documentElement;
+            if (!setVal) {
+                return (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+            } else {
+                doc.scrollTop = setVal;
+            }
         }
     };
 
     return {
         animate: fn.animate,
-        start: fn.start
+        start: fn.start,
+        scrollTo: fn.scrollTo
     };
 };
 

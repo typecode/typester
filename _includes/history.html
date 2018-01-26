@@ -1,22 +1,54 @@
-<section class='history'>
-    <div class='history-panel' contenteditable="true">
-        <h2>
-            Another WYSIWYG? But why?
-        </h2>
+<section class='history' id='history'>
+    <div class='history-panel' contenteditable="true" markdown='1'>
+        <h2>Another WYSIWYG? But why?</h2>
         <p>
-            Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada.
+            This is the question we asked ourselves as well before setting out to
+            write this package. With over 576 results when searching for "wysiwyg"
+            on npmjs.com what could possibly possess us to take on the challenge
+            of writing another from scratch?
         </p>
         <p>
-            Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus.
+            To be honest: None of the ones we looked at and played with
+            did the trick for us. Either they were too stringent in their layout,
+            or too complex in their execution, or they are in some way tainted by
+            their heavy reliance on the browser <code>execCommand()</code> output
+            which, for all its power, is slave to the various browser quirks and
+            oddities that cause malformed and dirty HTML output.
         </p>
         <p>
-            Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Pellentesque in ipsum id orci porta dapibus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
+            We are, as most, quite taken by the simplicity of the editor developed
+            by the team at Medium.com for their authoring tools. And so we began by using the
+            <a href='https://yabwe.github.io/medium-editor/' taget='_blank'>medium-editor</a>
+            developed by <a href='https://github.com/yabwe/medium-editor' target='_blank'>yabwe</a>.
+            And it served use well for the most part, and to yabwe we tip our hat.
+            The work that the contributors did on that package was incredible.
         </p>
         <p>
-            Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Curabitur aliquet quam id dui posuere blandit. Nulla quis lorem ut libero malesuada feugiat.
+            That said, however, we still found ourselves wanting. The medium-editor
+            package relied too heavily on the <code>execCommand()</code> output
+            as well as having some UI issues that we weren't able to rectify via
+            the API it exposed, and we weren't willing to hack into their code to get
+            what we wanted.
         </p>
         <p>
-            Pellentesque in ipsum id orci porta dapibus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vivamus suscipit tortor eget felis porttitor volutpat.
+            And what did we want? Clean and predictable HTML regardless of the browser
+            used to input the content. And so after much deliberation we began
+            crafting our own solution.
+        </p>
+        <p>
+            A solution that would:<br />
+            <b class='solution-step'>Take user input</b> &#8611;
+            <b class='solution-step'>process and standardize it</b> &#8611;
+            <b class='solution-step'>sanitize it</b> &#8611;
+            <b class='solution-step'>return awesome HTML</b>
+        </p>
+        <p>
+            All while refining the UI experience.
+        </p>
+        <p>
+            And that is a very brief history, and explanation, of why we invested
+            our time and energy into producing, what we feel is, a pretty damn
+            good WYSIWYG that we like to call: <b>Typester</b>
         </p>
     </div>
     <div class='history-panel'>
