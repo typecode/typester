@@ -47,7 +47,7 @@ const Demo = function (opts) {
         let elemHTML = '';
         const { tagName } = elem;
         const isBlockTag = ['H1', 'H2', 'P', 'UL', 'OL', 'LI', 'BLOCKQUOTE'].indexOf(tagName) > -1;
-        const inlineContent = ['H1', 'H2', 'UL', 'OL', 'A', 'SPAN'].indexOf(tagName) > -1;
+        const inlineContent = ['H1', 'H2', 'UL', 'OL', 'A', 'SPAN', 'B', 'I'].indexOf(tagName) > -1;
 
         if (isBlockTag) {
             elemHTML += '<span class="code-line">';

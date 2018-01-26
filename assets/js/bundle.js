@@ -239,12 +239,19 @@ var Hero = function (opts) {
     var heroAnimation = animation.animate(heroSectionEl, heroScroll);
 };
 
-var Features = function (opts) {
-    var animation = opts.animation;
+var History = function (ref) {
+    var animation = ref.animation;
 
-    var features = document.querySelector('section.features');
+    var historySectionEl = document.querySelector('.history');
+    var historyAnimation = animation.animate(historySectionEl, function (ref) {
+        var scroll = ref.scroll;
+        var bounds = ref.bounds;
 
-    // animation.animate(features, () => { console.log('features animate!'); });
+        if (scroll.top >= bounds.top - scroll.height * 0.3) {
+            historySectionEl.classList.add('show-icon');
+            historyAnimation.stop();
+        }
+    });
 };
 
 var Demo = function (opts) {
@@ -292,7 +299,7 @@ var Demo = function (opts) {
         var elemHTML = '';
         var tagName = elem.tagName;
         var isBlockTag = ['H1', 'H2', 'P', 'UL', 'OL', 'LI', 'BLOCKQUOTE'].indexOf(tagName) > -1;
-        var inlineContent = ['H1', 'H2', 'UL', 'OL', 'A', 'SPAN'].indexOf(tagName) > -1;
+        var inlineContent = ['H1', 'H2', 'UL', 'OL', 'A', 'SPAN', 'B', 'I'].indexOf(tagName) > -1;
 
         if (isBlockTag) {
             elemHTML += '<span class="code-line">';
@@ -438,7 +445,7 @@ animation.start();
 [
     Nav,
     Hero,
-    Features,
+    History,
     Demo,
     Install
 ].forEach(function (Module) {

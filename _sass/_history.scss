@@ -6,6 +6,15 @@
     min-height: 0;
     padding: 0 5vw;
 
+    &.show-icon {
+        .history-panel {
+            svg {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    }
+
     .history-panel {
         width: 50%;
         box-sizing: border-box;
@@ -15,6 +24,10 @@
             width: 30vw;
             height: auto;
             fill: $pattens_blue;
+            opacity: 0;
+            transform: scale(0.5);
+            display: block;
+            transition: opacity 700ms, transform 700ms;
         }
     }
 

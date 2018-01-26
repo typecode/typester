@@ -8,83 +8,72 @@
                 crafted copy, keep an eye on the panel to the right. It should,
                 in real time, show you the HTML inside this block, as it gets updated.
             </p>
-            <ul>
+            <p>
+                Don't forget to try your hand at formatting things as well, it really
+                is quite simple. All you need to do is:
+            </p>
+            <ol>
                 <li>
-                    Keep an eye on the panel to the right. You'll see how beautiful
-                    and predictable the HTML in here is.
+                    Select some text
                 </li>
                 <li>
-                    Be creative and have fun!
+                    Look out for the medium editor style contextual toolbar
+                </li>
+                <li>
+                    Click on any of the formatting options
+                </li>
+            </ol>
+            <p>
+                As you edit you may notice that the toolbar will adapt to the content
+                selected. For instance if it detects that the selected content is
+                already in a tag that has its font-weight set to bold, it will
+                disable the bold formatting option.
+            </p>
+            <p>
+                The same goes for when the content is in a list. Only a subset of
+                the formatting tools are available to ensure that no 'illegal' nesting
+                happens.
+            </p>
+            <p>
+                <b>Currently Typester has support for:</b>
+            </p>
+            <ul>
+                <li>
+                    Toggling the <b>bold</b> and <i>italic</i> states of selected copy.
+                </li>
+                <li>
+                    Creating <b>H1</b> and <b>H2</b> headings.
+                </li>
+                <li>
+                    Creating <b>ordered</b> and <b>unordered lists</b>.
+                </li>
+                <li>
+                    Toggling a block of content into a <b>blockquote</b> and back.
+                </li>
+                <li>
+                    Inserting <b>links</b>.
                 </li>
             </ul>
             <blockquote>
-                Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
+                As a quick disclaimer. Typester is currently in very early beta
+                stages. Although we have used it for production work and it has
+                proven itself reliable, we do want to say that it should be used
+                with caution.
             </blockquote>
+            <p>
+                <b>Also,</b> the current feature set is limited and the ability
+                to extend the library arbitrarily is not available. But we will,
+                in time, be expanding the library. And if you have any issues or
+                features you would like to report, please feel free!
+            </p>
+            <p>
+                <i>Lastly, in case you haven't managed to accidently select anything
+                content on the page outside of this demo area, most of this page's
+                copy can be edited!</i>
+            </p>
         </div>
         <div class='demo-pane'>
             <code></code>
         </div>
     </div>
 </section>
-
-<script type='text/javascript'>
-    // var editablePane = document.querySelector('.demo-pane[contenteditable]');
-    // var codeDisplay = document.querySelector('.demo-pane code');
-    //
-    // var elemToCodeStr = function (elem, indent) {
-    //     var codeStr = '';
-    //     indent = indent || 0;
-    //
-    //     var indentStr = '';
-    //     for (var i = 0; i < indent; i++) {
-    //         indentStr += '    ';
-    //     }
-    //
-    //     for (var i = 0; i < elem.childNodes.length; i++) {
-    //         var childEl = elem.childNodes[i];
-    //         if (childEl.nodeType === Node.ELEMENT_NODE) {
-    //             var tagName = childEl.tagName.toLowerCase();
-    //             var childNodesLength = childEl.childNodes.length;
-    //
-    //             if (tagName !== 'br') {
-    //                 codeStr += indentStr + '<' + tagName + '>';
-    //             } else {
-    //                 codeStr += '<' + tagName + '>';
-    //             }
-    //             if (childNodesLength) {
-    //                 var childIndent = indent;
-    //                 if (['p', 'li'].indexOf(tagName) > -1 || childNodesLength > 1) {
-    //                     codeStr += '\n';
-    //                     childIndent += 1;
-    //                 }
-    //                 codeStr += elemToCodeStr(childEl, childIndent);
-    //             }
-    //
-    //             if (tagName !== 'br') {
-    //                 if (['li'].indexOf(tagName) > -1) {
-    //                     codeStr += '\n' + indentStr;
-    //                 }
-    //                 codeStr += '</' + tagName + '>';
-    //             }
-    //
-    //             codeStr += '\n';
-    //         } else {
-    //             var textContent = childEl.textContent.trim().replace(/\s\s+/g, ' ');
-    //             if (textContent.length) {
-    //                 codeStr += indentStr + textContent.trim().replace(/\s\s+/g, ' ');
-    //             }
-    //         }
-    //     }
-    //     return codeStr;
-    // };
-    // // setInterval(function () {
-    //     // editablePane.children.forEach(function (editableChild) {
-    //     //     console.log(editableChild)
-    //     // });
-    //     codeDisplay.textContent = elemToCodeStr(editablePane);
-    //
-    // editablePane.addEventListener('change', function () {
-    //     codeDisplay.textContent = elemToCodeStr(editablePane);
-    // });
-    // // }, 100);
-</script>
