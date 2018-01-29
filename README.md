@@ -1,4 +1,8 @@
 # Typester
+A simple to use WYSIWYG text editor inspired by Medium and Medium Editor that gives you clean and predictable HTML from your user's input.
+
+- *Single file import (batteries included):*   
+   No need to import separate stylesheets and additional dependencies. Typester comes with everything it needs rolled into one JS file.
 
 ## Local Server
 Coming soon!
