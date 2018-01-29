@@ -43,7 +43,7 @@ var Animation = function (opts) {
                 var elapsedTime = Date.now() - startTime;
                 var newScrollTop = ease(elapsedTime, start, change, duration);
                 fn.scrollTop(newScrollTop);
-                console.log(ease(elapsedTime, start, change, duration));
+
                 if (elapsedTime < duration) {
                     requestAnimationFrame(animateScroll);
                 }
