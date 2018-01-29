@@ -10,7 +10,9 @@ A simple to use WYSIWYG text editor inspired by Medium and Medium Editor that gi
 - **Pure XSS-free DOM powered by [DOMPurify](https://github.com/cure53/DOMPurify)**
    Typester, thanks to the awesome power of DOMPurify, will make sure that the HTML you receive is sanitized against XSS exploits.
 
+---
 #### Try out the [DEMO](http://rigel:4000/typester/#demo)
+---
 
 ### Installation
 Right now Typester is only available via npm. We may look into offering CDN hosted options and/or downloadable and self-hostable options. But, for now, you can:
