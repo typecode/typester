@@ -31,3 +31,15 @@ $ bundle exec jekyll serve --host 0.0.0.0 --livereload
 ```
 $ yarn watch
 ```
+
+# Seeing it in your browser
+If you're working form local host then:
+```
+http://localhost:4000/typester/
+```
+
+If you're running from another environment:
+```
+http://192.168.1.123/typester/
+```
+Where 192.168.1.123 is the ip address of the other environment
