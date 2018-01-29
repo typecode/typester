@@ -1,6 +1,7 @@
 build/
 coverage/
 node_modules/
-yarn-error.log
+_notes_/
 
+yarn-error.log
 npm-debug.log
