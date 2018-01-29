@@ -96,7 +96,7 @@ You will need to have [Docker](https://docs.docker.com/install/) and [Docker Com
 Then:
 ```
 ~> cd test/server/
-~> docker-compose up
+~> docker-compose up server
 ```
 You should then be able to navigate your browser to:
 ```
@@ -119,7 +119,7 @@ e2e tests (nightwatch)
 ~> yarn test_e2e
 ```
 
-### Build and read the docs
+### Build and read the developer docs
 For a once off build:
 ```
 ~> yarn docs
@@ -128,4 +128,15 @@ For a once off build:
 For a continuous file change reactive build
 ```
 ~> yarn docs_watch
+```
+
+Then, to read the docs:
+```
+~> cd test/server/
+~> docker-compose up docs_server
+```
+
+And point you browser to:
+```
+http://localhost:4849
 ```
