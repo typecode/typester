@@ -3,6 +3,7 @@ footer {
     position: relative;
     padding: 5vw 0;
     background: darken($blue_whale, 5%);
+    align-items: stretch;
 
     .footer-panel {
         box-sizing: border-box;
@@ -13,8 +14,14 @@ footer {
         }
 
         &:last-child {
-            border-left: 1px solid lighten($blue_whale, 10%);
+            border-left: 1px solid lighten($mandy, 10%);
             width: 33%;
+            display: flex;
+            align-items: center;
+        }
+
+        p {
+            font-size: 0.8rem;
         }
     }
 

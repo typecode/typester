@@ -8,7 +8,10 @@ const Nav = function ({ animation }) {
         open: false
     };
 
-    console.log(linkEls);
+    const scrollToSection = function (sectionHash) {
+        const linkTargetEl = document.querySelector(sectionHash);
+        animation.scrollTo(linkTargetEl);
+    };
 
     navControlEl.addEventListener('click', () => {
         state.open = !state.open;
@@ -22,12 +25,17 @@ const Nav = function ({ animation }) {
 
     linkEls.forEach((linkEl) => {
         if (!linkEl.hash) { return; }
-        const linkTargetEl = document.querySelector(linkEl.hash);
         linkEl.addEventListener('click', (evnt) => {
-            evnt.preventDefault();
-            animation.scrollTo(linkTargetEl);
+            scrollToSection(linkEl.hash);
         });
-    })
+    });
+
+    if (window.location.hash) {
+        scrollToSection(window.location.hash);
+        setTimeout(function () {
+            scrollToSection(window.location.hash);
+        }, 500);
+    }
 };
 
 export default Nav;

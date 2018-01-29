@@ -178,7 +178,10 @@ var Nav = function (ref) {
         open: false
     };
 
-    console.log(linkEls);
+    var scrollToSection = function (sectionHash) {
+        var linkTargetEl = document.querySelector(sectionHash);
+        animation.scrollTo(linkTargetEl);
+    };
 
     navControlEl.addEventListener('click', function () {
         state.open = !state.open;
@@ -192,12 +195,17 @@ var Nav = function (ref) {
 
     linkEls.forEach(function (linkEl) {
         if (!linkEl.hash) { return; }
-        var linkTargetEl = document.querySelector(linkEl.hash);
         linkEl.addEventListener('click', function (evnt) {
-            evnt.preventDefault();
-            animation.scrollTo(linkTargetEl);
+            scrollToSection(linkEl.hash);
         });
     });
+
+    if (window.location.hash) {
+        scrollToSection(window.location.hash);
+        setTimeout(function () {
+            scrollToSection(window.location.hash);
+        }, 500);
+    }
 };
 
 var Hero = function (opts) {
@@ -439,7 +447,6 @@ var Install = function (opts) {
 };
 
 // Utils
-// Modules
 var animation = Animation();
 animation.start();
 
