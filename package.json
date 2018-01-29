@@ -9,8 +9,10 @@
     "test_e2e": "cd ./test/e2e && docker-compose run --rm nightwatch",
     "build": "rollup -c",
     "watch": "./node_modules/.bin/watch \"npm run build\" src/",
-    "docs": "./node_modules/.bin/jsdoc -c .jsdoc.json",
-    "docs_watch": "./node_modules/.bin/watch \"yarn jsdoc -c .jsdoc.json\" src/"
+    "docs": "./node_modules/.bin/jsdoc -c .jsdoc.json -R docs/README.md",
+    "docs_watch": "./node_modules/.bin/watch \"yarn docs\" src/",
+    "local_server": "cd ./test/server && docker-compose up server",
+    "docs_server": "yarn docs && cd ./test/server && docker-compose up docs_server"
   },
   "author": "",
   "license": "ISC",

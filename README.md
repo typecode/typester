@@ -4,7 +4,7 @@ A simple to use WYSIWYG text editor inspired by Medium and Medium Editor that gi
 - **Single file import (batteries included):**
    No need to import separate stylesheets and additional dependencies. Typester comes with everything it needs rolled into one JS file.
 - **Engineered for modern JS modules**
-   Typester has been created using ES6+ JavaScript module patterns which means you need only import it and instantiate it. If you still prefer <script> imports that's fine too Typester will bind itself to the global scope allowing you to `new window.Typester({ /* options */ })`.
+   Typester has been created using ES6+ JavaScript module patterns which means you need only import it and instantiate it. If you still prefer &lt;script&gt; imports that's fine too Typester will bind itself to the global scope allowing you to `new window.Typester({ /* options */ })`.
 - **Minimal DOM footprint**
    It wont clutter your beautifully laid out markup with multiple DOM injections for each editor instance. Need multiple editors on a single page? No problem, typester will inject single instances of its DOM requirements which will be shared between the editors.
 - **Pure XSS-free DOM powered by [DOMPurify](https://github.com/cure53/DOMPurify)**
@@ -95,8 +95,7 @@ You will need to have [Docker](https://docs.docker.com/install/) and [Docker Com
 
 Then:
 ```
-~> cd test/server/
-~> docker-compose up server
+~> yarn local_server
 ```
 You should then be able to navigate your browser to:
 ```
@@ -132,8 +131,7 @@ For a continuous file change reactive build
 
 Then, to read the docs:
 ```
-~> cd test/server/
-~> docker-compose up docs_server
+~> yarn docs_server
 ```
 
 And point you browser to:
