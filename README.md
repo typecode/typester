@@ -40,6 +40,6 @@ http://localhost:4000/typester/
 
 If you're running from another environment:
 ```
-http://192.168.1.123/typester/
+http://192.168.1.123:4000/typester/
 ```
 Where 192.168.1.123 is the ip address of the other environment
