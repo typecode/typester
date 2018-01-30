@@ -10,7 +10,7 @@
     "build": "rollup -c",
     "watch": "./node_modules/.bin/watch \"npm run build\" src/",
     "docs": "./node_modules/.bin/jsdoc -c .jsdoc.json",
-    "docs_watch": "./node_modules/.bin/watch \"yarn docs\" src/",
+    "docs_watch": "./node_modules/.bin/watch \"yarn docs\" src/ docs/src/",
     "local_server": "cd ./test/server && docker-compose up server",
     "docs_server": "yarn docs && cd ./docs && docker-compose up docs_server"
   },
