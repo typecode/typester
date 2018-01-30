@@ -1,0 +1,8 @@
+version: '3'
+services:
+    docs_server:
+        image: nginx:1.12-alpine
+        volumes:
+            - ./site:/usr/share/nginx/html
+        ports:
+            - 4849:80
