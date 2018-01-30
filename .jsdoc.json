@@ -4,7 +4,7 @@
     },
     "opts": {
         "recurse": true,
-        "destination": "./docs/",
-        "readme": "./README.md"
+        "destination": "./docs/site/",
+        "readme": "./docs/README.md"
     }
 }

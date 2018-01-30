@@ -2,8 +2,7 @@ build/
 coverage/
 node_modules/
 _notes_/
-docs/**/
-docs/*.html
+docs/site/
 
 yarn-error.log
 npm-debug.log
