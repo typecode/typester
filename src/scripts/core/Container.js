@@ -88,7 +88,6 @@ const Container = function Container(containerObj) {
         initModules (modules=[], opts={}) {
             modules.forEach((module) => {
                 const moduleOpts = Object.assign({}, opts, (module.opts || {}));
-                console.log({moduleOpts});
                 module.instance = new module.class(moduleOpts);
             });
         },
