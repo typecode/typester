@@ -265,7 +265,7 @@ methods: {
 <br/><a id='core-concepts-the-canvas'></a>
 ### The Canvas
 Typester uses an `<iframe>` as a sandboxed DOM canvas inside which the
-formatters can work on the content in isolation without populating the
+formatters can work on the content in isolation without poluting the
 edit (undo/redo) history of the editor.
 
 It also frees the formatters to use a combination of documentExec and direct
@@ -305,7 +305,7 @@ A typical formatting flow is as follows:
     couple of steps
     2. Clean the formatted content inside the canvas
     3. If an additional importFilter has been provided, call it with the canvasBody
-    elements as the argument
+    element as the argument
     4. Re-apply the cached selection range
     5. Calculate the selection range coordinates inside the canvas
     6. Import the canvas HTML into the editor

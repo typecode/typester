@@ -11,7 +11,7 @@ A simple to use WYSIWYG text editor inspired by Medium and Medium Editor that gi
    Typester, thanks to the awesome power of DOMPurify, will make sure that the HTML you receive is sanitized against XSS exploits.
 
 ---
-#### Try out the [DEMO](http://rigel:4000/typester/#demo)
+#### Try out the [DEMO](https://typecode.github.io/typester/#demo)
 ---
 
 ### Installation
