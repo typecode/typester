@@ -1,10 +1,11 @@
 {
     "source": {
-        "include" : ["src/"]
+        "include" : ["src/", "docs/"],
+        "exclude" : ["docs/site/"]
     },
     "opts": {
         "recurse": true,
-        "destination": "./docs/",
-        "readme": "./README.md"
+        "destination": "./docs/site/",
+        "readme": "./docs/src/README.md"
     }
 }

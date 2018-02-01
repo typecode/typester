@@ -59,14 +59,14 @@
  *
  */
 
- import guid from '../utils/guid';
+import guid from '../utils/guid';
 
- /**
-  * @constructor
-  * @param {object} opts - Mediator options
-  * @param {mediator} opts.parent - A parent mediator to delegate to if necessary
-  * @param {Array<RegExp>} opts.conceal - An array of regular expressions to test the request, command and event keys against to determine whether they should get delegated if unhandled
-  */
+/**
+ * @constructor
+ * @param {object} opts - Mediator options
+ * @param {mediator} opts.parent - A parent mediator to delegate to if necessary
+ * @param {Array<RegExp>} opts.conceal - An array of regular expressions to test the request, command and event keys against to determine whether they should get delegated if unhandled
+ */
 const Mediator = function (opts={}) {
 
     /**

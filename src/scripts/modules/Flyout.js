@@ -108,7 +108,7 @@ const Flyout = Module({
             const { mediator, props } = this;
             const contentEditableEl = mediator.get('contenteditable:element');
             const containerZIndex = Math.max(props.minZIndex, DOM.getContainerZIndex(contentEditableEl));
-            console.log('positionFlyout', coordinates);
+
             Object.keys(coordinates).forEach((coordinateKey) => {
                 flyout.el.style[coordinateKey] = coordinates[coordinateKey];
             });
