@@ -1,14 +1,32 @@
-$mandy: rgb(242, 65, 80);
-$blue_whale: rgb(1, 46, 64);
+$white:  #ffffff;
+$black:  #000000;
+
+$red:          #FF424D;
+$cosmiclatte:  #FFF8E7;
+$grey:         #2d4a57;
+$darkgrey:     #121E23;
+$mediumgrey:   #1b272b;
+$lightgrey:    #EEEFEF;
+$green:        #2ddb87;
+
+$cosmiclatte-lt: #fffefb;
+
+$red-dk:         mix(black, $red, 30%);
+$cosmiclatte-dk: mix(black, $cosmiclatte, 30%);
+$green-dk:       mix(black, $green, 30%);
+
+$cosmiclatte-xdk: mix(black, $cosmiclatte, 50%);
+
+// remapping default colors
+$mandy: $red;
+$blue_whale: $mediumgrey;
 $cadet_blue: rgb(3, 166, 166);
 $pattens_blue: rgb(217, 236, 242);
-$chocolate: rgb(242, 68, 5);
-$white: rgb(240, 240, 255);
+$chocolate: $red;
 
 body {
-    background: $blue_whale;
-    color: $pattens_blue;
-    background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zm33.414-6l5.95-5.95L45.95.636 40 6.586 34.05.636 32.636 2.05 38.586 8l-5.95 5.95 1.414 1.414L40 9.414l5.95 5.95 1.414-1.414L41.414 8zM40 48c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM9.414 40l5.95-5.95-1.414-1.414L8 38.586l-5.95-5.95L.636 34.05 6.586 40l-5.95 5.95 1.414 1.414L8 41.414l5.95 5.95 1.414-1.414L9.414 40z' fill='%232e495e' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
-    background-attachment: fixed;
-
+    background: $cosmiclatte-lt;
+    color: $green;
+	caret-color: $cosmiclatte-dk;
+    //background-attachment: fixed;
 }

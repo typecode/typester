@@ -43,7 +43,7 @@
 
     .solution-step {
         display: inline-block;
-        font-family: 'Roboto Slab', serif;
+        @include sans(regular);
         border: 1px solid;
         padding: 0.5em 1em;
         margin-top: 1em;

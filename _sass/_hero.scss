@@ -13,38 +13,60 @@
     transition: opacity 200ms;
 
     .titles {
-        max-width: 70vw;
-        margin: 40vh 0 40vh;
+        max-width: 90vw;
+        margin: 30vh 0 40vh;
     }
 
     .main-title {
         outline: none;
+        position: relative;
 
         h1 {
             &::after {
                 content: '|';
+                color: transparent;
+                position: absolute;
+                display: inline-block;
+                margin-left: 0.1em;
+                top: -0.19em;
+                bottom: 0.175em;
+                width: 1px;
+                background: $cosmiclatte-dk;
                 animation: blink-animation 1s steps(5, start) infinite;
+            }
+            &::focus::after {
+                
+            }
+        }
+
+        &:focus h1 {
+            &::after {
+                visibility: hidden;
             }
         }
     }
 
     .overview {
         display: flex;
+        margin: 10vh auto 3rem;
+        width: 60vw;
+        color: $cosmiclatte-xdk;
 
         .left,
         .right {
             flex-grow: 1;
             text-align: left;
             box-sizing: border-box;
-            padding: 2rem;
         }
 
         .left {
             width: 50%;
+            padding-right: 2rem;
         }
 
         .right {
             width: 50%;
+            padding-left: 2rem;
         }
     }
 
@@ -61,19 +83,17 @@
     }
 
     h1 {
-        border-bottom: 2px solid $cadet_blue;
-        font-size: 15vh;
+        @include sans-backslant(bold);
+        font-size: 35vh;
         line-height: 1em;
         padding: 0 0 0.35em;
+        letter-spacing: -0.04em;
+
     }
 
     h2 {
         font-size: 2rem;
         line-height: 1.3em;
-    }
-
-    h1, h2 {
-        text-shadow: 0 0.04em 2px rgba(0,0,0,0.5);
     }
 
     .fork-ribbon {
@@ -83,9 +103,12 @@
         background: $mandy;
         padding: 0.7em 5em;
         color: $white;
-        font-family: 'Roboto Slab', serif;
-        font-weight: bold;
-        transform: rotate(-45deg) translate3d(-5.5em, 0, 0);
+        @include sans(bold);
+        font-size: 0.8rem;
+        text-transform: lowercase;
+        font-variant: small-caps;
+        letter-spacing: 0.2em;
+        transform: rotate(-45deg) translate3d(-6.5em, 0, 0);
         box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
         transition: box-shadow 200ms;
 

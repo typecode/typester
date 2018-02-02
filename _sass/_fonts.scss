@@ -1,0 +1,163 @@
+/* mixins
+**************************************************************/
+@mixin sans($weight) {
+    font-family: 'Brown Web', 'Avenir Next', 'Avenir', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    @if $weight == thin {
+        font-weight: 200;
+    } @else if $weight == light {
+        font-weight: 300;
+    } @else if $weight == regular {
+        font-weight: 400;
+    } @else if $weight == bold {
+        font-weight: 700;
+    }
+}
+
+@mixin sans-backslant($weight) {
+    font-family: 'Brown Reclin Web', 'Avenir Next', 'Avenir', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    @if $weight == thin {
+        font-weight: 200;
+    } @else if $weight == light {
+        font-weight: 300;
+    } @else if $weight == regular {
+        font-weight: 400;
+    } @else if $weight == bold {
+        font-weight: 700;
+    }
+}
+
+@mixin mono() {
+    font-family: 'Inconsolata', 'Inconsolata Web', Courier New, Courier, monospace;
+    font-weight: 400;
+}
+
+
+/* brown
+**************************************************************/
+// the subsetted version of brown and the full version have identical
+// file names; just swap the folder from "../fonts/brown-subset" to
+// "../fonts/brown"
+
+// standard
+@font-face {
+    font-family: 'Brown Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-thin.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-thin.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-thin.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-thin.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Brown Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-thinitalic.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-thinitalic.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-thinitalic.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-thinitalic.woff') format('woff');
+    font-weight: 200;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Brown Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-light.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-light.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-light.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Brown Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-lightitalic.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-lightitalic.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-lightitalic.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-lightitalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Brown Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-regular.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-regular.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-regular.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Brown Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-italic.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-italic.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-italic.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-italic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Brown Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-bold.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-bold.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-bold.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Brown Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-bolditalic.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-bolditalic.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-bolditalic.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-bolditalic.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+}
+
+// reclin
+@font-face {
+    font-family: 'Brown Reclin Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinthin.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinthin.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinthin.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinthin.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Brown Reclin Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinlight.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinlight.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinlight.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinlight.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Brown Reclin Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinregular.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinregular.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinregular.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinregular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Brown Reclin Web';
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinbold.eot');
+    src:url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinbold.eot?#iefix') format('embedded-opentype'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinbold.woff2') format('woff2'),
+        url('//typecode-static.s3.amazonaws.com/fonts/brown-subset/lineto-brown-reclinbold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* inconsolata
+**************************************************************/
+@font-face {
+    font-family: 'Inconsolata Web';
+    src: url('//typecode-static.s3.amazonaws.com/fonts/inconsolata/inconsolata-webfont.woff2') format('woff2'),
+         url('//typecode-static.s3.amazonaws.com/fonts/inconsolata/inconsolata-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}

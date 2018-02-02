@@ -1,11 +1,11 @@
 body {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+    @include sans(regular);
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6, nav a, .btn, blockquote {
-    font-family: 'Roboto Slab', serif;
-    font-weight: 300;
+    @include sans(regular);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -15,7 +15,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 6rem;
-    font-weight: 700;
+    @include sans(thin);
 }
 
 h2 {
@@ -51,7 +51,7 @@ a {
 }
 
 code {
-    font-family: monospace;
+    @include mono();
     line-height: 1.4em;
 }
 
@@ -102,8 +102,10 @@ blockquote {
 }
 
 ::selection {
-  background: $mandy; /* WebKit/Blink Browsers */
+    background: $green;
+    color: $white;
 }
 ::-moz-selection {
-  background: $mandy; /* Gecko Browsers */
+    background: $green;
+    color: $white;
 }
