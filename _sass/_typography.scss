@@ -2,6 +2,8 @@ body {
     @include sans(regular);
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
+    font-variant-ligatures: discretionary-ligatures; 
+    text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6, nav a, .btn, blockquote {
@@ -11,6 +13,7 @@ h1, h2, h3, h4, h5, h6, nav a, .btn, blockquote {
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.1em;
     margin-bottom: 2rem;
+    letter-spacing: -0.02em;
 }
 
 h1 {
@@ -48,6 +51,7 @@ b {
 a {
     text-decoration: none;
     color: inherit;
+    text-decoration-skip: ink;
 }
 
 code {
@@ -99,6 +103,16 @@ blockquote {
         opacity: 0.3;
         margin-top: 0.05em;
     }
+}
+
+@mixin smallcaps {
+    text-transform: lowercase;
+    font-variant: small-caps;
+    font-size: 115%;
+    letter-spacing: 0.02em;
+}
+.smallcaps {
+    @include smallcaps;
 }
 
 ::selection {

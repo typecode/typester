@@ -33,6 +33,10 @@
     font-weight: 400;
 }
 
+@mixin glyphish() {
+    font-family: 'Glyphish Outlined Web';
+}
+
 
 /* brown
 **************************************************************/
@@ -152,6 +156,7 @@
     font-style: normal;
 }
 
+
 /* inconsolata
 **************************************************************/
 @font-face {
@@ -159,5 +164,30 @@
     src: url('//typecode-static.s3.amazonaws.com/fonts/inconsolata/inconsolata-webfont.woff2') format('woff2'),
          url('//typecode-static.s3.amazonaws.com/fonts/inconsolata/inconsolata-webfont.woff') format('woff');
     font-weight: 400;
+    font-style: normal;
+}
+
+
+
+/* glyphish
+**************************************************************/
+@font-face {
+    font-family: "Glyphish Filled Web";
+    src: url('//typecode-static.s3.amazonaws.com/fonts/glyphish/ss-glyphish-filled.eot');
+    src: url('//typecode-static.s3.amazonaws.com/fonts/glyphish/ss-glyphish-filled.eot?#iefix') format('embedded-opentype'),
+         url('//typecode-static.s3.amazonaws.com/fonts/glyphish/ss-glyphish-filled.woff') format('woff'),
+         url('//typecode-static.s3.amazonaws.com/fonts/glyphish/ss-glyphish-filled.ttf')  format('truetype'),
+         url('//typecode-static.s3.amazonaws.com/fonts/glyphish/ss-glyphish-filled.svg#SSGlyphishFilled') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Glyphish Outlined Web";
+    src: url('//typecode-static.s3.amazonaws.com/fonts/glyphish/ss-glyphish-outlined.eot');
+    src: url('//typecode-static.s3.amazonaws.com/fonts/glyphish/ss-glyphish-outlined.eot?#iefix') format('embedded-opentype'),
+         url('//typecode-static.s3.amazonaws.com/fonts/glyphish/ss-glyphish-outlined.woff') format('woff'),
+         url('//typecode-static.s3.amazonaws.com/fonts/glyphish/ss-glyphish-outlined.ttf')  format('truetype'),
+         url('//typecode-static.s3.amazonaws.com/fonts/glyphish/ss-glyphish-outlined.svg#SSGlyphishFilled') format('svg');
+    font-weight: bold;
     font-style: normal;
 }

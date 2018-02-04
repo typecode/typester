@@ -14,22 +14,32 @@
 
     .titles {
         max-width: 90vw;
-        margin: 30vh 0 40vh;
+        margin: 25vh 0 40vh;
     }
 
     .main-title {
         outline: none;
         position: relative;
 
+
+        h1, h2, ol, ul, p, blockquote {
+            @include sans-backslant(bold);
+            line-height: 1;
+            padding: 0 0 0.35em;
+            letter-spacing: -0.045em;
+        }
+
         h1 {
+            font-size: 19vw;
+
             &::after {
                 content: '|';
                 color: transparent;
                 position: absolute;
                 display: inline-block;
                 margin-left: 0.1em;
-                top: -0.19em;
-                bottom: 0.175em;
+                top: -0.11em;
+                bottom: 0.25em;
                 width: 1px;
                 background: $cosmiclatte-dk;
                 animation: blink-animation 1s steps(5, start) infinite;
@@ -44,29 +54,71 @@
                 visibility: hidden;
             }
         }
+
+        h2 {
+            font-size: 12vw;
+        }
+
+        ol, ul, p, blockquote {
+            font-size: 9vw;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        em, i {
+            @include sans(bold);
+            font-style: italic;
+        }
+
+        blockquote {
+            &::before,
+            &::after {
+                font-size: 1em;
+            }
+        }
     }
 
     .overview {
-        display: flex;
-        margin: 10vh auto 3rem;
-        width: 60vw;
+        margin: 5vh auto 3rem;
+        max-width: 50rem;
         color: $cosmiclatte-xdk;
 
-        .left,
-        .right {
-            flex-grow: 1;
-            text-align: left;
-            box-sizing: border-box;
+        h2 {
+            font-size: 2rem;
+            line-height: 1.3em;
+            color: $green;
+            margin-bottom: 10vh;
+
+            strong {
+                @include smallcaps;
+            }
         }
 
-        .left {
-            width: 50%;
-            padding-right: 2rem;
+        .overview-top {
+            max-width: 38rem;
+            margin: 0 auto 0;
+
+            p {
+                max-width: 20rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
 
-        .right {
-            width: 50%;
-            padding-left: 2rem;
+        .overview-bullets {
+            ul {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            li {
+                flex-grow: 1;
+                text-align: left;
+                box-sizing: border-box;
+                width: 50%;
+                padding: 2rem 2rem 0;
+            }
         }
     }
 
@@ -80,27 +132,13 @@
 
     .hero-links {
         margin-bottom: 2rem;
-    }
-
-    h1 {
-        @include sans-backslant(bold);
-        font-size: 35vh;
-        line-height: 1em;
-        padding: 0 0 0.35em;
-        letter-spacing: -0.04em;
-
-    }
-
-    h2 {
-        font-size: 2rem;
-        line-height: 1.3em;
-    }
+    }    
 
     .fork-ribbon {
         position: absolute;
         top: 0;
         left: 0;
-        background: $mandy;
+        background: $green;
         padding: 0.7em 5em;
         color: $white;
         @include sans(bold);
@@ -110,10 +148,10 @@
         letter-spacing: 0.2em;
         transform: rotate(-45deg) translate3d(-6.5em, 0, 0);
         box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
-        transition: box-shadow 200ms;
+        transition: box-shadow 400ms;
 
         &:hover {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            box-shadow: 7px 7px 20px transparentize($darkgrey, 0.85);
         }
     }
 
