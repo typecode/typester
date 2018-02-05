@@ -6,6 +6,6 @@
     "opts": {
         "recurse": true,
         "destination": "./docs/site/",
-        "readme": "./docs/src/README.md"
+        "readme": "./docs/README.md"
     }
 }

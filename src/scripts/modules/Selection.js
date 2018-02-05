@@ -10,7 +10,7 @@
  */
 
 import Module from '../core/Module';
-import formattersConfig from '../config/formatters';
+import config from '../config/config';
 import toolbarConfig from '../config/toolbar';
 
 import DOM from '../utils/DOM';
@@ -181,7 +181,7 @@ const Selection = Module({
             while (!closestBlockEl && !this.isContentEditable(currentNode) && currentNode) {
                 if (currentNode.nodeType === Node.ELEMENT_NODE) {
                     let nodeTagName = currentNode.tagName.toLowerCase();
-                    if (formattersConfig.base.blockElementNames.indexOf(nodeTagName) > -1) {
+                    if (config.blockElementNames.indexOf(nodeTagName) > -1) {
                         closestBlockEl = currentNode;
                     } else {
                         currentNode = currentNode.parentNode;
