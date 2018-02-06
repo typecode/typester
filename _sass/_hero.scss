@@ -14,13 +14,14 @@
 
     .titles {
         max-width: 90vw;
-        margin: 25vh 0 40vh;
+        margin: 25vh $gutter 50vh;
     }
 
     .main-title {
         outline: none;
         position: relative;
-
+        margin: 0 $column-width 0;
+        caret-color: $cosmiclatte-dk;
 
         h1, h2, ol, ul, p, blockquote {
             @include sans-backslant(bold);
@@ -33,19 +34,9 @@
             font-size: 19vw;
 
             &::after {
-                content: '|';
-                color: transparent;
-                position: absolute;
-                display: inline-block;
-                margin-left: 0.1em;
+                @include flashing-caret($cosmiclatte-dk);
                 top: -0.11em;
                 bottom: 0.25em;
-                width: 1px;
-                background: $cosmiclatte-dk;
-                animation: blink-animation 1s steps(5, start) infinite;
-            }
-            &::focus::after {
-                
             }
         }
 
@@ -82,7 +73,6 @@
 
     .overview {
         margin: 5vh auto 3rem;
-        max-width: 50rem;
         color: $cosmiclatte-xdk;
 
         h2 {
@@ -97,37 +87,90 @@
         }
 
         .overview-top {
-            max-width: 38rem;
-            margin: 0 auto 0;
-
-            p {
-                max-width: 20rem;
-                margin-left: auto;
-                margin-right: auto;
-            }
+            max-width: 46rem;
+            margin: 0 auto;
         }
 
         .overview-bullets {
-            ul {
+            ul, ol {
                 display: flex;
                 flex-wrap: wrap;
+                position: relative;
+                margin-top: 4rem;
             }
             li {
                 flex-grow: 1;
                 text-align: left;
                 box-sizing: border-box;
-                width: 50%;
-                padding: 2rem 2rem 0;
+                width: 33.333%;
+                padding: 0 5rem 3rem;
+                list-style: none;
+                position: relative;
+
+                @media #{$tablet-lg} {
+                    width: 50%;
+                }
+                @media #{$tablet-sm-or-smaller} {
+                    width: auto;
+                    padding-left: 2.5rem;
+                    padding-right: 0;
+                }
+
+                &:before {
+                    position: absolute;
+                    width: 3.5rem;
+                    left: 0rem;
+                    top: 0.5rem;
+                    font-size: 2.5rem;
+                    @include glyphish();
+                    color: $green;
+                    text-align: right;
+                    
+                    @media #{$tablet-sm-or-smaller} {
+                        left: -1rem;
+                        text-align: left;
+                    }
+
+                }
+                &:nth-child(1)::before {
+                    content: '🚀';
+                }
+                &:nth-child(2)::before {
+                    //content: '';
+                    content: '☇';
+                }
+                &:nth-child(3)::before {
+                    //content: '🔋';
+                    content: '🗂';
+                }
+                &:nth-child(4)::before {
+                    content: '👣';
+                }
+                &:nth-child(5)::before {
+                    content: '';
+                }
+                &:nth-child(6)::before {
+                    content: '';
+                }
+            }
+
+            p {
+                margin-bottom: 0.5em;
+            }
+
+            b, strong {
+                color: $green;
             }
         }
     }
 
     .typecode {
-        svg {
+        @include mono();
+        /*svg {
             fill: $pattens_blue;
             width: 10vw;
             height: auto;
-        }
+        }*/
     }
 
     .hero-links {
@@ -138,7 +181,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: $green;
+        background: $cosmiclatte-xdk;
         padding: 0.7em 5em;
         color: $white;
         @include sans(bold);
@@ -151,6 +194,7 @@
         transition: box-shadow 400ms;
 
         &:hover {
+            background: $green;
             box-shadow: 7px 7px 20px transparentize($darkgrey, 0.85);
         }
     }

@@ -1,0 +1,76 @@
+/* responsive variables
+***********************************************************************/
+// main three states: full, tablet, phone
+$phone-max:   767px; // must match globalValues.responsive.max_phone_width
+$tablet-max: 1150px;
+$tablet-min: $phone-max  + 1;
+$full-min:   $tablet-max + 1;
+
+// full sub-states
+$full-xl-min:  1550px;
+$full-xxl-min: 2000px;
+
+// tablet sub-states
+$tablet-lg-min: 900px;
+$tablet-sm-max: $tablet-lg-min - 1;
+
+// phone sub-states
+$phone-lg-min: 500px;
+$phone-sm-max: $phone-lg-min - 1;
+
+
+/* responsive rules (mobile inclues tablet + phone)
+***********************************************************************/
+$full:      'screen and (min-width: #{$full-min})';
+$tablet:    'screen and (max-width: #{$tablet-max}) and (min-width: #{$tablet-min})';
+$phone:     'screen and (max-width: #{$phone-max})';
+
+$full-xl:   'screen and (min-width: #{$full-xl-min})';
+$full-xxl:  'screen and (min-width: #{$full-xxl-min})';
+
+$tablet-lg: 'screen and (max-width: #{$tablet-max}) and (min-width: #{$tablet-lg-min})';
+$tablet-sm: 'screen and (max-width: #{$tablet-sm-max}) and (min-width: #{$tablet-min})';
+$tablet-sm-or-smaller: 'screen and (max-width: #{$tablet-sm-max})';;
+
+$phone-lg:  'screen and (max-width: #{$phone-max}) and (min-width: #{$phone-lg-min})';
+$phone-sm:  'screen and (max-width: #{$phone-sm-max})';
+
+$mobile:    'screen and (max-width: #{$tablet-max})';  // includes tablet and phone
+$notphone:  'screen and (min-width: #{$tablet-min})';  // includes full and tablet
+
+$retina:    'only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5)';
+
+$portrait:  'screen and (orientation: portrait)';
+$full-portrait:      'screen and (min-width: #{$full-min}) and (orientation: portrait)';
+$tablet-portrait:    'screen and (max-width: #{$tablet-max}) and (min-width: #{$tablet-min}) and (orientation: portrait)';
+$tablet-sm-portrait: 'screen and (max-width: #{$tablet-sm-max}) and (min-width: #{$tablet-min}) and (orientation: portrait)';
+$phone-portrait:     'screen and (max-width: #{$phone-max}) and (orientation: portrait)';
+$notphone-portrait:  'screen and (min-width: #{$tablet-min}) and (orientation: portrait)';
+
+
+
+/* responsive hiding
+***********************************************************************/
+.hide-on-phone {
+        @media #{$phone} { display: none !important; }
+}
+.only-on-phone {
+        display: none !important;
+        @media #{$phone} { display: block !important; }
+}
+
+.hide-on-tablet {
+        @media #{$tablet} { display: none !important; }
+}
+.only-on-tablet {
+        display: none !important;
+        @media #{$tablet} { display: block !important; }
+}
+
+.hide-on-mobile {
+        @media #{$mobile} { display: none !important; }
+}
+.only-on-mobile {
+        display: none !important;
+        @media #{$mobile} { display: block !important; }
+}

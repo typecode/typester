@@ -6,22 +6,29 @@
         align-items: stretch;
         width: 100%;
         overflow: hidden;
+
+        @media #{$phone} {
+            flex-wrap: wrap;
+        }
     }
 
     .demo-pane {
-        padding: 5vw;
+        padding: $section-vertmargins $gutter;
         width: 50%;
         box-sizing: border-box;
 
+        @media #{$phone} {
+            width: 100%;
+        }
+
         &:first-child {
-            background-color: $white;
-            color: $blue_whale;
+            background-color: $cosmiclatte-lt;
+            color: $cosmiclatte-xxdk;
         }
 
         &:last-child {
-            background-color: $blue_whale;
-            color: $pattens_blue;
-            padding: 5vw 2vw;
+            background-color: $cosmiclatte-xxxdk;
+            color: $cosmiclatte-lt;
         }
     }
 
@@ -33,23 +40,30 @@
 
         h1 {
             font-size: 4rem;
+            color: $green;
 
             &:first-child {
                 &::after {
-                    content: '|';
-                    animation: blink-animation 1s steps(5, start) infinite;
-                    transform: scale(1, 1.2) translateY(-5%);
-                    display: inline-block;
+                    @include flashing-caret($green);
+                }
+            }
+        }
+        &:focus h1 {
+            &:first-child {
+                &::after {
+                    visibility: hidden;
                 }
             }
         }
 
         h2 {
             font-size: 3rem;
+            color: $cosmiclatte-xxxdk;;
         }
 
         blockquote {
             font-size: 2rem;
+            color: $cosmiclatte-xxxdk;
         }
 
         &.typing-in {
@@ -74,7 +88,7 @@
         }
 
         .tag {
-            color: $mandy;
+            color: $green;
         }
     }
 

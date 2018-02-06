@@ -1,8 +1,21 @@
+$borderradius: 0.2rem;
+
+html {
+    font-size: 16px;
+
+    @media #{$tablet} {
+        font-size: 15px;
+    }
+    @media #{$phone} {
+        font-size: 14px;
+    }
+}
+
 body {
     @include sans(regular);
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-variant-ligatures: discretionary-ligatures; 
+    font-variant-ligatures: common-ligatures; 
     text-rendering: optimizeLegibility;
 }
 
@@ -18,11 +31,14 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 6rem;
-    @include sans(thin);
+    @include sans(bold);
+    letter-spacing: -0.045em;
 }
 
 h2 {
     font-size: 4.5rem;
+    @include sans(bold);
+    letter-spacing: -0.03em;
 }
 
 h3 {
@@ -62,7 +78,7 @@ code {
 figure {
     margin-bottom: 1.4rem;
     padding-top: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    border-radius: $borderradius;
 }
 
 li {
@@ -81,27 +97,31 @@ ol {
 }
 
 blockquote {
+    @include sans(bold);
     font-size: 3.25rem;
-    font-weight: 700;
+    letter-spacing: -0.025em;
     position: relative;
-    padding-left: 1em;
-    margin: 2em 0;
+    padding-left: 1rem;
+    margin: 1em 0;
+
+    &::before,
+    &::after {
+        position: absolute;
+        font-size: 2em;
+        color: $cosmiclatte-dk;
+        @include mono();
+    }
 
     &::before {
-        content: '"';
-        position: absolute;
+        content: '\201C';
         top: -0.75rem;
-        left: -0.1em;
-        font-size: 3em;
-        opacity: 0.3;
+        left: -1rem;
     }
 
     &::after {
-        content: '"';
-        position: absolute;
-        font-size: 3em;
-        opacity: 0.3;
+        content: '  \201D';
         margin-top: 0.05em;
+        margin-left: 0.15em;
     }
 }
 
@@ -113,6 +133,17 @@ blockquote {
 }
 .smallcaps {
     @include smallcaps;
+}
+
+@mixin flashing-caret($_color) {
+    content: '|';
+    color: transparent;
+    position: absolute;
+    display: inline-block;
+    margin-left: 0.1em;
+    width: 1px;
+    background: $_color;
+    animation: blink-animation 1s steps(5, start) infinite;
 }
 
 ::selection {

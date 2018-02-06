@@ -15,7 +15,9 @@ $red-dk:         mix(black, $red, 30%);
 $cosmiclatte-dk: mix(black, $cosmiclatte, 30%);
 $green-dk:       mix(black, $green, 30%);
 
-$cosmiclatte-xdk: mix(black, $cosmiclatte, 50%);
+$cosmiclatte-xdk:   mix(black, $cosmiclatte, 50%);
+$cosmiclatte-xxdk:  mix(black, $cosmiclatte, 60%);
+$cosmiclatte-xxxdk: mix(black, $cosmiclatte, 70%);
 
 // remapping default colors
 $mandy: $red;
@@ -27,6 +29,6 @@ $chocolate: $red;
 body {
     background: $cosmiclatte-lt;
     color: $green;
-	caret-color: $cosmiclatte-dk;
+    caret-color: $green;
     //background-attachment: fixed;
 }
