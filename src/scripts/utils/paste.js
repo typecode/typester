@@ -1,9 +1,12 @@
 // jshint strict: false
 
 // Taken from medium editor: https://github.com/yabwe/medium-editor/blob/master/src/js/extensions/paste.js
+
 /**
-* @access protected
-*/
+ * pasteUtils -
+ * namespaced utility methods for cleaning paste data
+ * @access protected
+ */
 const pasteUtils = {
     createReplacements () {
         return [

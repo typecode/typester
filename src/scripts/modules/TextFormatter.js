@@ -1,11 +1,18 @@
 // jshint strict: false
 
+/**
+ * TextFormatter -
+ * Responsible for handling formatting for inline text. Bold. Italic.
+ * @access protected
+ * @module modules/TextFormatter
+ *
+ * @example
+ * mediator.exec('format:text', { style: 'bold' });
+ * mediator.exec('format:text', { style: 'italic' });
+ */
 import Module from '../core/Module';
 import commands from '../utils/commands';
 
-/**
-* @access protected
-*/
 const TextFormatter = Module({
     name: 'TextFormatter',
     props: {

@@ -1,4 +1,19 @@
 // jshint strict: false
+
+/**
+ * Toolbar -
+ * Handle the display of the toolbar and its controls and wire interactions to the
+ * correct formatter using the toolbar config.
+ * @access protected
+ * @module modules/Toolbar
+ *
+ * @example
+ * // Available commands
+ * commands: {
+ *   'toolbar:hide' : 'hideToolbar',
+ *   'toolbar:set:buttons' : 'setButtons'
+ * }
+ */
 import Module from '../core/Module';
 import DOM from '../utils/DOM';
 import toolbarConfig from '../config/toolbar';
@@ -6,9 +21,6 @@ import toolbarConfig from '../config/toolbar';
 import toolbarTemplate from '../../templates/toolbar.html';
 import toolbarStyles from '../../styles/toolbar.scss';
 
-/**
-* @access protected
-*/
 const Toolbar = Module({
     name: 'Toolbar',
     dom: {

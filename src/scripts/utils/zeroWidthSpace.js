@@ -1,12 +1,13 @@
 // jshint strict: false
-/**
-* @access protected
-*/
+
 const zeroWidthSpaceEntity = '&ZeroWidthSpace;';
 
 /**
-* @access protected
-*/
+ * zeroWidthSpace -
+ * utililties for generating and asserting zeroWidthSpace entities used as bookend
+ * hooks when dynamically setting selection range around content.
+ * @access protected
+ */
 const zeroWidthSpace = {
     generate () {
         let tmpEl = document.createElement('span');
