@@ -1,9 +1,11 @@
 /**
- * A config object. Was meant to be more than this. Will revise.
- * At the moment it just specifies that the defalt block type is "P"
- *
+ * The main config.
  * @access protected
  * @module config/config
+ *
+ * @example
+ * config.defaultBlock = "P" // the defaultBlock formatting to use when creating a new line etc.
+ * config.blockElementName = [ ... ] // a list of all the expected block level element names.
  */
 
 export default {

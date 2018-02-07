@@ -1,5 +1,38 @@
 // jshint strict: false
 
+/**
+ * Canvas -
+ * Provides a canvas and inteface methods to allow for manipulation of the content
+ * in a sandbox to avoid contaminating the current editor and the undo/redo history
+ *
+ * @access protected
+ * @module modules/Canvas
+ *
+ * @example
+ * // Available requests and commands
+ * requests: {
+ *     'canvas:document' : 'getCanvasDocument',
+ *     'canvas:window' : 'getCanvasWindow',
+ *     'canvas:body' : 'getCanvasBody',
+ *     'canvas:formatted:block': 'getFormattedBlock',
+ *     'canvas:selection:coordinates' : 'getSelectionCoordinates',
+ *     'canvas:selection': 'getSelection',
+ *     'canvas:selection:in:or:contains': 'selectionInOrContains'
+ * },
+ * commands: {
+ *     'canvas:content' : 'setContent',
+ *     'canvas:insert:range' : 'insertRange',
+ *     'canvas:insert:node' : 'insertNode',
+ *     'canvas:select:all' : 'selectAll',
+ *     'canvas:select:by:coordinates' : 'selectByCoordinates',
+ *     'canvas:import:selection' : 'importSelection',
+ *     'canvas:export:prep': 'exportPrep',
+ *     'canvas:export:all': 'exportAll',
+ *     'canvas:cache:selection': 'cacheSelection',
+ *     'canvas:select:cachedSelection': 'selectCachedSelection',
+ *     'canvas:select:ensure:offsets': 'ensureSelectionOffsets'
+ * },
+ */
 import Module from '../core/Module';
 import DOM from '../utils/DOM';
 import zeroWidthSpace from '../utils/zeroWidthSpace';

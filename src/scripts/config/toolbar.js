@@ -1,13 +1,14 @@
-// jshint strict: false
-
+/**
+ * The toolbar config. NB could do with a revision, some of the props in here could
+ * be moved to the main config.
+ * @access protected
+ * @module config/toolbar
+ */
 import linkIcon from '../../templates/icons/link.html';
 import orderedlistIcon from '../../templates/icons/orderedlist.html';
 import unorderedlistIcon from '../../templates/icons/unorderedlist.html';
 import quoteIcon from '../../templates/icons/quote.html';
 
-/**
-* @access protected
-*/
 const Toolbar = {
     buttons: ['bold', 'italic', 'h1', 'h2', 'orderedlist', 'unorderedlist', 'quote', 'link'],
     preventNewlineDefault: ['ul', 'ol'],
@@ -106,12 +107,12 @@ const Toolbar = {
 
         superscript: {
             formatter: 'text:superscript',
-            content: 'x<sup>1</sup>'
+            content: '<sup>1</sup>'
         },
 
         subscript: {
             formatter: 'text:subscript',
-            content: 'x<sub>1</sub>'
+            content: '<sub>1</sub>'
         },
 
         // Paragraph styles

@@ -1,12 +1,51 @@
 // jshint strict: false
 
+/**
+ * Module -
+ * A factory for building module classes.
+ * Modules are built up from a module dictionary/object.
+ *
+ * @module core/Module
+ * @access protected
+ *
+ * @example
+ * import Module from '../core/Module'
+ * const MyModule = Module({
+ *   name: 'MyModule', // Required
+ *
+ *   // An object that is mixed into the module context that is bound to the methods
+ *   props: {
+ *     foo: "bar" // -> this.foo inside methods
+ *   },
+ *
+ *   requiredProps: ['foo'], // An array listing the keys of props that are required
+ *
+ *   // An object map used to declare handler strings ~> method names: @see core/Mediator
+ *   handlers: {
+ *     requests: {},
+ *     commands: {},
+ *     events: {},
+ *     domEvents: {}
+ *   },
+ *
+ *   // An object map used to get dom elements and cache them to keys on the contect
+ *   dom: {
+ *     'myModuleElem': '.my-module-elem' // Accessable via this.dome.myModule
+ *   },
+ *
+ *   // An object of methods to be bound to the module's context
+ *   methods: {
+ *     setup () {}, // The module setup hook. Called before the module initialized
+ *     init () {} // The init hook. Called once the modules has been initialized,
+ *     ... // The rest is up to the developer
+ *  }
+ * })
+ */
+
 import Context from './Context';
 import func from '../utils/func';
 import DOM from '../utils/DOM';
 
-/**
-* @access protected
-*/
 const Module = function (moduleObj) {
     const {
         name: moduleName,
