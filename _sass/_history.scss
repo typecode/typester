@@ -21,14 +21,21 @@
 
         &:first-child {
             width: 66.66%;
-
+            
+            @media #{$notphone} {
+                padding-left: calc(#{$gutter} + #{$overview-bullets-side-margin});
+            }
+            @media #{$tablet} {
+                width: 100%;
+                padding-right: calc(#{$gutter} + #{$overview-bullets-side-margin});
+            }
             @media #{$phone} {
                 width: 100%;
             }
         }
         &:last-child {
             width: 33.33%;
-            @media #{$phone} {
+            @media #{$mobile} {
                 display: none;
             }
         }
@@ -44,7 +51,7 @@
         }
 
         p:not(.steps) {
-            max-width: 40rem;
+            max-width: 30rem;
         }
     }
 

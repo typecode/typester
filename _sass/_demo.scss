@@ -91,13 +91,4 @@
             color: $green;
         }
     }
-
-    ::selection {
-      background: $cadet_blue; /* WebKit/Blink Browsers */
-      color: $white;
-    }
-    ::-moz-selection {
-      background: $cadet_blue; /* WebKit/Blink Browsers */
-      color: $white;
-    }
 }

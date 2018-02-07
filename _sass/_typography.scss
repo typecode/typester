@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6, nav a, .btn, blockquote {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    line-height: 1.1em;
+    line-height: 1.05em;
     margin-bottom: 2rem;
     letter-spacing: -0.02em;
 }
@@ -70,6 +70,10 @@ a {
     text-decoration-skip: ink;
 }
 
+pre, code {
+    white-space: pre-line;
+}
+
 code {
     @include mono();
     line-height: 1.4em;
@@ -77,8 +81,9 @@ code {
 
 figure {
     margin-bottom: 1.4rem;
-    padding-top: 1rem;
+    padding: 2rem 3rem;
     border-radius: $borderradius;
+    box-sizing: border-box;
 }
 
 li {
@@ -147,10 +152,21 @@ blockquote {
 }
 
 ::selection {
-    background: $green;
-    color: $white;
+    background: $cosmiclatte-dk;
+    color: $cosmiclatte-lt;
 }
 ::-moz-selection {
-    background: $green;
-    color: $white;
+    background: $cosmiclatte-dk;
+    color: $cosmiclatte-lt;
+}
+
+[contenteditable] {
+    ::selection {
+        background: $green;
+        color: $cosmiclatte-lt;
+    }
+    ::-moz-selection {
+        background: $green;
+        color: $cosmiclatte-lt;
+    }
 }

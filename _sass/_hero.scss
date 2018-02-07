@@ -4,6 +4,8 @@
   }
 }
 
+$overview-bullets-side-margin: 5rem;
+
 .hero {
     text-align: center;
     display: flex;
@@ -54,6 +56,10 @@
             font-size: 9vw;
         }
 
+        ol, ul {
+            list-style-position: inside;
+        }
+
         a {
             text-decoration: underline;
         }
@@ -72,7 +78,7 @@
     }
 
     .overview {
-        margin: 5vh auto 3rem;
+        margin: 5vh 0 3rem;
         color: $cosmiclatte-xdk;
 
         h2 {
@@ -86,6 +92,11 @@
             }
         }
 
+        h1 {
+            color: $green;
+            font-size: 3.5rem;
+        }
+
         .overview-top {
             max-width: 46rem;
             margin: 0 auto;
@@ -97,13 +108,14 @@
                 flex-wrap: wrap;
                 position: relative;
                 margin-top: 4rem;
+                margin-left: 0;
             }
             li {
                 flex-grow: 1;
                 text-align: left;
                 box-sizing: border-box;
                 width: 33.333%;
-                padding: 0 5rem 3rem;
+                padding: 0 $overview-bullets-side-margin 3rem;
                 list-style: none;
                 position: relative;
 
@@ -112,11 +124,12 @@
                 }
                 @media #{$tablet-sm-or-smaller} {
                     width: auto;
-                    padding-left: 2.5rem;
-                    padding-right: 0;
+                    padding-right: 1rem;
+                    padding-left: 3.5rem;
                 }
 
                 &:before {
+                    content: '👻';
                     position: absolute;
                     width: 3.5rem;
                     left: 0rem;
@@ -127,7 +140,7 @@
                     text-align: right;
                     
                     @media #{$tablet-sm-or-smaller} {
-                        left: -1rem;
+                        left: -0.5rem;
                         text-align: left;
                     }
 
@@ -181,7 +194,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: $cosmiclatte-xdk;
+        background: $cosmiclatte-dk;
         padding: 0.7em 5em;
         color: $white;
         @include sans(bold);
@@ -190,12 +203,11 @@
         font-variant: small-caps;
         letter-spacing: 0.2em;
         transform: rotate(-45deg) translate3d(-6.5em, 0, 0);
-        box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
         transition: box-shadow 400ms;
 
         &:hover {
             background: $green;
-            box-shadow: 7px 7px 20px transparentize($darkgrey, 0.85);
+            box-shadow: 7px 7px 20px transparentize($cosmiclatte-xxxdk, 0.85);
         }
     }
 
