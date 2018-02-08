@@ -1,51 +1,20 @@
 /**
-* @access protected
-*/
+ * The main config.
+ * @access protected
+ * @module config/config
+ *
+ * @example
+ * config.defaultBlock = "P" // the defaultBlock formatting to use when creating a new line etc.
+ * config.blockElementName = [ ... ] // a list of all the expected block level element names.
+ */
+
 export default {
-    commands: {
-        bold: {
-            tags: ['B', 'STRONG'],
-            togglable: true
-        },
-        italic: {
-            tags: ['I'],
-            togglable: true
-        },
-        formatBlock: {
-            tags: [
-                'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P',
-                'BLOCKQUOTE'
-            ],
-            unwrapIfIn: [
-                'bold',
-                'formatBlock',
-                'insertOrderedList',
-                'insertUnorderedList'
-            ]
-        },
-        insertOrderedList: {
-            tags: ['OL', 'LI'],
-            unwrapIfIn: [
-                'formatBlock'
-            ],
-            togglable: true
-        },
-        insertUnorderedList: {
-            tags: ['UL', 'LI'],
-            unwrapIfIn: [
-                'formatBlock'
-            ],
-            togglable: true
-        },
-        createLink: {
-            tags: ['A']
-        }
-    },
     defaultBlock: 'P',
-    paste: {
-        invalidTags: ['SCRIPT', 'LINK', 'IMG']
-    },
-    global: {},
-    toolbar: {},
-    contentEditable: {}
+    blockElementNames: [
+        'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li', 'p', 'pre',
+        'address', 'article', 'aside', 'canvas', 'dd', 'div', 'dl', 'dt',
+        'fieldset', 'figcaption', 'figure', 'footer', 'form', 'header', 'hgroup',
+        'hr', 'main', 'nav', 'noscript', 'output', 'section', 'table', 'tfoot',
+        'video'
+    ]
 };

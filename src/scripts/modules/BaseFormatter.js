@@ -1,5 +1,27 @@
 // jshint strict: false
 
+
+/**
+ * BaseFormatter -
+ * A collection of the common formatter methods.
+ * @access protected
+ * @module modules/BaseFormatter
+ *
+ * @example
+ * // Available commands
+ * commands: {
+ *     'format:export:to:canvas': 'exportToCanvas',
+ *     'format:import:from:canvas': 'importFromCanvas',
+ *     'format:default': 'formatDefault',
+ *     'format:clean': 'formatClean'
+ * }
+ *
+ * // Usage
+ * mediator.exec('format:export:to:canvas'); // Export editor's content to canvas
+ * mediator.exec('format:import:from:canvas'); // Import content from canvas
+ * mediator.exec('format:default'); // Apply the default block formatting to the selection
+ * mediator.exec('format:clean', elem); // Clean the HTML inside elem
+ */
 import Module from '../core/Module';
 import commands from '../utils/commands';
 import DOM from '../utils/DOM';
@@ -11,9 +33,6 @@ let validTags = toolbarConfig.getValidTags();
 let blockTags = toolbarConfig.getBlockTags();
 let listTags  = toolbarConfig.getListTags();
 
-/**
-* @access protected
-*/
 const BaseFormatter = Module({
     name: 'BaseFormatter',
     props: {},
@@ -32,6 +51,12 @@ const BaseFormatter = Module({
     methods: {
         init () {},
 
+        /**
+         * @func exportToCanvas
+         * @access protected
+         * @description mediator.exec("format:export:to:canvas") - Selects the content from the current editor root element and
+         * sends it to the canvas
+         */
         exportToCanvas () {
             const { mediator } = this;
             const rootElement = mediator.get('selection:rootelement');
@@ -46,27 +71,13 @@ const BaseFormatter = Module({
             this.removeZeroWidthSpaces(canvasBody);
         },
 
-        cloneNodes (rootElement) {
-            let clonedNodes = [];
-            rootElement.childNodes.forEach((node) => {
-                clonedNodes.push(node.cloneNode(true));
-            });
-            return clonedNodes;
-        },
-
-        injectHooks (rootElement) {
-            while (!/\w+/.test(rootElement.firstChild.textContent)) {
-                DOM.removeNode(rootElement.firstChild);
-            }
-
-            while(!/\w+/.test(rootElement.lastChild.textContent)) {
-                DOM.removeNode(rootElement.lastChild);
-            }
-
-            DOM.insertBefore(zeroWidthSpace.get(), rootElement.firstChild);
-            DOM.insertAfter(zeroWidthSpace.get(), rootElement.lastChild);
-        },
-
+        /**
+         * @func importFromCanvas
+         * @access protected
+         * @description mediator.exec("format:import:from:canvas", { importFilter() }) - Imports the content from the canvas and replaces the current editor's
+         * content via a past execCommand
+         * @param  {method} opts.importFilter optional - a filter method that will be given a reference to the canvasBody allowing for custom manipulation of the formatted content.
+         */
         importFromCanvas (opts={}) {
             const { mediator } = this;
             const canvasBody = mediator.get('canvas:body');
@@ -86,11 +97,65 @@ const BaseFormatter = Module({
             mediator.emit('import:from:canvas:complete');
         },
 
+        /**
+         * @func formatDefault
+         * @access protected
+         * @description mediator.exec("format:default") - Applies the default formatting to the current selection or line
+         */
         formatDefault () {
             const { mediator } = this;
             const rootElem = mediator.get('selection:rootelement');
             commands.defaultBlockFormat();
             this.removeStyledSpans(rootElem);
+        },
+
+        /**
+         * @func formatClean
+         * @access protected
+         * @description mediator.exec("format:clean") - Cleans up the html in the current editor.
+         */
+        formatClean (rootElem) {
+            this.unwrapInvalidElements(rootElem);
+            this.defaultOrphanedTextNodes(rootElem);
+            this.removeBrNodes(rootElem);
+            this.ensureRootElems(rootElem);
+            this.removeStyleAttributes(rootElem);
+            this.removeEmptyNodes(rootElem, { recursive: true });
+
+            // -----
+
+            // this.removeBrNodes(rootElem);
+            // // this.removeEmptyNodes(rootElem);
+            // this.removeFontTags(rootElem);
+            // this.removeStyledSpans(rootElem);
+            // this.clearEntities(rootElem);
+            // this.removeZeroWidthSpaces(rootElem);
+            // this.defaultOrphanedTextNodes(rootElem);
+            // this.removeEmptyNodes(rootElem, { recursive: true });
+        },
+
+        /**
+         * PRIVATE METHODS:
+         */
+        cloneNodes (rootElement) {
+            let clonedNodes = [];
+            rootElement.childNodes.forEach((node) => {
+                clonedNodes.push(node.cloneNode(true));
+            });
+            return clonedNodes;
+        },
+
+        injectHooks (rootElement) {
+            while (!/\w+/.test(rootElement.firstChild.textContent)) {
+                DOM.removeNode(rootElement.firstChild);
+            }
+
+            while(!/\w+/.test(rootElement.lastChild.textContent)) {
+                DOM.removeNode(rootElement.lastChild);
+            }
+
+            DOM.insertBefore(zeroWidthSpace.get(), rootElement.firstChild);
+            DOM.insertAfter(zeroWidthSpace.get(), rootElement.lastChild);
         },
 
         formatEmptyNewLine () {
@@ -142,26 +207,6 @@ const BaseFormatter = Module({
             } else if (containerIsEmpty || isContentEditable) {
                 this.formatEmptyNewLine();
             }
-        },
-
-        formatClean (rootElem) {
-            this.unwrapInvalidElements(rootElem);
-            this.defaultOrphanedTextNodes(rootElem);
-            this.removeBrNodes(rootElem);
-            this.ensureRootElems(rootElem);
-            this.removeStyleAttributes(rootElem);
-            this.removeEmptyNodes(rootElem, { recursive: true });
-
-            // -----
-
-            // this.removeBrNodes(rootElem);
-            // // this.removeEmptyNodes(rootElem);
-            // this.removeFontTags(rootElem);
-            // this.removeStyledSpans(rootElem);
-            // this.clearEntities(rootElem);
-            // this.removeZeroWidthSpaces(rootElem);
-            // this.defaultOrphanedTextNodes(rootElem);
-            // this.removeEmptyNodes(rootElem, { recursive: true });
         },
 
         removeStyleAttributes (rootElem) {

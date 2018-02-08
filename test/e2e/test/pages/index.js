@@ -179,7 +179,7 @@ var pageCommands = {
 };
 
 module.exports = {
-    url: 'http://app/',
+    url: 'http://test_app/',
     commands: [pageCommands],
     elements: {
         contentEditable: {

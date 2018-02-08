@@ -1,5 +1,29 @@
 // jshint strict: false
 
+/**
+ * BlockFormatter -
+ * Formatter responsible for handling block level formatting for: P, Blockquote
+ * H1, H2, H3, etc.
+ *
+ * @access protected
+ * @module modules/BlockFormatter
+ *
+ * @example
+ * // Available commands
+ * commands: {
+ *   'format:block': 'formatBlock'
+ * }
+ *
+ * mediator.exec('format:block', { style: 'H1' }); // Format selection to a H1 heading
+ * mediator.exec('format:block', { style: 'BLOCKQUOTE' }); // Format selection to a blockquote
+ *
+ * // Other options include
+ * { style: 'H1' } // H2, H3...H6
+ * { style: 'P' }
+ * { style: 'BLOCKQUOTE' }
+ * { style: 'PRE' }
+ */
+
 import Module from '../core/Module';
 import commands from '../utils/commands';
 import DOM from '../utils/DOM';

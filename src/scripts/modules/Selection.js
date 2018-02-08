@@ -7,10 +7,50 @@
  *
  * @access protected
  * @module modules/Selection
+ *
+ * @example
+ * // Available requests / commands:
+ *
+ * requests: {
+ *     'selection:current': 'getCurrentSelection',
+ *     'selection:range': 'getCurrentRange',
+ *     'selection:anchornode': 'getAnchorNode',
+ *     'selection:commonancestor': 'getCommonAncestor',
+ *     'selection:closestblock': 'getClosestBlock',
+ *     'selection:rootelement': 'getRootElement',
+ *     'selection:range:clone': 'getRangeClone',
+ *     'selection:bounds': 'getSelectionBounds',
+ *     'selection:range:relative:toroot': 'getRangeRelativeToRoot',
+ *     'selection:in:or:contains': 'inOrContains',
+ *     'selection:range:coordinates': 'rangeCoordinates',
+ *     'selection:contains:node': 'containsNode',
+ *     'selection:spans:multiple:blocks': 'spansMultipleBlocks'
+ * },
+ *
+ * commands: {
+ *     'selection:set:contextWindow': 'setContextWindow',
+ *     'selection:set:contextDocument': 'setContextDocument',
+ *     'selection:set:el': 'setRootElement',
+ *     'selection:expand:toroot': 'expandToRoot',
+ *     'selection:update:range': 'updateRange',
+ *     'selection:wrap:element': 'wrapElement',
+ *     'selection:wrap:content': 'wrapContent',
+ *     'selection:wrap:pseudo': 'wrapPseudoSelect',
+ *     'selection:select:pseudo': 'selectPseudo',
+ *     'selection:select:remove:pseudo': 'removePseudo',
+ *     'selection:collapse:tostart': 'collapseToStart',
+ *     'selection:reselect': 'reSelect',
+ *     'selection:select:contents': 'selectContents',
+ *     'selection:collapse:toend': 'collapseToEnd',
+ *     'selection:select:all': 'selectAll',
+ *     'selection:select:coordinates': 'selectByCoordinates',
+ *     'selection:ensure:text:only' : 'ensureTextOnlySelection',
+ *     'selection:deselect': 'deSelect'
+ * }
  */
 
 import Module from '../core/Module';
-import formattersConfig from '../config/formatters';
+import config from '../config/config';
 import toolbarConfig from '../config/toolbar';
 
 import DOM from '../utils/DOM';
@@ -181,7 +221,7 @@ const Selection = Module({
             while (!closestBlockEl && !this.isContentEditable(currentNode) && currentNode) {
                 if (currentNode.nodeType === Node.ELEMENT_NODE) {
                     let nodeTagName = currentNode.tagName.toLowerCase();
-                    if (formattersConfig.base.blockElementNames.indexOf(nodeTagName) > -1) {
+                    if (config.blockElementNames.indexOf(nodeTagName) > -1) {
                         closestBlockEl = currentNode;
                     } else {
                         currentNode = currentNode.parentNode;

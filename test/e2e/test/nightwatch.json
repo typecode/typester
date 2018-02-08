@@ -15,7 +15,7 @@
         "delete_on_success": false,
         "path": "videos"
       },
-      "launch_url": "http://app",
+      "launch_url": "http://app/",
       "selenium_host": "chromedriver"
     }
   }

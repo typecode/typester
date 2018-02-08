@@ -1,10 +1,17 @@
 // jshint strict: false
 
+ /**
+  * Mouse -
+  * Responsible for tracking the up/down state of the mouse button
+  * @access protected
+  * @module modules/Mouse
+  *
+  * @example
+  * mediator.get('mouse:is:down'); // Returns true if mouse button is down.
+  */
+
 import Module from '../core/Module';
 
-/**
-* @access protected
-*/
 const Mouse = Module({
     name: 'Mouse',
     props: {

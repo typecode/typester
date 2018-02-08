@@ -1,13 +1,30 @@
 // jshint strict: false
+
+/**
+ * Flyout -
+ * A utility module to control the flyout DOM element that is used to wrap tooltips
+ * and floating toolbars.
+ * @access protected
+ * @module modules/Flyout
+ *
+ * @example
+ * const flyout = mediator.get('flyout:new');
+ * flyout.clearContent();
+ * flyout.show();
+ * flyout.appendContent(domElement);
+ * flyout.position({ left: '100px', top: '100px' });
+ * flyout.setPlacement('above'); // or 'below'
+ *
+ * // ... later ...
+ * flyout.hide();
+ * flyout.remove();
+ */
 import Module from '../core/Module';
 import DOM from '../utils/DOM';
 
 import flyoutTemplate from '../../templates/flyout.html';
 import flyoutStyles from '../../styles/flyout.scss';
 
-/**
-* @access protected
-*/
 const Flyout = Module({
     name: 'Flyout',
     dom: {},

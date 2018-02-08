@@ -1,11 +1,28 @@
 {
-  "name": "typester",
-  "version": "1.0.0",
-  "description": "",
+  "name": "typester-editor",
+  "version": "0.0.1",
+  "description": "A simple to use wysiwyg text editor inspired by Medium and Medium Editor that gives you clean and predictable html from your user's input.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/typecode/typester"
+  },
+  "homepage": "https://typecode.github.io/typester/",
+  "keywords": [
+      "wysiwyg",
+      "typester",
+      "rich text editor",
+      "typester-editor",
+      "medium",
+      "medium-editor",
+      "wysiwyg-editor",
+      "html editor",
+      "html text editor",
+      "contenteditable"
+  ],
   "main": "build/js/typester.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start karma.conf.js",
-    "test_ci": "NODE_ENV=ci /node_modules/karma/bin/karma start karma.conf.js",
+    "test": "yarn test_unit && yarn test_e2e",
+    "test_unit": "./node_modules/karma/bin/karma start karma.conf.js",
     "test_e2e": "cd ./test/e2e && docker-compose run --rm nightwatch",
     "build": "rollup -c",
     "watch": "./node_modules/.bin/watch \"npm run build\" src/",
@@ -14,8 +31,11 @@
     "local_server": "cd ./test/server && docker-compose up server",
     "docs_server": "yarn docs && cd ./docs && docker-compose up docs_server"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Fred Every <fred@fredevery.co.za>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/typecode/typester/issues"
+  },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
     "babel-core": "^6.26.0",

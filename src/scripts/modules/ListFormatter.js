@@ -1,12 +1,21 @@
 // jshint strict: false
 
+
+/**
+ * ListFormatter -
+ * Responsible for the creation, cleanup, and removal of lists.
+ * @access protected
+ * @module modules/ListFormatter
+ *
+ * @example
+ * mediator.exec('format:list', { style: 'ordered'}); // Toggle ordered list on current selection
+ * mediator.exec('format:list', { style: 'unordered'}); // Toggle unordered list on current selection
+ * mediator.exec('format:list:cleanup', domElement); // Find all lists and clean them up
+ */
 import Module from '../core/Module';
 import commands from '../utils/commands';
 import DOM from '../utils/DOM';
 
-/**
-* @access protected
-*/
 const ListFormatter = Module({
     name: 'ListFormatter',
     props: {},

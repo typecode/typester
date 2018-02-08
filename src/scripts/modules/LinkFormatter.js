@@ -1,5 +1,17 @@
 // jshint strict: false
 
+
+/**
+ * LinkFormatter -
+ * Responsible for handlding the creation, updating, and removal of links
+ * @access protected
+ * @module modules/LinkFormatter
+ *
+ * @example
+ * mediator.exec('format:link'); // Remove link if already a link, otherwise show link toolbar flyout.
+ * mediator.request('format:link:active'); // returns true if selection is in or wraps a link.
+ */
+ 
 import Module from '../core/Module';
 import commands from '../utils/commands';
 import DOM from '../utils/DOM';
@@ -9,9 +21,6 @@ import linkDisplayTemplate from '../../templates/linkDisplay.html';
 
 import inputFormStyles from '../../styles/inputForm.scss';
 
-/**
-* @access protected
-*/
 const LinkFormatter = Module({
     name: 'LinkFormatter',
     props: {

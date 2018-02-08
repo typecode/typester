@@ -3,6 +3,7 @@ coverage/
 node_modules/
 _notes_/
 docs/site/
+docs/src/
 
 yarn-error.log
 npm-debug.log

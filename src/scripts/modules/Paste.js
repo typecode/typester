@@ -1,14 +1,18 @@
 // jshint strict: false
 
+/**
+ * Paste -
+ * Handle paste event. Capture paste data, clean it and sanitize it in canvas
+ * before importing it into the editor.
+ * @access protected
+ * @module modules/Paste
+ */
 import DOMPurify from 'dompurify';
 
 import Module from '../core/Module';
 import pasteUtils from '../utils/paste';
 import DOM from '../utils/DOM';
 
-/**
-* @access protected
-*/
 const Paste = Module({
     name: 'Paste',
     props: {},

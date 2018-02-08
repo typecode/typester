@@ -1,10 +1,13 @@
 // jshint strict: false
+
+/**
+ * commands -
+ * utility to abstract the interface for document.execCommand
+ * @access protected
+ */
 import conf from '../config/config';
 import browser from './browser';
 
-/**
-* @access protected
-*/
 const commands = {
     exec (command, value=null, contextDocument=document) {
         if (command === 'formatBlock') {

@@ -1,8 +1,10 @@
 // jshint strict: false
 
 /**
-* @access protected
-*/
+ * func -
+ * namespaced collection of utililty methods for binding function contexts.
+ * @access protected
+ */
 const func = {
     bind (func, context) {
         return (...args) => {

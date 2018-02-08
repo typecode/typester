@@ -1,8 +1,10 @@
 // jshint strict: false
 
 /**
-* @access protected
-*/
+ * browser -
+ * a utility to check browser version.
+ * @access protected
+ */
 const browser = {
     // From https://codepen.io/gapcode/pen/vEJNZN
     ieVersion () {
