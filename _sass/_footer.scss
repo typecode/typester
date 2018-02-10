@@ -1,11 +1,15 @@
 footer {
     display: flex;
     position: relative;
-    padding: $gutter;
+    padding: $section-vertmargins $gutter;
     background: $cosmiclatte-lt;
     color: $cosmiclatte-xdk;
     align-items: stretch;
     @include mono();
+
+    @media #{$phone} {
+        flex-wrap: wrap;
+    }
 
     .footer-panel {
         box-sizing: border-box;
@@ -13,6 +17,11 @@ footer {
         &:first-child {
             width: 67%;
             padding-right: $column-width;
+
+            @media #{$phone} {
+                width: 100%;
+                padding-right: 0;
+            }
         }
 
         &:last-child {
@@ -21,6 +30,12 @@ footer {
             display: flex;
             align-items: flex-end;
             padding-left: $column-width;
+
+            @media #{$phone} {
+                padding-left: 0;
+                width: 100%;
+                border-left: none;
+            }
 
             p {
                 margin-bottom: 1em;
