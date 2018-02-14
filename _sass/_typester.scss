@@ -1,0 +1,21 @@
+.typester-toolbar ul {
+    margin-left: 0;
+}
+.typester-flyout .typester-flyout-content {
+    background: $cosmiclatte-xdk !important;
+}
+.typester-toolbar .typester-menu-item.s--active {
+    background: $green !important;
+}
+.typester-toolbar .typester-menu-item:not(.s--active):hover {
+    background: $cosmiclatte-dk !important;
+}
+.typester-flyout.place-above .typester-flyout-content:after {
+    border-top-color: $cosmiclatte-xdk !important;
+}
+.typester-flyout.place-below .typester-flyout-content:after {
+    border-bottom-color: $cosmiclatte-xdk !important;
+}
+.typester-toolbar li a {
+    text-decoration: none;
+}

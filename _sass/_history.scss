@@ -1,10 +1,9 @@
 .history {
-    background-color: $mandy;
-    color: $white;
+    background-color: $cosmiclatte;
+    color: $cosmiclatte-xxdk;
     display: flex;
     align-items: center;
     min-height: 0;
-    padding: 0 5vw;
     box-sizing: border-box;
 
     &.show-icon {
@@ -17,45 +16,69 @@
     }
 
     .history-panel {
-        width: 50%;
         box-sizing: border-box;
-        padding: 10vw 5vw;
+        padding: $section-vertmargins $gutter;
+
+        &:first-child {
+            width: 66.66%;
+            
+            @media #{$notphone} {
+                padding-left: calc(#{$gutter} + #{$overview-bullets-side-margin});
+            }
+            @media #{$tablet} {
+                width: 100%;
+                padding-right: calc(#{$gutter} + #{$overview-bullets-side-margin});
+            }
+            @media #{$phone} {
+                width: 100%;
+            }
+        }
+        &:last-child {
+            width: 33.33%;
+            @media #{$mobile} {
+                display: none;
+            }
+        }
 
         svg {
-            width: 30vw;
+            width: 100%;
             height: auto;
-            fill: $pattens_blue;
+            fill: $cosmiclatte-lt;
             opacity: 0;
             transform: scale(0.5);
             display: block;
             transition: opacity 700ms, transform 700ms;
         }
+
+        p:not(.steps) {
+            max-width: 30rem;
+        }
     }
 
     h2 {
+        @include sans(bold);
+        color: $green;
+        position: relative;
+        max-width: 10em;
         &::after {
-            content: '|';
-            animation: blink-animation 1s steps(5, start) infinite;
-            transform: scale(1, 1.2) translateY(-5%);
-            display: inline-block;
+            @include flashing-caret($green)
+        }
+    }
+    .history-panel:focus h2 {
+        &::after {
+            visibility: hidden;
         }
     }
 
     .solution-step {
         display: inline-block;
-        font-family: 'Roboto Slab', serif;
+        @include sans(regular);
         border: 1px solid;
         padding: 0.5em 1em;
         margin-top: 1em;
-        background: $white;
-        border-color: $white;
-        color: $mandy;
-    }
-
-    ::selection {
-      background: $cadet_blue; /* WebKit/Blink Browsers */
-    }
-    ::-moz-selection {
-      background: $cadet_blue; /* WebKit/Blink Browsers */
+        background: $cosmiclatte-lt;
+        border-color: $cosmiclatte-lt;
+        color: $green;
+        border-radius: $borderradius;
     }
 }

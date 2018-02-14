@@ -1,6 +1,7 @@
 .install {
-    // background-color: $chocolate;
-    padding: 5vw;
+    background-color: $green;
+    color: $cosmiclatte-lt;
+    padding: $section-vertmargins $gutter;
     box-sizing: border-box;
     overflow: hidden;
     display: flex;
@@ -15,12 +16,17 @@
     }
 
     .instructions {
-        max-width: 1200px;
+        max-width: 45rem;
         margin: 0 auto;
         text-align: center;
     }
 
     pre {
         text-align: left;
+    }
+
+    figure {
+        max-width: 100vw - 2*$column-width;
+        overflow-x: auto;
     }
 }

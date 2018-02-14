@@ -1,57 +1,41 @@
 <section class='hero' id='overview'>
     <div class='titles'>
         <div class='main-title' contenteditable="" spellcheck="false">
-            <h1>Typester</h1>
+            <h1>typester</h1>
         </div>
         <div class='overview'>
-            <div class='left' contenteditable="true">
-                <h2>
-                    A simple to use WYSIWYG text editor inspired by Medium and
-                    Medium Editor that gives you clean and predictable HTML from
-                    your user's input.
-                </h2>
-                <p>
-                    We've worked diligently to make sure that Typester is a robust
-                    editor that is flexible, powerful, and above all simple. We have
-                    designed it to do what its meant to do, do it well, and then
-                    stay out of the way.
-                </p>
-                <p>
-                    It has also been designed to be as lean as possible, both in
-                    size and resource consumption. Typester has only one third party
-                    dependency, DOMPurify. Every other code requirement, from DOM
-                    traversal and manipulation to event handling, was developed bespoke
-                    for this package. No unused code here.
-                </p>
+            <div class='overview-top' contenteditable='true'>
+                <h2>A simple to use <strong>WYSIWYG</strong> text editor inspired by Medium and Medium Editor that gives you clean and predictable <strong>HTML</strong> from your user's input.</h2>
             </div>
-            <div class='right' contenteditable="true">
+
+
+            <div class='overview-bullets' contenteditable="true">
                 <ul>
                     <li>
-                        <b>Single file import (batteries included)</b><br />
-                        No need to import separate stylesheets and additional dependencies.
-                        Typester comes with everything it needs rolled into one
-                        JS file.
+                        <p><b>Flexible, fast, &amp; fabulous</b></p>
+                        <p>We&apos;ve worked diligently to make sure that Typester is a robust editor that is flexible, powerful, and above all simple. We have designed it to do what its meant to do, do it well, and then stay out of the way.</p>
                     </li>
                     <li>
-                        <b>Engineered for modern JS modules</b><br />
-                        Typester has been created using ES6+ JavaScript module patterns
-                        which means you need only import it and instantiate it. If you
-                        still prefer <code>&lt;script&gt;</code> imports that's fine too
-                        Typester will bind itself to the global scope allowing you to
-                        <code>new window.Typester({ /* options */ })</code>.
+                        <p><b>No unused code here</b></p>
+                        <p>Typester has been designed to be as lean as possible, both in size and resource consumption. Typester has only one third party dependency, DOMPurify. Every other code requirement, from DOM traversal and manipulation to event handling, was developed bespoke for this package.</p>
                     </li>
                     <li>
-                        <b>Minimal DOM footprint</b><br />
-                        It wont clutter your beautifully laid out markup with multiple
-                        DOM injections for each editor instance. Need multiple editors
-                        on a single page? No problem, typester will inject single instances
-                        of its DOM requirements which will be shared between the editors.
+                        <p><b>Engineered for modern modules</b></p>
+                        <p>Typester has been created using ES6+ JavaScript module patterns which means you need only import it and instantiate it. If you still prefer <code>&lt;script&gt;</code> imports that's fine too Typester will bind itself to the global scope allowing you to <code>new window.Typester({ /* options */ })</code>.</p>
                     </li>
                     <li>
-                        <b>Pure XSS-free DOM powered by <a href='https://github.com/cure53/DOMPurify' target='_blank'>DOMPurify</a></b><br />
-                        Typester, thanks to the awesome power of DOMPurify, will give
+                        <p><b>Minimal DOM footprint</b></p>
+                        <p>It won&apos;t clutter your beautifully laid out markup with multiple DOM injections for each editor instance. Need multiple editors on a single page? No problem, typester will inject single instances of its DOM requirements which will be shared between the editors.</p>
+                    </li>
+                    <li>
+                        <p><b>Single file import (batteries included)</b></p>
+                        <p>No need to import separate stylesheets and additional dependencies. Typester comes with everything it needs rolled into one JS file.</p>
+                    </li>
+                    <li>
+                        <p><b>Pure XSS-free DOM powered by <a href='https://github.com/cure53/DOMPurify' target='_blank'>DOMPurify</a></b></p>
+                        <p>Typester, thanks to the awesome power of DOMPurify, will give
                         make sure that the HTML you receive is sanitized against
-                        XSS exploits.
+                        XSS exploits.</p>
                     </li>
                 </ul>
             </div>
@@ -63,14 +47,13 @@
         </div>
 
         <div class='typecode'>
-            <p>Brought to you by:</p>
-            {% include svg/tclogo.html %}
+            <p>Brought to you by: <a href='//typecode.com' target='_blank'>Type/Code</a></p>
         </div>
     </div>
 
     <div class='fork-ribbon'>
         <a href='https://github.com/typecode/typester' target='_blank'>
-            Fork us on GitHub
+            F**k us on GitHub
         </a>
     </div>
 </section>
