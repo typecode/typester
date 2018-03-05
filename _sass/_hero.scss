@@ -16,7 +16,7 @@ $overview-bullets-side-margin: 5rem;
 
     .titles {
         max-width: 90vw;
-        margin: 25vh $gutter 50vh;
+        margin: 25vh $gutter $section-vertmargins;
     }
 
     .main-title {
@@ -138,7 +138,7 @@ $overview-bullets-side-margin: 5rem;
                     @include glyphish();
                     color: $green;
                     text-align: right;
-                    
+
                     @media #{$tablet-sm-or-smaller} {
                         left: -0.5rem;
                         text-align: left;
@@ -188,7 +188,7 @@ $overview-bullets-side-margin: 5rem;
 
     .hero-links {
         margin-bottom: 2rem;
-    }    
+    }
 
     .fork-ribbon {
         position: absolute;

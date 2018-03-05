@@ -209,27 +209,8 @@ var Nav = function (ref) {
 };
 
 var Hero = function (opts) {
-    var animation = opts.animation;
-
     var heroSectionEl = document.querySelector('section.hero');
     var titlesEl = heroSectionEl.querySelector('.titles');
-
-    var prevScrollTop = null;
-    var heroScroll = function (opts) {
-        var scroll = opts.scroll;
-        var bounds = opts.bounds;
-        if (scroll.top === prevScrollTop) { return; }
-
-        var offsetTop = bounds.top - scroll.top;
-        var travelDist = scroll.height * 0.6;
-        var scrollRatio = offsetTop / bounds.height;
-        var travelRatio = travelDist * scrollRatio;
-
-        heroSectionEl.style.opacity = scrollRatio < -0.6 ? 1.3 + scrollRatio : 1;
-        titlesEl.style.transform = 'translateY(' + Math.round(0 - travelRatio) + 'px)';
-
-        prevScrollTop = scroll.top;
-    };
 
     var setSelection = function () {
         var selection = window.getSelection();
@@ -244,7 +225,6 @@ var Hero = function (opts) {
     };
 
     setTimeout(setSelection, 300);
-    var heroAnimation = animation.animate(heroSectionEl, heroScroll);
 };
 
 var History = function (ref) {
@@ -420,34 +400,10 @@ var Demo = function (opts) {
 };
 
 var Install = function (opts) {
-    var animation = opts.animation;
-
-    var installSectionEl = document.querySelector('section.install');
-    var contentWrapperEl = installSectionEl.querySelector('.content-wrapper');
-
-    var prevScrollTop = null;
-    var installScroll = function (opts) {
-        var scroll = opts.scroll;
-        var bounds = opts.bounds;
-
-        if (scroll.top === prevScrollTop) { return; }
-
-        var offsetTop = bounds.top - scroll.top;
-        var travelDist = Math.round(scroll.height * 0.1);
-        var scrollRatio = offsetTop / bounds.height;
-        var travelRatio = travelDist * scrollRatio;
-
-        contentWrapperEl.style.opacity = Math.min(1, 1 - scrollRatio);
-        contentWrapperEl.style.transform = "translateY(" + (Math.round(0 - offsetTop - travelRatio)) + "px)";
-
-        prevScrollTop = scroll.top;
-    };
-
-    animation.animate(installSectionEl, installScroll);
+    // Nothing to see here. Move along.
 };
 
 // Utils
-// Modules
 var animation = Animation();
 animation.start();
 
