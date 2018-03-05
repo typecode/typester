@@ -1,54 +1,11 @@
 <section class='history' id='history'>
-    <div class='history-panel' contenteditable="true" markdown='1'>
+    <div class='history-panel' contenteditable="true">
         <h2>Another WYSIWYG? But why?</h2>
         <p>
-            This is the question we asked ourselves as well before setting out to
-            write this package. With over 576 results when searching for "wysiwyg"
-            on npmjs.com what could possibly possess us to take on the challenge
-            of writing another from scratch?
+            <b>Typester</b> evolved out of work we were doing during the development of <a href='https://typecode.com/mit-media-lab/' target='_blank'>a custom content management system for the MIT Media Lab</a>. A common use case at the <a href='https://media.mit.edu'>Media Lab</a> that we needed to support was the pasting in of content from external text editors (such as Microsoft Word and Google Docs), and we discovered that third-party WYSIWYG implementations tend to break down when it comes to handling the messy markup that those editors emit. To address this, we came up with our own technique that involves performing complex formatting and cleanup operations under the hood, in a way that ensures consistent and sane markup, while still maintaining accurate edit (undo/redo) history as text is being manipulated.
         </p>
         <p>
-            To be honest: None of the ones we looked at and played with
-            did the trick for us. Either they were too stringent in their layout,
-            or too complex in their execution, or they are in some way tainted by
-            their heavy reliance on the browser <code>execCommand()</code> output
-            which, for all its power, is slave to the various browser quirks and
-            oddities that cause malformed and dirty HTML output.
-        </p>
-        <p>
-            We are, as most, quite taken by the simplicity of the editor developed
-            by the team at Medium.com for their authoring tools. And so we began by using the
-            <a href='https://yabwe.github.io/medium-editor/' taget='_blank'>medium-editor</a>
-            developed by <a href='https://github.com/yabwe/medium-editor' target='_blank'>yabwe</a>.
-            And it served use well for the most part, and to yabwe we tip our hat.
-            The work that the contributors did on that package was incredible.
-        </p>
-        <p>
-            That said, however, we still found ourselves wanting. The medium-editor
-            package relied too heavily on the <code>execCommand()</code> output
-            as well as having some UI issues that we weren't able to rectify via
-            the API it exposed, and we weren't willing to hack into their code to get
-            what we wanted.
-        </p>
-        <p>
-            And what did we want? Clean and predictable HTML regardless of the browser
-            used to input the content. And so after much deliberation we began
-            crafting our own solution.
-        </p>
-        <p class='steps'>
-            A solution that would:<br />
-            <b class='solution-step'>Take user input</b> &rarr;
-            <b class='solution-step'>process and standardize it</b> &rarr;
-            <b class='solution-step'>sanitize it</b> &rarr;
-            <b class='solution-step'>return awesome HTML</b>
-        </p>
-        <p>
-            All while refining the UI experience.
-        </p>
-        <p>
-            And that is a very brief history, and explanation, of why we invested
-            our time and energy into producing, what we feel is, a pretty damn
-            good WYSIWYG that we like to call: <b>Typester</b>
+            After its initial success in the Media Lab project, we decided to make Typester a standalone package so that we can continue to use and improve it in future projects, and release it into the wild!
         </p>
     </div>
     <div class='history-panel'>
