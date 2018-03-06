@@ -1,4 +1,4 @@
-# Typester
+# Typester ([typecode.github.io/typester](https://typecode.github.io/typester))
 A simple to use WYSIWYG text editor inspired by Medium and Medium Editor that gives you clean and predictable HTML from your user's input.
 
 - **Single file import (batteries included):**
