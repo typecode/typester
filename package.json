@@ -1,6 +1,6 @@
 {
   "name": "typester-editor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple to use wysiwyg text editor inspired by Medium and Medium Editor that gives you clean and predictable html from your user's input.",
   "repository": {
     "type": "git",
@@ -8,16 +8,16 @@
   },
   "homepage": "https://typecode.github.io/typester/",
   "keywords": [
-      "wysiwyg",
-      "typester",
-      "rich text editor",
-      "typester-editor",
-      "medium",
-      "medium-editor",
-      "wysiwyg-editor",
-      "html editor",
-      "html text editor",
-      "contenteditable"
+    "wysiwyg",
+    "typester",
+    "rich text editor",
+    "typester-editor",
+    "medium",
+    "medium-editor",
+    "wysiwyg-editor",
+    "html editor",
+    "html text editor",
+    "contenteditable"
   ],
   "main": "build/js/typester.js",
   "scripts": {
