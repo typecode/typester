@@ -17,7 +17,7 @@ title: Typester
 email: fred@typecode.com
 description: >- # this means to ignore newlines until "baseurl:"
   A wysiwyg editor that returns clean and predictable html.
-baseurl: "/typester" # the subpath of your site, e.g. /blog
+baseurl: "/" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username:
 github_username:  typecode
