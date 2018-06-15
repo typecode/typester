@@ -146,6 +146,26 @@ const Flyout = Module({
             } else {
                 flyout.el.style.display = 'block';
             }
+
+            setTimeout(() => {
+                this.ensureFlyoutInView(flyout);
+            }, 17);
+        },
+
+        ensureFlyoutInView (flyout) {
+            const flyoutBounds = flyout.el.getBoundingClientRect();
+            const flyoutArrow = flyout.el.querySelector('.typester-flyout-arrow');
+
+            if (flyoutBounds.left < 0) {
+                flyout.el.style.left = flyoutBounds.width / 2 + 10 + 'px';
+                flyoutArrow.style.left = flyoutBounds.width / 2 - Math.abs(flyoutBounds.left) - 10 + 'px';
+            } else if (flyoutBounds.right > window.innerWidth) {
+                const rightOffset = window.innerWidth - flyoutBounds.right;
+                flyout.el.style.left = window.innerWidth - (flyoutBounds.width / 2) - 10 + 'px';
+                flyoutArrow.style.left = flyoutBounds.width / 2 + Math.abs(rightOffset) + 10 + 'px';
+            } else {
+                flyoutArrow.style.left = null;
+            }
         },
 
         hideFlyout (flyout) {
