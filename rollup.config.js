@@ -6,12 +6,14 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import handlebars from 'rollup-plugin-handlebars-plus';
 import scss from 'rollup-plugin-sass';
+import { uglify } from 'rollup-plugin-uglify';
+import gzip from 'rollup-plugin-gzip';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 
 export default {
     entry: 'src/scripts/index.js',
-    dest: 'build/js/typester.js',
+    dest: (process.env.BUILD === 'production' ? 'build/js/typester.min.js' : 'build/js/typester.js'),
     format: 'umd',
     moduleName: 'Typester',
     sourceMap: true,
@@ -40,6 +42,8 @@ export default {
         }),
         babel({
             exclude: 'node_modules/**'
-        })
+        }),
+        (process.env.BUILD === 'production' && uglify()),
+        (process.env.BUILD === 'production' && gzip())
     ]
 };
