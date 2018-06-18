@@ -308,8 +308,8 @@ const Canvas = Module({
             // this.exportPrep();
 
             let innerHTML = canvasBody.innerHTML;
-            innerHTML = innerHTML.replace(/\s{2,}/g, ' ');
-            innerHTML = innerHTML.replace(/\r?\n|\r/g, '');
+            // innerHTML = innerHTML.replace(/\s{2,}/g, ' ');
+            // innerHTML = innerHTML.replace(/\r?\n|\r/g, '');
 
             mediator.exec('contenteditable:inserthtml', innerHTML);
         },
@@ -348,13 +348,17 @@ const Canvas = Module({
                     DOM.insertAfter(defaultNode, node);
                     defaultNode.appendChild(node);
                     DOM.unwrap(node);
-                } if (
+                }
+
+                if (
                     (node.classList && node.classList.contains('typester-container')) ||
                     (node.nodeName === 'SPAN' && node.hasAttribute('style')) ||
                     node.nodeName === 'FONT' || node.nodeName === 'DIV'
                 ) {
                     DOM.unwrap(node);
                 }
+
+
             }
         },
 

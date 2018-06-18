@@ -152,8 +152,18 @@ const DOM = {
         return htmlNode;
     },
 
+    prependTo(selector, tag) {
+        const htmlNode = DOM.isElement(tag) ? tag : document.createElement(tag);
+        const targetEl = DOM.get(selector)[0];
+        const targetElFirstChild = targetEl.firstElementChild;
+
+        targetEl.insertBefore(htmlNode, targetElFirstChild);
+
+        return htmlNode;
+    },
+
     addStyles(styles) {
-        const styleEl = DOM.appendTo('head', 'style');
+        const styleEl = DOM.prependTo('head', 'style');
 
         styleEl.setAttribute('id', 'typester-styles');
         styleEl.setAttribute('type', 'text/css');
@@ -519,6 +529,19 @@ const DOM = {
         }
 
         return childIndex;
+    },
+
+    trimNodeText (node) {
+      node.childNodes.forEach((childNode) => {
+        if (childNode.nodeType === Node.TEXT_NODE) {
+          childNode.textContent = childNode.textContent
+                                           .replace(/\s{2,}/g, ' ')
+                                           .replace(/\r?\n|\r/g, '')
+                                           .trim();
+        } else {
+          DOM.trimNodeText(childNode);
+        }
+      });
     },
 
     //Pseudo-private methods

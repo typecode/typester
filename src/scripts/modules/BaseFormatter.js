@@ -65,6 +65,10 @@ const BaseFormatter = Module({
 
             const rangeCoordinates = mediator.get('selection:range:coordinates');
             const clonedNodes = this.cloneNodes(rootElement);
+            clonedNodes.forEach((node) => {
+              DOM.trimNodeText(node);
+            });
+
             mediator.exec('canvas:content', clonedNodes);
             mediator.exec('canvas:select:by:coordinates', rangeCoordinates);
 
@@ -91,7 +95,7 @@ const BaseFormatter = Module({
 
             const canvasSelectionCoordinates = mediator.get('canvas:selection:coordinates');
             mediator.exec('selection:select:all');
-            mediator.exec('contenteditable:inserthtml', canvasBody.innerHTML);
+            mediator.exec('canvas:export:all');
             mediator.exec('selection:select:coordinates', canvasSelectionCoordinates);
 
             mediator.emit('import:from:canvas:complete');
