@@ -140,8 +140,54 @@
                 });
               });
 
+              const indentation = function (multiplier) {
+                let spaces = '';
+                for (let i = 0; i < multiplier * 2; i++) {
+                  spaces += '  ';
+                }
+                return spaces;
+              };
+
+              const generateHtmlText = function (node, opts) {
+                const clonedNode = node.cloneNode();
+                let htmlText = '';
+
+                opts = opts || {
+                  indentation: 0
+                };
+
+                clonedNode.innerText = '|';
+                const [openTag, closeTag] = opts.includeNodeTags ? clonedNode.outerHTML.split('|') : clonedNode.innerText.split('|');
+                const appendHtmlText = function (newHtmlText, currentIndentation, newLine) {
+                  htmlText = htmlText + indentation(currentIndentation) + newHtmlText;
+                  if (newLine) {
+                    htmlText = htmlText + '\r\n';
+                  }
+                };
+
+                appendHtmlText(openTag, opts.indentation, true);
+
+                node.childNodes.forEach(function (childNode) {
+                  if (childNode.nodeType === Node.TEXT_NODE) {
+                    if (childNode.textContent.trim().length) {
+                      appendHtmlText(childNode.textContent.trim(), opts.indentation + 1, true);
+                    }
+                  } else {
+                    appendHtmlText(generateHtmlText(childNode, {
+                      indentation: opts.indentation + 1,
+                      includeNodeTags: true
+                    }));
+                  }
+                });
+
+                appendHtmlText(closeTag, opts.indentation, true);
+
+                return htmlText;
+              };
+
               const updateInspector = function () {
                 let targetEl;
+                let innerText = '';
 
                 switch (currentInspectorTarget) {
                   case 'canvas':
@@ -152,8 +198,8 @@
                     targetEl = contentEditable;
                     break;
                 }
-
-                contentInspector.innerText = targetEl.innerHTML.replace(/></g, ">\r\n<");
+                generateHtmlText(targetEl);
+                contentInspector.innerText = generateHtmlText(targetEl);
                 hljs.highlightBlock(contentInspector);
                 requestAnimationFrame(updateInspector);
               };
