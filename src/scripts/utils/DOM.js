@@ -532,16 +532,16 @@ const DOM = {
     },
 
     trimNodeText (node) {
-      node.childNodes.forEach((childNode) => {
-        if (childNode.nodeType === Node.TEXT_NODE) {
-          childNode.textContent = childNode.textContent
-                                           .replace(/\s{2,}/g, ' ')
-                                           .replace(/\r?\n|\r/g, '')
-                                           .trim();
-        } else {
-          DOM.trimNodeText(childNode);
-        }
-      });
+        node.childNodes.forEach((childNode) => {
+            if (childNode.nodeType === Node.TEXT_NODE) {
+                childNode.textContent = childNode.textContent
+                                                 .replace(/\s{2,}/g, ' ')
+                                                 .replace(/\r?\n|\r/g, '')
+                                                 .trim();
+            } else {
+                DOM.trimNodeText(childNode);
+            }
+        });
     },
 
     //Pseudo-private methods

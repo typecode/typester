@@ -66,7 +66,7 @@ const BaseFormatter = Module({
             const rangeCoordinates = mediator.get('selection:range:coordinates');
             const clonedNodes = this.cloneNodes(rootElement);
             clonedNodes.forEach((node) => {
-              DOM.trimNodeText(node);
+                DOM.trimNodeText(node);
             });
 
             mediator.exec('canvas:content', clonedNodes);
