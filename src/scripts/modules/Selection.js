@@ -501,7 +501,7 @@ const Selection = Module({
         getSelectionBounds () {
             const currentRange = this.getCurrentRange();
             const rangeRects = currentRange ? currentRange.getClientRects() : [];
-            const rangeBoundingClientRect = currentRange ? currentRange.getBoundingClientRect() : null;
+            // const rangeBoundingClientRect = currentRange ? currentRange.getBoundingClientRect() : null;
 
             let selectionBounds = {
                 top: null,
@@ -536,10 +536,11 @@ const Selection = Module({
             };
 
             const setInitialBoundary = function (rangeRect) {
-                if (rangeBoundingClientRect) {
-                    selectionBounds.initialLeft = rangeBoundingClientRect.left;
-                    selectionBounds.initialWidth = rangeBoundingClientRect.width;
-                } else if (rangeRect.top === selectionBounds.top) {
+                // if (rangeBoundingClientRect) {
+                //     selectionBounds.initialLeft = rangeBoundingClientRect.left;
+                //     selectionBounds.initialWidth = rangeBoundingClientRect.width;
+                // } else
+                if (rangeRect.top === selectionBounds.top) {
                     if (selectionBounds.initialLeft === null) {
                         selectionBounds.initialLeft = rangeRect.left;
                     } else {
