@@ -102,7 +102,7 @@ const Toolbar = {
 
         strikethrough: {
             formatter: 'text:strikethrough',
-            content: '<s>A</s>'
+            content: '<s>Abc</s>'
         },
 
         superscript: {

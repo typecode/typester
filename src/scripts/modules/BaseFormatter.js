@@ -64,10 +64,7 @@ const BaseFormatter = Module({
             this.injectHooks(rootElement);
 
             const rangeCoordinates = mediator.get('selection:range:coordinates');
-            const clonedNodes = this.cloneNodes(rootElement);
-            clonedNodes.forEach((node) => {
-                DOM.trimNodeText(node);
-            });
+            const clonedNodes = DOM.cloneNodes(rootElement, { trim: true });
 
             mediator.exec('canvas:content', clonedNodes);
             mediator.exec('canvas:select:by:coordinates', rangeCoordinates);
@@ -141,14 +138,6 @@ const BaseFormatter = Module({
         /**
          * PRIVATE METHODS:
          */
-        cloneNodes (rootElement) {
-            let clonedNodes = [];
-            rootElement.childNodes.forEach((node) => {
-                clonedNodes.push(node.cloneNode(true));
-            });
-            return clonedNodes;
-        },
-
         injectHooks (rootElement) {
             while (!/\w+/.test(rootElement.firstChild.textContent)) {
                 DOM.removeNode(rootElement.firstChild);
@@ -235,9 +224,10 @@ const BaseFormatter = Module({
                 const isLastChild = brNode === brNode.parentNode.lastChild;
                 const isDoubleBreak = brNode.nextSibling && brNode.nextSibling.nodeName === 'BR';
                 const isInBlock = DOM.isIn(brNode, blockTags, rootElem);
+                const isOrphan = brNode.parentNode === rootElem;
 
-                if (isLastChild) {
-                    brNodesToRemove.push(isLastChild);
+                if (isLastChild || isOrphan) {
+                    brNodesToRemove.push(brNode);
                     return;
                 }
 
@@ -291,8 +281,9 @@ const BaseFormatter = Module({
                 let isInvalid = validTags.indexOf(currentNode.nodeName) < 0;
                 let isBrNode = currentNode.nodeName === 'BR'; // BR nodes are handled elsewhere
                 let isTypesterElem = currentNode.className && /typester/.test(currentNode.className);
+                let isElement = currentNode.nodeType !== Node.TEXT_NODE;
 
-                if (isInvalid && !isBrNode && !isTypesterElem) {
+                if (isInvalid && !isBrNode && !isTypesterElem && isElement) {
                     invalidElements.unshift(currentNode);
                 }
             }
@@ -312,6 +303,7 @@ const BaseFormatter = Module({
 
         defaultOrphanedTextNodes (rootElem) {
             const { childNodes } = rootElem;
+
             for (let i = 0; i < childNodes.length; i++) {
                 let childNode = childNodes[i];
                 if (childNode.nodeType === Node.TEXT_NODE && /\w+/.test(childNode.textContent)) {

@@ -30,6 +30,7 @@ import FormatterContainer from '../containers/FormatterContainer';
 import CanvasContainer from '../containers/CanvasContainer';
 import ContentEditable from '../modules/ContentEditable';
 import Selection from '../modules/Selection';
+import Config from '../modules/Config';
 
 let uiContainer, formatterContainer, canvasContainer;
 
@@ -53,6 +54,9 @@ const AppContainer = Container({
         },
         {
             class: Selection
+        },
+        {
+            class: Config
         }
     ],
 

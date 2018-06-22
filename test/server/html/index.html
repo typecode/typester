@@ -115,7 +115,12 @@
         <script>
           const contentEditable = document.getElementById('content-editable');
           new Typester({
-              el: contentEditable
+              el: contentEditable,
+              configs: {
+                // toolbar: {
+                //   buttons: ['bold', 'italic', 'h1', 'h2', 'orderedlist', 'unorderedlist', 'quote', 'link']
+                // }
+              }
           });
         </script>
 
@@ -167,7 +172,7 @@
                   }
                 };
 
-                appendHtmlText(openTag, opts.indentation, true);
+                appendHtmlText(openTag || '<no-open-tag>', opts.indentation, true);
 
                 node.childNodes.forEach(function (childNode) {
                   if (childNode.nodeType === Node.TEXT_NODE) {
@@ -182,7 +187,7 @@
                   }
                 });
 
-                appendHtmlText(closeTag, opts.indentation, true);
+                appendHtmlText(closeTag || '</no-close-tag open-tag="' + openTag + '">', opts.indentation, true);
 
                 return htmlText;
               };

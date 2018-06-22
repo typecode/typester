@@ -535,17 +535,48 @@ const DOM = {
         return childIndex;
     },
 
+    cloneNodes (rootElem, opts={}) {
+        let clonedNodes = [];
+        rootElem.childNodes.forEach((node) => {
+            const clonedNode = node.cloneNode(true);
+            clonedNodes.push(node.cloneNode(true));
+        });
+
+        if (opts.trim) {
+            clonedNodes.forEach((node) => {
+                DOM.trimNodeText(node);
+            });
+        }
+
+        return clonedNodes;
+    },
+
     trimNodeText (node) {
-        node.childNodes.forEach((childNode) => {
-            if (childNode.nodeType === Node.TEXT_NODE) {
-                childNode.textContent = childNode.textContent
-                                                 .replace(/\s{2,}/g, ' ')
-                                                 .replace(/\r?\n|\r/g, '')
-                                                 .trim();
-            } else {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const trimmedText = node.textContent
+                                    .replace(/\s{2,}/g, ' ')
+                                    .replace(/\r?\n|\r/g, '')
+                                    .trim();
+            node.textContent = trimmedText;
+        } else {
+            node.childNodes.forEach((childNode) => {
                 DOM.trimNodeText(childNode);
+            });
+        }
+    },
+
+    nodesToHTMLString (nodes) {
+        let HTMLString = '';
+
+        nodes.forEach((node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                HTMLString += node.textContent;
+            } else {
+                HTMLString += node.outerHTML;
             }
         });
+
+        return HTMLString;
     },
 
     //Pseudo-private methods
