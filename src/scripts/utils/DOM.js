@@ -537,8 +537,8 @@ const DOM = {
 
     cloneNodes (rootElem, opts={}) {
         let clonedNodes = [];
+
         rootElem.childNodes.forEach((node) => {
-            const clonedNode = node.cloneNode(true);
             clonedNodes.push(node.cloneNode(true));
         });
 

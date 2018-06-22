@@ -16,8 +16,7 @@ const Config = Module({
 
     methods: {
         setup () {},
-        init () {
-        },
+        init () {},
 
         getToolbarButtons () {
             const { mediator, configs } = this;

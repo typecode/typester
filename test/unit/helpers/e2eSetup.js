@@ -31,7 +31,6 @@ const e2eSetup = function () {
     new UIContainer({ mediator });
     new CanvasContainer({ mediator });
 
-
     return {
         mediator,
         editableEl

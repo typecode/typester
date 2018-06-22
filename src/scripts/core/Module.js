@@ -224,7 +224,7 @@ const Module = function (moduleObj) {
             let moduleConfigs = {};
 
             moduleAcceptsConfigs.forEach((configKey) => {
-                moduleConfigs[configKey] = optsConfigs[configKey] || {}
+                moduleConfigs[configKey] = optsConfigs[configKey] || {};
             });
 
             context.extendWith({ configs: moduleConfigs });
