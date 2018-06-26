@@ -51,9 +51,6 @@
  */
 
 import Module from '../core/Module';
-import config from '../config/config';
-import toolbarConfig from '../config/toolbar';
-
 import DOM from '../utils/DOM';
 
 /**
@@ -216,14 +213,16 @@ const Selection = Module({
         },
 
         getClosestBlock () {
+            const { mediator } = this;
             const commonAncestor = this.getCommonAncestor();
+            const blockElementNames = mediator.get('config:blockElementNames');
             let closestBlockEl = null;
             let currentNode = commonAncestor;
 
             while (!closestBlockEl && !this.isContentEditable(currentNode) && currentNode) {
                 if (currentNode.nodeType === Node.ELEMENT_NODE) {
                     let nodeTagName = currentNode.tagName.toLowerCase();
-                    if (config.blockElementNames.indexOf(nodeTagName) > -1) {
+                    if (blockElementNames.indexOf(nodeTagName) > -1) {
                         closestBlockEl = currentNode;
                     } else {
                         currentNode = currentNode.parentNode;
@@ -741,13 +740,14 @@ const Selection = Module({
     },
 
     spansMultipleBlocks () {
+        const { mediator } = this;
         const {
             anchorNode,
             focusNode
         } = this.getCurrentSelection();
 
         const rootElem = this.getRootElement();
-        const blockTagNames = toolbarConfig.getBlockTags();
+        const blockTagNames = mediator.get('config:toolbar:blockTags');
 
         const anchorBlock = DOM.getClosestInArray(anchorNode, blockTagNames, rootElem);
         const focusBlock = DOM.getClosestInArray(focusNode, blockTagNames, rootElem);

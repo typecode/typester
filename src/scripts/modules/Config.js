@@ -1,16 +1,22 @@
 import Module from '../core/Module';
 import toolbarConfig from '../config/toolbar';
+import config from '../config/config';
 
 const Config = Module({
     name: 'Config',
     props: {},
     acceptsConfigs: ['toolbar'],
 
-
     handlers: {
         requests: {
             'config:toolbar:buttons' : 'getToolbarButtons',
-            'config:toolbar:buttonConfig' : 'getToolbarButtonConfig'
+            'config:toolbar:buttonConfig' : 'getToolbarButtonConfig',
+            'config:toolbar:validTags' : 'getToolbarValidTags',
+            'config:toolbar:blockTags' : 'getToolbarBlockTags',
+            'config:toolbar:listTags' : 'getToolbarListTags',
+            'config:toolbar:preventNewlineDefault' : 'getToolbarPreventNewlineDefault',
+            'config:blockElementNames' : 'getConfigBlockElementNames',
+            'config:defaultBlock' : 'getDefaultBlock'
         }
     },
 
@@ -40,6 +46,30 @@ const Config = Module({
 
         getToolbarButtonConfig (buttonConfigKey) {
             return toolbarConfig.buttonConfigs[buttonConfigKey];
+        },
+
+        getToolbarValidTags () {
+            return toolbarConfig.getValidTags();
+        },
+
+        getToolbarBlockTags () {
+            return toolbarConfig.getBlockTags();
+        },
+
+        getToolbarListTags () {
+            return toolbarConfig.getListTags();
+        },
+
+        getToolbarPreventNewlineDefault () {
+            return toolbarConfig.preventNewlineDefault;
+        },
+
+        getConfigBlockElementNames () {
+            return config.blockElementNames;
+        },
+
+        getDefaultBlock () {
+            return config.defaultBlock;
         }
     }
 });

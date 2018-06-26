@@ -79,10 +79,6 @@ const AppContainer = Container({
          * @protected
          */
         setup: function () {
-            const { mediator } = this;
-            formatterContainer = formatterContainer || new FormatterContainer({ mediator });
-            uiContainer = uiContainer || new UIContainer({ mediator });
-            canvasContainer = canvasContainer || new CanvasContainer({ mediator });
         },
 
         /**
@@ -92,6 +88,10 @@ const AppContainer = Container({
          */
         init () {
             // Current nothing to init for this container. Method left here for ref.
+            const { mediator } = this;
+            formatterContainer = formatterContainer || new FormatterContainer({ mediator });
+            uiContainer = uiContainer || new UIContainer({ mediator });
+            canvasContainer = canvasContainer || new CanvasContainer({ mediator });
         },
 
         /**

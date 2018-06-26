@@ -24,6 +24,7 @@ import BlockFormatter from '../modules/BlockFormatter';
 import TextFormatter from '../modules/TextFormatter';
 import ListFormatter from '../modules/ListFormatter';
 import LinkFormatter from '../modules/LinkFormatter';
+import Commands from '../modules/Commands';
 import Paste from '../modules/Paste';
 
 /**
@@ -42,6 +43,9 @@ const FormatterContainer = Container({
      * @enum {Array<{class:Module}>} modules
      */
     modules: [
+        {
+            class: Commands
+        },
         {
             class: BaseFormatter
         },

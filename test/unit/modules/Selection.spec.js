@@ -2,6 +2,7 @@
 
 import Mediator from '../../../src/scripts/core/Mediator';
 import Selection from '../../../src/scripts/modules/Selection';
+import Config from '../../../src/scripts/modules/Config';
 import selectionHelper from '../helpers/selection';
 
 describe('modules/Selection', () => {
@@ -25,6 +26,7 @@ describe('modules/Selection', () => {
                 el: editableEl
             }
         });
+        new Config({ mediator });
     });
 
     it('should return the current selection', () => {

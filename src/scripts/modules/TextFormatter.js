@@ -11,7 +11,6 @@
  * mediator.exec('format:text', { style: 'italic' });
  */
 import Module from '../core/Module';
-import commands from '../utils/commands';
 
 const TextFormatter = Module({
     name: 'TextFormatter',
@@ -39,7 +38,10 @@ const TextFormatter = Module({
         },
 
         process (opts) {
-            commands.exec(opts.style, null);
+            const { mediator } = this;
+            mediator.exec('commands:exec', {
+                command: opts.style
+            });
         },
 
         postProcess () {

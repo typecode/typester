@@ -16,7 +16,6 @@
  */
 import Module from '../core/Module';
 import DOM from '../utils/DOM';
-import toolbarConfig from '../config/toolbar';
 
 import toolbarTemplate from '../../templates/toolbar.html';
 import toolbarStyles from '../../styles/toolbar.scss';
@@ -229,7 +228,7 @@ const Toolbar = Module({
             const { mediator } = this;
             const { configKey } = toolbarMenuItem.dataset;
 
-            const config = toolbarConfig.buttonConfigs[configKey];
+            const config = mediator.get('config:toolbar:buttonConfig', configKey);
 
             const activeIn = config.activeIn || [];
             const disabledIn = config.disabledIn || [];

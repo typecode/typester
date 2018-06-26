@@ -13,7 +13,6 @@
  * mediator.exec('format:list:cleanup', domElement); // Find all lists and clean them up
  */
 import Module from '../core/Module';
-import commands from '../utils/commands';
 import DOM from '../utils/DOM';
 
 const ListFormatter = Module({
@@ -53,38 +52,41 @@ const ListFormatter = Module({
             switch (opts.style) {
             case 'ordered':
                 toggle = mediator.get('selection:in:or:contains', ['OL']);
-                if (toggle) {
-                    // this.prepListItemsForToggle();
-                    // while (mediator.get('canvas:selection:in:or:contains', ['OL'])) {
-                    //     commands.exec('outdent', null, canvasDoc);
-                    // }
-                    // commands.exec('insertOrderedList', null, canvasDoc);
-                    // return;
-                } else if (mediator.get('selection:in:or:contains', ['UL'])) {
-                    commands.exec('insertUnorderedList', null, canvasDoc);
+                if (mediator.get('selection:in:or:contains', ['UL'])) {
+                    mediator.exec('commands:exec', {
+                        command: 'insertUnorderedList',
+                        contextDocument: canvasDoc
+                    });
                 }
-                commands.exec('insertOrderedList', null, canvasDoc);
+                mediator.exec('commands:exec', {
+                    command: 'insertOrderedList',
+                    contextDocument: canvasDoc
+                });
                 break;
             case 'unordered':
                 toggle = mediator.get('selection:in:or:contains', ['UL']);
-                if (toggle) {
-                    // this.prepListItemsForToggle();
-                    // while (mediator.get('canvas:selection:in:or:contains', ['UL'])) {
-                    //     commands.exec('outdent', null, canvasDoc);
-                    // }
-                    // commands.exec('insertUnorderedList', null, canvasDoc);
-                    // return;
-                }
                 if (mediator.get('selection:in:or:contains', ['OL'])) {
-                    commands.exec('insertOrderedList', null, canvasDoc);
+                    mediator.exec('commands:exec', {
+                        command: 'insertOrderedList',
+                        contextDocument: canvasDoc
+                    });
                 }
-                commands.exec('insertUnorderedList', null, canvasDoc);
+                mediator.exec('commands:exec', {
+                    command: 'insertUnorderedList',
+                    contextDocument: canvasDoc
+                });
                 break;
             case 'outdent':
-                commands.exec('outdent', null, canvasDoc);
+                mediator.exec('commands:exec', {
+                    command: 'outdent',
+                    contextDocument: canvasDoc
+                });
                 break;
             case 'indent':
-                commands.exec('indent', null, canvasDoc);
+                mediator.exec('commands:exec', {
+                    command: 'indent',
+                    contextDocument: canvasDoc
+                });
                 break;
             }
 
