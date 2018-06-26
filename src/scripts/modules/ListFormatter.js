@@ -123,9 +123,9 @@ const ListFormatter = Module({
                 evnt.preventDefault();
 
                 if (evnt.shiftKey) {
-                    // this.formatList({ style: 'outdent' });
+                    this.formatList({ style: 'outdent' });
                 } else {
-                    // this.formatList({ style: 'indent' });
+                    this.formatList({ style: 'indent' });
                 }
             }
         },

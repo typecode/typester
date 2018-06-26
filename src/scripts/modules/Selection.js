@@ -295,6 +295,12 @@ const Selection = Module({
             let startCoordinates = [];
             let endCoordinates = [];
 
+            const startTrimmablePrefix = startContainer.textContent.match(/^(\r?\n|\r)?(\s+)?/);
+            const endTrimmablePrefix = endContainer.textContent.match(/^(\r?\n|\r)?(\s+)?/);
+
+            startOffset -= startTrimmablePrefix ? startTrimmablePrefix[0].length : 0;
+            endOffset -= endTrimmablePrefix ? endTrimmablePrefix[0].length : 0;
+
             startCoordinates.unshift(startOffset);
             endCoordinates.unshift(endOffset);
 
