@@ -1,3 +1,5 @@
+// jshint strict: false
+
 import Mediator from '../../../src/scripts/core/Mediator';
 import Config from '../../../src/scripts/modules/Config';
 
