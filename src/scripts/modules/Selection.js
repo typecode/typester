@@ -501,6 +501,9 @@ const Selection = Module({
         getSelectionBounds () {
             const currentRange = this.getCurrentRange();
             const rangeRects = currentRange ? currentRange.getClientRects() : [];
+            // NB: This seems to be unnecessary. It's used later for logic that is causing incorrect toolbar alignment.
+            // Have commented out in case this is actually required for something else.
+            // - Fred
             // const rangeBoundingClientRect = currentRange ? currentRange.getBoundingClientRect() : null;
 
             let selectionBounds = {
@@ -536,6 +539,10 @@ const Selection = Module({
             };
 
             const setInitialBoundary = function (rangeRect) {
+                // NB: I have commented this out because it is causing inaccurate toolbar alignment.
+                // I am leaving it here for now in case it was actually meant for something that I
+                // can't recall right now.
+                //  - Fred
                 // if (rangeBoundingClientRect) {
                 //     selectionBounds.initialLeft = rangeBoundingClientRect.left;
                 //     selectionBounds.initialWidth = rangeBoundingClientRect.width;
