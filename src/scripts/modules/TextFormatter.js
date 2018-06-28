@@ -28,7 +28,7 @@ const TextFormatter = Module({
         formatText (opts) {
             this.preProcess();
             this.process(opts);
-            this.postProcess();
+            this.postProcess(opts);
         },
 
         preProcess () {
@@ -44,11 +44,22 @@ const TextFormatter = Module({
             });
         },
 
-        postProcess () {
+        postProcess (opts) {
             const { mediator } = this;
 
             mediator.exec('contenteditable:refocus');
-            // mediator.exec('selection:reselect');
+
+            if (opts.toggle) {
+                this.normalize();
+            }
+        },
+
+        normalize () {
+            const { mediator } = this;
+            const currentSelection = mediator.get('selection:current');
+            const parentElement = currentSelection.anchorNode.parentElement;
+            parentElement.normalize();
+            console.log('ping');
         }
     }
 });
