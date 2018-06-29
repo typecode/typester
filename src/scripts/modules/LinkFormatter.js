@@ -11,7 +11,7 @@
  * mediator.exec('format:link'); // Remove link if already a link, otherwise show link toolbar flyout.
  * mediator.request('format:link:active'); // returns true if selection is in or wraps a link.
  */
- 
+
 import Module from '../core/Module';
 import commands from '../utils/commands';
 import DOM from '../utils/DOM';
@@ -20,12 +20,12 @@ import inputFormTemplate from '../../templates/inputForm.html';
 import linkDisplayTemplate from '../../templates/linkDisplay.html';
 
 import inputFormStyles from '../../styles/inputForm.scss';
+import linkDisplayStyles from '../../styles/linkDisplay.scss';
 
 const LinkFormatter = Module({
     name: 'LinkFormatter',
     props: {
         urlRegex: /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
-        styles: null,
         currentAnchor: null,
         active: false,
         hasMouse: false,
@@ -66,8 +66,8 @@ const LinkFormatter = Module({
         },
 
         appendStyles () {
-            const { props } = this;
-            props.styles = DOM.addStyles(inputFormStyles);
+            DOM.addStyles(inputFormStyles);
+            DOM.addStyles(linkDisplayStyles);
         },
 
         formatLink () {
@@ -121,6 +121,7 @@ const LinkFormatter = Module({
 
         hideFlyout () {
             const { props } = this;
+
             props.hideTimeout = setTimeout(() => {
                 if (!this.isActive() && props.hasRendered) {
                     this.destroy();
@@ -151,12 +152,12 @@ const LinkFormatter = Module({
 
         compileLinkDisplay (data) {
             const wrapperEl = document.createElement('div');
-            let inputFormHTML = linkDisplayTemplate(data);
+            let linkDisplayHTML = linkDisplayTemplate(data);
 
-            if (typeof inputFormHTML === 'string') {
-                wrapperEl.innerHTML = inputFormHTML;
+            if (typeof linkDisplayHTML === 'string') {
+                wrapperEl.innerHTML = linkDisplayHTML;
             } else {
-                wrapperEl.appendChild(inputFormHTML[0]);
+                wrapperEl.appendChild(linkDisplayHTML[0]);
             }
 
             return wrapperEl.childNodes[0];
@@ -180,15 +181,19 @@ const LinkFormatter = Module({
 
         positionFlyout (opts) {
             const { mediator, props } = this;
-            const { initialEvent, targetEl } = props;
-            let targetBounds, elStyles, elLineHeight, lineCount, lineStepHeight;
+            const { targetEl } = props;
+            let targetBounds;
 
             if (targetEl) {
                 targetBounds = targetEl.getBoundingClientRect();
-                elStyles = window.getComputedStyle(targetEl);
-                elLineHeight = parseInt(elStyles.getPropertyValue('line-height'), 10);
-                lineCount = Math.ceil(targetBounds.height / elLineHeight);
-                lineStepHeight = targetBounds.height / lineCount;
+
+                // See reason below - Fred
+                // elStyles = window.getComputedStyle(targetEl);
+                // elLineHeight = elStyles.getPropertyValue('line-height');
+                // elLineHeight = elLineHeight === 'normal' ? elStyles.getPropertyValue('font-size') : elStyles.getPropertyValue('line-height');
+                // elLineHeight = parseInt(elLineHeight, 10);
+                // lineCount = Math.ceil(targetBounds.height / elLineHeight);
+                // lineStepHeight = targetBounds.height / lineCount;
             } else {
                 targetBounds = mediator.get('selection:bounds');
             }
@@ -197,21 +202,29 @@ const LinkFormatter = Module({
                 const scrollOffset = DOM.getScrollOffset();
                 let docRelTop, docRelCenter;
 
-                if (initialEvent) {
-                    const topDiff = initialEvent.clientY - targetBounds.top;
-
-                    docRelTop = initialEvent.clientY;
-                    docRelCenter = initialEvent.clientX;
-
-                    if (opts.flyoutPlacement === 'below') {
-                        docRelTop = targetBounds.top + (lineStepHeight * Math.ceil(topDiff / lineStepHeight));
-                    } else {
-                        docRelTop = targetBounds.top + (lineStepHeight * Math.floor(topDiff / lineStepHeight));
-                    }
-                } else {
-                    docRelTop = (opts.flyoutPlacement === 'below' ? targetBounds.bottom : targetBounds.top);
-                    docRelCenter = targetBounds.width / 2 + targetBounds.left + scrollOffset.x;
-                }
+                // Commenting this out because it is trying to do something smart (position
+                // the flyout close to the user's cursor when they hover over a link)
+                // but isn't particularly stable. And the alternative of positioning it underneath
+                // is acceptable and stable. Leaving this here in case the alternative
+                // proves to be a pain.
+                // - Fred
+                //
+                // const { initialEvent } = props;
+                // if (false && initialEvent) {
+                //     const topDiff = initialEvent.clientY - targetBounds.top;
+                //
+                //     docRelTop = initialEvent.clientY;
+                //     docRelCenter = initialEvent.clientX;
+                //
+                //     if (opts.flyoutPlacement === 'below') {
+                //         docRelTop = targetBounds.top + (lineStepHeight * Math.ceil(topDiff / lineStepHeight));
+                //     } else {
+                //         docRelTop = targetBounds.top + (lineStepHeight * Math.floor(topDiff / lineStepHeight));
+                //     }
+                // } else {
+                docRelTop = (opts.flyoutPlacement === 'below' ? targetBounds.bottom : targetBounds.top);
+                docRelCenter = targetBounds.width / 2 + targetBounds.left + scrollOffset.x;
+                // }
 
                 docRelTop += scrollOffset.y;
 
@@ -259,7 +272,9 @@ const LinkFormatter = Module({
 
         handleClick (evnt) {
             const { mediator, props } = this;
-            if (evnt.target.nodeName === 'A') {
+            const anchor = DOM.getClosest(evnt.target, 'a');
+
+            if (anchor && anchor.classList.contains('typester-link-edit')) {
                 evnt.preventDefault();
                 mediator.exec('selection:wrap:element', props.currentAnchor, { silent: true });
                 this.showLinkFormFlyout({ value: props.currentAnchor.href });
@@ -366,14 +381,24 @@ const LinkFormatter = Module({
 
         destroy () {
             const { props, mediator } = this;
+            const selectionAnchorNode = mediator.get('selection:anchornode');
+
             if (props.flyout) {
                 this.unbindInput();
                 props.flyout.remove();
             }
+
             props.showing = null;
             props.hasMouse = false;
             props.hasRendered = null;
+            props.targetEl = null;
+
+            if (selectionAnchorNode) {
+                selectionAnchorNode.parentElement.normalize();
+            }
+
             mediator.exec('selection:select:remove:pseudo');
+
         }
     }
 });

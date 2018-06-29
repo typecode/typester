@@ -24,7 +24,8 @@
  *     'selection:in:or:contains': 'inOrContains',
  *     'selection:range:coordinates': 'rangeCoordinates',
  *     'selection:contains:node': 'containsNode',
- *     'selection:spans:multiple:blocks': 'spansMultipleBlocks'
+ *     'selection:spans:multiple:blocks': 'spansMultipleBlocks',
+ *     'selection:pseudo': 'getPseudo'
  * },
  *
  * commands: {
@@ -86,7 +87,8 @@ const Selection = Module({
             'selection:in:or:contains': 'inOrContains',
             'selection:range:coordinates': 'rangeCoordinates',
             'selection:contains:node': 'containsNode',
-            'selection:spans:multiple:blocks': 'spansMultipleBlocks'
+            'selection:spans:multiple:blocks': 'spansMultipleBlocks',
+            'selection:pseudo': 'getPseudo'
         },
 
         commands: {
@@ -448,6 +450,11 @@ const Selection = Module({
                 dom.el[0].focus();
                 this.wrapElement(unwrappedNodes, { silent: true });
             }
+        },
+
+        getPseudo () {
+            const { props } = this;
+            return props.pseudoSelection;
         },
 
         removePseudo () {

@@ -66,8 +66,12 @@ const DOM = {
             return null;
         }
 
-        while (node.nodeType !== Node.ELEMENT_NODE) {
+        while (node && node.nodeType !== Node.ELEMENT_NODE) {
             node = node.parentNode;
+        }
+
+        if (!node) {
+            return null;
         }
 
         switch (checkType) {
