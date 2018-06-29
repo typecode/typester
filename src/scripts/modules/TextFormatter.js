@@ -59,7 +59,6 @@ const TextFormatter = Module({
             const currentSelection = mediator.get('selection:current');
             const parentElement = currentSelection.anchorNode.parentElement;
             parentElement.normalize();
-            console.log('ping');
         }
     }
 });
