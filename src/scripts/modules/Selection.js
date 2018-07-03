@@ -187,6 +187,9 @@ const Selection = Module({
             const { props } = this;
             const currentSelection = this.getCurrentSelection();
             let currentRange;
+            if (!currentSelection) {
+                console.log('getCurrentRange:currentSelection', currentSelection);
+            }
 
             if (this.validateSelection(currentSelection)) {
                 currentRange = currentSelection.getRangeAt(0);
@@ -201,11 +204,17 @@ const Selection = Module({
 
         getAnchorNode () {
             const currentSelection = this.getCurrentSelection();
-            return currentSelection.anchorNode;
+            if (!currentSelection) {
+                console.log('getAnchorNode:currentSelection', currentSelection);
+            }
+            return currentSelection && currentSelection.anchorNode;
         },
 
         getCommonAncestor () {
             const currentSelection = this.getCurrentSelection();
+            if (!currentSelection) {
+                console.log('getCommonAncestor:currentSelection', currentSelection);
+            }
             if (currentSelection.rangeCount > 0) {
                 const selectionRange = currentSelection.getRangeAt(0);
                 return selectionRange.commonAncestorContainer;
@@ -298,9 +307,50 @@ const Selection = Module({
 
             const startTrimmablePrefix = startContainer.textContent.match(/^(\r?\n|\r)?(\s+)?/);
             const endTrimmablePrefix = endContainer.textContent.match(/^(\r?\n|\r)?(\s+)?/);
+            const endTrimmableSuffix = endContainer.textContent.match(/(\r?\n|\r)?(\s+)?$/);
+            const startElement = DOM.closestElement(startContainer);
+            const endElement = DOM.closestElement(endContainer);
 
-            startOffset -= startTrimmablePrefix ? startTrimmablePrefix[0].length : 0;
-            endOffset -= endTrimmablePrefix ? endTrimmablePrefix[0].length : 0;
+            console.log({
+                startTrimmablePrefix,
+                endTrimmablePrefix,
+                startPrefixLength: startTrimmablePrefix && startTrimmablePrefix[0].length,
+                endPrefixLength: endTrimmablePrefix && endTrimmablePrefix[0].length,
+                startContent: startContainer.textContent,
+                endContent: endContainer.textContent,
+                endSuffix: endContainer.textContent.match(/(\r?\n|\r)?(\s+)?$/),
+                startOffset,
+                endOffset
+            });
+
+            if (startTrimmablePrefix && startTrimmablePrefix[0].length) {
+                startOffset -= startTrimmablePrefix[0].length;
+                if (DOM.nodeIsInline(startElement)) {
+                    startOffset -= startTrimmablePrefix[0].match(/\s/) ? 1 : 0;
+                }
+            }
+
+            if (endTrimmablePrefix && endTrimmablePrefix[0].length) {
+                endOffset -= endTrimmablePrefix[0].length;
+                if (DOM.nodeIsInline(endElement)) {
+                    endOffset -= endTrimmablePrefix[0].match(/\s/) ? 1 : 0;
+                }
+            }
+
+            if (endTrimmableSuffix && endTrimmableSuffix[0].length) {
+                // endOffset -= endTrimmableSuffix[0].length;
+                if (DOM.nodeIsInline(endElement)) {
+                    endOffset -= endTrimmableSuffix[0].match(/\s/) ? 1 : 0;
+                }
+            }
+
+            console.log({
+                startOffset,
+                endOffset
+            });
+
+            startOffset = Math.max(0, startOffset);
+            endOffset = Math.min(endContainer.textContent.length, endOffset);
 
             startCoordinates.unshift(startOffset);
             endCoordinates.unshift(endOffset);
@@ -331,7 +381,6 @@ const Selection = Module({
             }
 
             const isIn = DOM.isIn(anchorNode, selectors, rootEl);
-
             if (isIn) {
                 return isIn;
             }
@@ -341,8 +390,8 @@ const Selection = Module({
             let contains = false;
 
             if (rangeFrag.childNodes.length) {
-                selectors.forEach(selector => {
-                    contains = contains || rangeFrag.childNodes[0].nodeName === selector;
+                rangeFrag.childNodes.forEach(childNode => {
+                    contains = contains || selectors.indexOf(childNode.nodeName) > -1;
                 });
             }
 
@@ -353,7 +402,9 @@ const Selection = Module({
             const currentSelection = this.getCurrentSelection();
             let { anchorNode, focusNode } = currentSelection;
             const selectionContainsNode = currentSelection.containsNode(node, true);
-
+            if (!currentSelection) {
+                console.log('containsNode:currentSelection', currentSelection);
+            }
             if (!currentSelection.rangeCount) {
                 return false;
             }
@@ -487,7 +538,9 @@ const Selection = Module({
         updateRange (range, opts={}) {
             const { mediator, props } = this;
             const currentSelection = this.getCurrentSelection();
-
+            if (!currentSelection) {
+                console.log('updateRange:currentSelection', currentSelection);
+            }
             if (opts.silent) {
                 props.silenceChanges.push(true); // silence removeAllRanges
                 props.silenceChanges.push(true); // silence addRange
@@ -634,6 +687,8 @@ const Selection = Module({
             const startOffset = startCoordinates.pop();
             const endOffset = endCoordinates.pop();
 
+            console.log('selectByCoordinates', { rangeCoordinates });
+
             let startContainer = dom.el[0];
             let endContainer = dom.el[0];
 
@@ -646,6 +701,8 @@ const Selection = Module({
                 let endIndex = endCoordinates.shift();
                 endContainer = endContainer.childNodes[endIndex];
             }
+
+            console.log({ startContainer, endContainer, startLength: startContainer.length, endLength: endContainer.length, startOffset, endOffset });
 
             newRange.setStart(startContainer, startOffset);
             newRange.setEnd(endContainer, endOffset);

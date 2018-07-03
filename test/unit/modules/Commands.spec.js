@@ -4,6 +4,7 @@ import Mediator from '../../../src/scripts/core/Mediator';
 import Commands from '../../../src/scripts/modules/Commands';
 import Config from '../../../src/scripts/modules/Config';
 import selectionHelper from '../helpers/selection';
+import DOM from '../../../src/scripts/utils/DOM';
 
 describe('modules/Commands', function () {
     let mediator, $editableEl, editableEl;
@@ -64,6 +65,12 @@ describe('modules/Commands', function () {
         selectionHelper.selectAll(contentBlock.childNodes[0]);
         mediator.exec('commands:format:block', {
             style: 'BLOCKQUOTE'
+        });
+
+
+        const blockquoteParagraphs = editableEl.querySelectorAll('blockquote p');
+        blockquoteParagraphs.forEach((paragraph) => {
+            DOM.unwrap(paragraph);
         });
 
         expect(editableEl.innerHTML).toBe(`<blockquote>${contentBlockText}</blockquote>`);

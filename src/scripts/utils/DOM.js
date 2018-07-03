@@ -253,9 +253,11 @@ const DOM = {
 
     closestElement(node) {
         let returnNode = node;
+        console.log('closestElement', node);
 
-        while (returnNode.nodeType !== 1) {
+        while (returnNode && returnNode.nodeType !== 1) {
             returnNode = returnNode.parentNode;
+            console.log('returnNode', returnNode);
         }
 
         return returnNode;
@@ -553,10 +555,13 @@ const DOM = {
 
     trimNodeText (node) {
         if (node.nodeType === Node.TEXT_NODE) {
-            const trimmedText = node.textContent
-                                    .replace(/\s{2,}/g, ' ')
-                                    .replace(/\r?\n|\r/g, '')
-                                    .trim();
+            const parentElement = DOM.closestElement(node);
+            let trimmedText = node.textContent
+                                  .replace(/\s{2,}/g, ' ')
+                                  .replace(/\r?\n|\r/g, '');
+            if (!DOM.nodeIsInline(parentElement)) {
+                trimmedText = trimmedText.trim();
+            }
             node.textContent = trimmedText;
         } else {
             node.childNodes.forEach((childNode) => {
@@ -577,6 +582,20 @@ const DOM = {
         });
 
         return HTMLString;
+    },
+
+    nodeIsInline (node) {
+        const inlineTagNames = ['B', 'STRONG', 'I', 'U', 'S', 'SUP', 'SUB'];
+
+        if (!node) {
+            return false;
+        }
+
+        if (node.nodeType !== Node.ELEMENT_NODE) {
+            return true;
+        } else {
+            return inlineTagNames.indexOf(node.nodeName) < 0;
+        }
     },
 
     //Pseudo-private methods
