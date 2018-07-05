@@ -40,7 +40,6 @@ describe('modules/ListFormatter', function () {
     afterEach(() => {
         editableEl.innerHTML = '';
         mediator.emit('app:destroy');
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     });
 
     it('should toggle ordered lists', () => {
@@ -48,23 +47,15 @@ describe('modules/ListFormatter', function () {
         expect(editableEl.getElementsByTagName('ol').length).toBe(0);
         expect(editableEl.getElementsByTagName('li').length).toBe(0);
 
-        console.log('---------------------------------------------------------------------------------------[2:start]')
         selectionHelper.selectFirstAndLastTextNodes(editableEl);
-        console.log(document.getSelection().toString());
         mediator.exec('format:list', orderedListOpts);
-        console.log('---------------------------------------------------------------------------------------[2:end]')
         expect(editableEl.getElementsByTagName('ol').length).toBe(1);
         expect(editableEl.getElementsByTagName('li').length).toBe(5);
 
-        console.log('---------------------------------------------------------------------------------------[2:start]')
         selectionHelper.selectFirstAndLastTextNodes(editableEl);
-        console.log(document.getSelection().toString());
         mediator.exec('format:list', orderedListOpts);
-        console.log('---------------------------------------------------------------------------------------[2:end]')
         expect(editableEl.getElementsByTagName('ol').length).toBe(0);
         expect(editableEl.getElementsByTagName('li').length).toBe(0);
-        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-
     });
 
     it('should toggle unordered lists', () => {

@@ -253,11 +253,9 @@ const DOM = {
 
     closestElement(node) {
         let returnNode = node;
-        console.log('closestElement', node);
 
         while (returnNode && returnNode.nodeType !== 1) {
             returnNode = returnNode.parentNode;
-            console.log('returnNode', returnNode);
         }
 
         return returnNode;

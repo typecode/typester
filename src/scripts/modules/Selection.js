@@ -187,9 +187,6 @@ const Selection = Module({
             const { props } = this;
             const currentSelection = this.getCurrentSelection();
             let currentRange;
-            if (!currentSelection) {
-                console.log('getCurrentRange:currentSelection', currentSelection);
-            }
 
             if (this.validateSelection(currentSelection)) {
                 currentRange = currentSelection.getRangeAt(0);
@@ -204,17 +201,11 @@ const Selection = Module({
 
         getAnchorNode () {
             const currentSelection = this.getCurrentSelection();
-            if (!currentSelection) {
-                console.log('getAnchorNode:currentSelection', currentSelection);
-            }
             return currentSelection && currentSelection.anchorNode;
         },
 
         getCommonAncestor () {
             const currentSelection = this.getCurrentSelection();
-            if (!currentSelection) {
-                console.log('getCommonAncestor:currentSelection', currentSelection);
-            }
             if (currentSelection.rangeCount > 0) {
                 const selectionRange = currentSelection.getRangeAt(0);
                 return selectionRange.commonAncestorContainer;
@@ -310,10 +301,14 @@ const Selection = Module({
             const endTrimmableSuffix = endContainer.textContent.match(/(\r?\n|\r)?(\s+)?$/);
             const startElement = DOM.closestElement(startContainer);
             const endElement = DOM.closestElement(endContainer);
+            let startPrefixTrimLength = 0;
+            let endPrefixTrimLength = 0;
+            let endSuffixTrimLength = 0;
 
             console.log({
                 startTrimmablePrefix,
                 endTrimmablePrefix,
+                endTrimmableSuffix,
                 startPrefixLength: startTrimmablePrefix && startTrimmablePrefix[0].length,
                 endPrefixLength: endTrimmablePrefix && endTrimmablePrefix[0].length,
                 startContent: startContainer.textContent,
@@ -324,24 +319,32 @@ const Selection = Module({
             });
 
             if (startTrimmablePrefix && startTrimmablePrefix[0].length) {
-                startOffset -= startTrimmablePrefix[0].length;
+                startPrefixTrimLength += startTrimmablePrefix[0].length;
                 if (DOM.nodeIsInline(startElement)) {
-                    startOffset -= startTrimmablePrefix[0].match(/\s/) ? 1 : 0;
+                    startPrefixTrimLength -= startTrimmablePrefix[0].match(/\s/) ? 1 : 0;
+                }
+                startOffset -= startPrefixTrimLength;
+                if (endContainer === startContainer) {
+                    endOffset -= startPrefixTrimLength;
                 }
             }
 
-            if (endTrimmablePrefix && endTrimmablePrefix[0].length) {
-                endOffset -= endTrimmablePrefix[0].length;
+            if (endTrimmablePrefix && endTrimmablePrefix[0].length && endContainer !== startContainer) {
+                endPrefixTrimLength += endTrimmablePrefix[0].length;
                 if (DOM.nodeIsInline(endElement)) {
-                    endOffset -= endTrimmablePrefix[0].match(/\s/) ? 1 : 0;
+                    endPrefixTrimLength -= endTrimmablePrefix[0].match(/\s/) ? 1 : 0;
                 }
+                endOffset -= endPrefixTrimLength;
             }
 
             if (endTrimmableSuffix && endTrimmableSuffix[0].length) {
-                // endOffset -= endTrimmableSuffix[0].length;
+                endSuffixTrimLength += endTrimmableSuffix[0].length;
                 if (DOM.nodeIsInline(endElement)) {
-                    endOffset -= endTrimmableSuffix[0].match(/\s/) ? 1 : 0;
+                    endSuffixTrimLength -= endTrimmableSuffix[0].match(/\s/) ? 1 : 0;
                 }
+                let trimmedTextLength = endContainer.textContent.length - endPrefixTrimLength - endSuffixTrimLength;
+                console.log('>>', { endOffset, trimmedTextLength, textLength: endContainer.textContent.length, endPrefixTrimLength, endSuffixTrimLength });
+                endOffset = Math.min(trimmedTextLength, endOffset);
             }
 
             console.log({
@@ -402,9 +405,7 @@ const Selection = Module({
             const currentSelection = this.getCurrentSelection();
             let { anchorNode, focusNode } = currentSelection;
             const selectionContainsNode = currentSelection.containsNode(node, true);
-            if (!currentSelection) {
-                console.log('containsNode:currentSelection', currentSelection);
-            }
+
             if (!currentSelection.rangeCount) {
                 return false;
             }
@@ -416,6 +417,7 @@ const Selection = Module({
             if (anchorNode.nodeType !== Node.ELEMENT_NODE) {
                 anchorNode = anchorNode.parentNode;
             }
+
             if (focusNode.nodeType !== Node.ELEMENT_NODE) {
                 focusNode = focusNode.parentNode;
             }
@@ -538,9 +540,7 @@ const Selection = Module({
         updateRange (range, opts={}) {
             const { mediator, props } = this;
             const currentSelection = this.getCurrentSelection();
-            if (!currentSelection) {
-                console.log('updateRange:currentSelection', currentSelection);
-            }
+
             if (opts.silent) {
                 props.silenceChanges.push(true); // silence removeAllRanges
                 props.silenceChanges.push(true); // silence addRange
