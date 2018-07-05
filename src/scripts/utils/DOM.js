@@ -553,19 +553,36 @@ const DOM = {
 
     trimNodeText (node) {
         if (node.nodeType === Node.TEXT_NODE) {
-            const parentElement = DOM.closestElement(node);
+            const trimmableSides = DOM.trimmableSides(node);
             let trimmedText = node.textContent
                                   .replace(/\s{2,}/g, ' ')
                                   .replace(/\r?\n|\r/g, '');
-            if (!DOM.nodeIsInline(parentElement)) {
-                trimmedText = trimmedText.trim();
+
+            if (trimmableSides.left) {
+                trimmedText = trimmedText.replace(/^\s+?/, '');
             }
+            if (trimmableSides.right) {
+                trimmedText = trimmedText.replace(/\s+?$/, '');
+            }
+
             node.textContent = trimmedText;
         } else {
             node.childNodes.forEach((childNode) => {
                 DOM.trimNodeText(childNode);
             });
         }
+    },
+
+    trimmableSides (node) {
+        const { parentNode } = node;
+        const isInline = DOM.nodeIsInline(node);
+        const isFirstChild = parentNode && node === parentNode.firstChild;
+        const isLastChild = parentNode && node === parentNode.lastChild;
+
+        return {
+            left: !isInline && isFirstChild,
+            right: !isInline && isLastChild
+        };
     },
 
     nodesToHTMLString (nodes) {
@@ -585,15 +602,13 @@ const DOM = {
     nodeIsInline (node) {
         const inlineTagNames = ['B', 'STRONG', 'I', 'U', 'S', 'SUP', 'SUB'];
 
-        if (!node) {
-            return false;
-        }
-
+        if (!node) { return false; }
         if (node.nodeType !== Node.ELEMENT_NODE) {
-            return true;
-        } else {
-            return inlineTagNames.indexOf(node.nodeName) < 0;
+            node = DOM.closestElement(node);
         }
+        if (!node) { return false; }
+
+        return inlineTagNames.indexOf(node.nodeName) > -1;
     },
 
     //Pseudo-private methods

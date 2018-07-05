@@ -97,7 +97,7 @@ const ListFormatter = Module({
         commit () {
             const { mediator, cleanupListDOM } = this;
             mediator.exec('format:import:from:canvas', {
-                // importFilter: cleanupListDOM
+                importFilter: cleanupListDOM
             });
         },
 

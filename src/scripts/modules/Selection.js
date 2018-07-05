@@ -293,34 +293,22 @@ const Selection = Module({
                 endContainer,
                 endOffset
             } = this.getCurrentRange();
+
             let startCoordinates = [];
             let endCoordinates = [];
-
-            const startTrimmablePrefix = startContainer.textContent.match(/^(\r?\n|\r)?(\s+)?/);
-            const endTrimmablePrefix = endContainer.textContent.match(/^(\r?\n|\r)?(\s+)?/);
-            const endTrimmableSuffix = endContainer.textContent.match(/(\r?\n|\r)?(\s+)?$/);
-            const startElement = DOM.closestElement(startContainer);
-            const endElement = DOM.closestElement(endContainer);
             let startPrefixTrimLength = 0;
             let endPrefixTrimLength = 0;
             let endSuffixTrimLength = 0;
 
-            console.log({
-                startTrimmablePrefix,
-                endTrimmablePrefix,
-                endTrimmableSuffix,
-                startPrefixLength: startTrimmablePrefix && startTrimmablePrefix[0].length,
-                endPrefixLength: endTrimmablePrefix && endTrimmablePrefix[0].length,
-                startContent: startContainer.textContent,
-                endContent: endContainer.textContent,
-                endSuffix: endContainer.textContent.match(/(\r?\n|\r)?(\s+)?$/),
-                startOffset,
-                endOffset
-            });
+            const startTrimmablePrefix = startContainer.textContent.match(/^(\r?\n|\r)?(\s+)?/);
+            const endTrimmablePrefix = endContainer.textContent.match(/^(\r?\n|\r)?(\s+)?/);
+            const endTrimmableSuffix = endContainer.textContent.match(/(\r?\n|\r)?(\s+)?$/);
+            const startTrimmableSides = DOM.trimmableSides(startContainer.firstChild ? startContainer.firstChild : startContainer);
+            const endTrimmableSides = DOM.trimmableSides(endContainer.lastChild ? endContainer.lastChild : endContainer);
 
             if (startTrimmablePrefix && startTrimmablePrefix[0].length) {
                 startPrefixTrimLength += startTrimmablePrefix[0].length;
-                if (DOM.nodeIsInline(startElement)) {
+                if (!startTrimmableSides.left) {
                     startPrefixTrimLength -= startTrimmablePrefix[0].match(/\s/) ? 1 : 0;
                 }
                 startOffset -= startPrefixTrimLength;
@@ -331,7 +319,7 @@ const Selection = Module({
 
             if (endTrimmablePrefix && endTrimmablePrefix[0].length && endContainer !== startContainer) {
                 endPrefixTrimLength += endTrimmablePrefix[0].length;
-                if (DOM.nodeIsInline(endElement)) {
+                if (!endTrimmableSides.left) {
                     endPrefixTrimLength -= endTrimmablePrefix[0].match(/\s/) ? 1 : 0;
                 }
                 endOffset -= endPrefixTrimLength;
@@ -339,18 +327,12 @@ const Selection = Module({
 
             if (endTrimmableSuffix && endTrimmableSuffix[0].length) {
                 endSuffixTrimLength += endTrimmableSuffix[0].length;
-                if (DOM.nodeIsInline(endElement)) {
+                if (!endTrimmableSides.right) {
                     endSuffixTrimLength -= endTrimmableSuffix[0].match(/\s/) ? 1 : 0;
                 }
                 let trimmedTextLength = endContainer.textContent.length - endPrefixTrimLength - endSuffixTrimLength;
-                console.log('>>', { endOffset, trimmedTextLength, textLength: endContainer.textContent.length, endPrefixTrimLength, endSuffixTrimLength });
                 endOffset = Math.min(trimmedTextLength, endOffset);
             }
-
-            console.log({
-                startOffset,
-                endOffset
-            });
 
             startOffset = Math.max(0, startOffset);
             endOffset = Math.min(endContainer.textContent.length, endOffset);
@@ -687,8 +669,6 @@ const Selection = Module({
             const startOffset = startCoordinates.pop();
             const endOffset = endCoordinates.pop();
 
-            console.log('selectByCoordinates', { rangeCoordinates });
-
             let startContainer = dom.el[0];
             let endContainer = dom.el[0];
 
@@ -701,8 +681,6 @@ const Selection = Module({
                 let endIndex = endCoordinates.shift();
                 endContainer = endContainer.childNodes[endIndex];
             }
-
-            console.log({ startContainer, endContainer, startLength: startContainer.length, endLength: endContainer.length, startOffset, endOffset });
 
             newRange.setStart(startContainer, startOffset);
             newRange.setEnd(endContainer, endOffset);
