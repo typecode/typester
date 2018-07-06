@@ -85,11 +85,6 @@ const BaseFormatter = Module({
         importFromCanvas (opts={}) {
             const { mediator } = this;
             const canvasBody = mediator.get('canvas:body');
-            // --- NB REMOVE
-            // mediator.exec('selection:select:all');
-            // mediator.exec('canvas:export:all');
-            // return;
-            // --- NB REMOVE (END)
 
             mediator.exec('canvas:cache:selection');
             mediator.exec('format:clean', canvasBody);
