@@ -25,7 +25,6 @@
  */
 
 import Module from '../core/Module';
-import commands from '../utils/commands';
 import DOM from '../utils/DOM';
 
 /**
@@ -62,11 +61,19 @@ const BlockFormatter = Module({
 
             if (opts.toggle) {
                 if (opts.style === 'BLOCKQUOTE') {
-                    commands.exec('outdent', null, canvasDoc);
+                    mediator.exec('commands:exec', {
+                        command: 'outdent',
+                        contextDocument: canvasDoc
+                    });
                 }
-                commands.defaultBlockFormat(canvasDoc);
+                mediator.exec('commands:format:default', {
+                    contextDocument: canvasDoc
+                });
             } else {
-                commands.formatBlock(opts.style, canvasDoc);
+                mediator.exec('commands:format:block', {
+                    style: opts.style,
+                    contextDocument: canvasDoc
+                });
             }
         },
 

@@ -30,6 +30,7 @@ import FormatterContainer from '../containers/FormatterContainer';
 import CanvasContainer from '../containers/CanvasContainer';
 import ContentEditable from '../modules/ContentEditable';
 import Selection from '../modules/Selection';
+import Config from '../modules/Config';
 
 let uiContainer, formatterContainer, canvasContainer;
 
@@ -53,6 +54,9 @@ const AppContainer = Container({
         },
         {
             class: Selection
+        },
+        {
+            class: Config
         }
     ],
 
@@ -75,10 +79,6 @@ const AppContainer = Container({
          * @protected
          */
         setup: function () {
-            const { mediator } = this;
-            formatterContainer = formatterContainer || new FormatterContainer({ mediator });
-            uiContainer = uiContainer || new UIContainer({ mediator });
-            canvasContainer = canvasContainer || new CanvasContainer({ mediator });
         },
 
         /**
@@ -88,6 +88,10 @@ const AppContainer = Container({
          */
         init () {
             // Current nothing to init for this container. Method left here for ref.
+            const { mediator } = this;
+            formatterContainer = formatterContainer || new FormatterContainer({ mediator });
+            uiContainer = uiContainer || new UIContainer({ mediator });
+            canvasContainer = canvasContainer || new CanvasContainer({ mediator });
         },
 
         /**

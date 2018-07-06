@@ -8,6 +8,7 @@ import CanvasContainer from '../../../src/scripts/containers/CanvasContainer';
 
 import ContentEditable from '../../../src/scripts/modules/ContentEditable';
 import Selection from '../../../src/scripts/modules/Selection';
+import Config from '../../../src/scripts/modules/Config';
 
 import mockEvents from './mockEvents';
 
@@ -15,10 +16,6 @@ const e2eSetup = function () {
     let $editableEl = jQuery('.content-editable');
     let editableEl = $editableEl[0];
     let mediator = new Mediator();
-
-    new FormatterContainer({ mediator });
-    new UIContainer({ mediator });
-    new CanvasContainer({ mediator });
 
     new ContentEditable({
         mediator,
@@ -28,6 +25,11 @@ const e2eSetup = function () {
         mediator,
         dom: { el: editableEl }
     });
+    new Config({ mediator });
+
+    new FormatterContainer({ mediator });
+    new UIContainer({ mediator });
+    new CanvasContainer({ mediator });
 
     return {
         mediator,

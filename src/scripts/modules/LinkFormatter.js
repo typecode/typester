@@ -13,7 +13,6 @@
  */
 
 import Module from '../core/Module';
-import commands from '../utils/commands';
 import DOM from '../utils/DOM';
 
 import inputFormTemplate from '../../templates/inputForm.html';
@@ -357,8 +356,13 @@ const LinkFormatter = Module({
             if (formJSON['user-input']) {
                 const linkURL = this.processLinkInput(formJSON['user-input']);
                 mediator.exec('selection:select:pseudo');
-                commands.exec('unlink');
-                commands.exec('createLink', linkURL);
+                mediator.exec('commands:exec', {
+                    command: 'unlink'
+                });
+                mediator.exec('commands:exec', {
+                    command: 'createLink',
+                    value: linkURL
+                });
             }
 
             this.destroy();
@@ -375,7 +379,9 @@ const LinkFormatter = Module({
                 mediator.exec('selection:wrap:element', anchor);
             }
 
-            commands.exec('unlink');
+            mediator.exec('commands:exec', {
+                command: 'unlink'
+            });
             this.destroy();
         },
 

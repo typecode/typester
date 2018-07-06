@@ -12,6 +12,7 @@ import AppContainer from './containers/AppContainer';
  * @param  {object} opts={} - instance options
  * @param  {object} opts.dom - The dom components used by Typester
  * @param  {element} opts.dom.el - The dom element to be the canvas for Typester
+ * @param  {object} opts.config - Additional instanced config
  * @return {appContainer} AppContainer instance
  *
  * @example
@@ -22,7 +23,10 @@ import AppContainer from './containers/AppContainer';
  * });
  */
 const Typester = function (opts={}) {
-    return new AppContainer({ dom: {el: opts.el }});
+    return new AppContainer({
+        dom: {el: opts.el },
+        configs: opts.configs
+    });
 };
 
 export default Typester;

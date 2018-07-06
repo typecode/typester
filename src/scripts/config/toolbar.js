@@ -81,7 +81,8 @@ const Toolbar = {
             },
             content: '<b>B</b>',
             disabledIn: ['H1', 'H2', 'BLOCKQUOTE'],
-            activeIn: ['B']
+            activeIn: ['B'],
+            toggles: true
         },
 
         italic: {
@@ -92,7 +93,8 @@ const Toolbar = {
                 validTags: ['I']
             },
             content: '<i>I</i>',
-            activeIn: ['I']
+            activeIn: ['I'],
+            toggles: true
         },
 
         underline: {
@@ -102,7 +104,7 @@ const Toolbar = {
 
         strikethrough: {
             formatter: 'text:strikethrough',
-            content: '<s>A</s>'
+            content: '<s>Abc</s>'
         },
 
         superscript: {

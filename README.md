@@ -32,6 +32,34 @@ import Typester from 'typester-editor'
 new Typester({ el: document.querySelector('[contenteditable]') }) // Where document.querySelector(...) is a single DOM element.
 ```
 
+### Configuration
+You can configure the formatters available for a specific typester instance in two ways:
+
+1. When you instatiate a Typester instance via the custom configs option:
+
+```
+new Typester({
+    el: document.querySelector('[contenteditable]'),
+    configs: {
+        toolbar: {
+            buttons: ['bold', 'italic', 'h1', 'h2', 'orderedlist', 'unorderedlist', 'quote', 'link']
+        }
+    }
+});
+```
+
+2. By using a data attribute on the editable container
+```
+<div contenteditable='true' data-toolbar-buttons='["bold", "italic", "h1", "h2", "orderedlist", "unorderedlist", "quote", "link"]'></div>
+```
+
+The options available for the toolbar buttons are:
+- Inline formatters: `bold`, `italic`
+- Headers: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`
+- Lists: `orderedlist`, `unorderedlist`
+- Blockquotes: `quote`
+- Links: `link`
+
 ### License
 Typester is released under the MIT license.
 

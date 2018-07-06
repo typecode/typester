@@ -53,7 +53,8 @@ const Module = function (moduleObj) {
         handlers: moduleHandlers,
         dom: moduleDom,
         methods: moduleMethods,
-        requiredProps: moduleRequiredProps
+        requiredProps: moduleRequiredProps,
+        acceptsConfigs: moduleAcceptsConfigs
     } = moduleObj;
 
     if (!moduleName) {
@@ -125,6 +126,7 @@ const Module = function (moduleObj) {
 
         mergeDom (defaultDom, dom={}) {
             let mergedDom = {};
+
             Object.keys(defaultDom).forEach((domKey) => {
                 mergedDom[domKey] = defaultDom[domKey];
             });
@@ -139,6 +141,7 @@ const Module = function (moduleObj) {
 
         getDom (dom) {
             const rootEl = dom.el || document.body;
+
             Object.keys(dom).forEach((domKey) => {
                 let selector, domEl;
 
@@ -191,6 +194,7 @@ const Module = function (moduleObj) {
     const moduleProto = {
         moduleConstructor: function (opts) {
             moduleProto.prepModule(opts);
+            moduleProto.bindConfigs(opts);
             moduleProto.buildModule(opts);
             moduleProto.setupModule(opts);
             moduleProto.renderModule(opts);
@@ -210,6 +214,20 @@ const Module = function (moduleObj) {
             }
 
             opts.context = context;
+        },
+
+        bindConfigs (opts) {
+            if (!moduleAcceptsConfigs) { return; }
+
+            const { context } = opts;
+            const optsConfigs = opts.configs || {};
+            let moduleConfigs = {};
+
+            moduleAcceptsConfigs.forEach((configKey) => {
+                moduleConfigs[configKey] = optsConfigs[configKey] || {};
+            });
+
+            context.extendWith({ configs: moduleConfigs });
         },
 
         buildModule (opts) {

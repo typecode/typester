@@ -149,11 +149,13 @@ const Container = function Container(containerObj) {
 
             containerUtils.initModules(containerModules, {
                 dom: opts.dom,
+                configs: opts.configs,
                 mediator
             });
 
             containerUtils.initChildContainers(containerChildContainers, {
                 dom: opts.dom,
+                configs: opts.configs,
                 mediator
             });
 

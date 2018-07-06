@@ -305,13 +305,10 @@ const Canvas = Module({
         exportAll () {
             const { mediator } = this;
             const canvasBody = this.getCanvasBody();
-            // this.exportPrep();
+            const clonedNodes = DOM.cloneNodes(canvasBody, { trim: true });
+            const exportHTMLString = DOM.nodesToHTMLString(clonedNodes);
 
-            let innerHTML = canvasBody.innerHTML;
-            // innerHTML = innerHTML.replace(/\s{2,}/g, ' ');
-            // innerHTML = innerHTML.replace(/\r?\n|\r/g, '');
-
-            mediator.exec('contenteditable:inserthtml', innerHTML);
+            mediator.exec('contenteditable:inserthtml', exportHTMLString);
         },
 
         getFormattedBlock () {
@@ -357,8 +354,6 @@ const Canvas = Module({
                 ) {
                     DOM.unwrap(node);
                 }
-
-
             }
         },
 

@@ -4,6 +4,7 @@ import Mediator from '../../../src/scripts/core/Mediator.js';
 import Toolbar from '../../../src/scripts/modules/Toolbar.js';
 import Selection from '../../../src/scripts/modules/Selection.js';
 import Flyout from '../../../src/scripts/modules/Flyout.js';
+import Config from '../../../src/scripts/modules/Config.js';
 
 import mockEvents from '../helpers/mockEvents';
 import selectionHelper from '../helpers/selection';
@@ -28,6 +29,7 @@ describe('modules/Toolbar', function () {
             dom: { el: editableEl },
             props: { contextDocument: document }
         });
+        new Config({ mediator });
         new Flyout({ mediator });
         new Toolbar({ mediator, opts: {
             dom: {

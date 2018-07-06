@@ -11,7 +11,6 @@
  * mediator.exec('format:text', { style: 'italic' });
  */
 import Module from '../core/Module';
-import commands from '../utils/commands';
 
 const TextFormatter = Module({
     name: 'TextFormatter',
@@ -29,7 +28,7 @@ const TextFormatter = Module({
         formatText (opts) {
             this.preProcess();
             this.process(opts);
-            this.postProcess();
+            this.postProcess(opts);
         },
 
         preProcess () {
@@ -39,14 +38,27 @@ const TextFormatter = Module({
         },
 
         process (opts) {
-            commands.exec(opts.style, null);
+            const { mediator } = this;
+            mediator.exec('commands:exec', {
+                command: opts.style
+            });
         },
 
-        postProcess () {
+        postProcess (opts) {
             const { mediator } = this;
 
             mediator.exec('contenteditable:refocus');
-            // mediator.exec('selection:reselect');
+
+            if (opts.toggle) {
+                this.normalize();
+            }
+        },
+
+        normalize () {
+            const { mediator } = this;
+            const currentSelection = mediator.get('selection:current');
+            const parentElement = currentSelection.anchorNode.parentElement;
+            parentElement.normalize();
         }
     }
 });

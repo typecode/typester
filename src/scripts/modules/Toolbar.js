@@ -16,7 +16,6 @@
  */
 import Module from '../core/Module';
 import DOM from '../utils/DOM';
-import toolbarConfig from '../config/toolbar';
 
 import toolbarTemplate from '../../templates/toolbar.html';
 import toolbarStyles from '../../styles/toolbar.scss';
@@ -95,21 +94,7 @@ const Toolbar = Module({
 
         getButtonConfigs () {
             const { mediator } = this;
-            const contentEditableButtons = mediator.get('contenteditable:toolbar:buttons') || [];
-            const configButtons = contentEditableButtons.length ? contentEditableButtons : toolbarConfig.buttons;
-
-            let buttons = [];
-
-            configButtons.forEach((configKey) => {
-                // NB This needs to be looked at
-                if (configKey === 'anchor') {
-                    configKey = 'link';
-                }
-                const buttonConfig = Object.assign({ configKey }, toolbarConfig.buttonConfigs[configKey]);
-                buttons.push(buttonConfig);
-            });
-
-            return { buttons };
+            return mediator.get('config:toolbar:buttons');
         },
 
         handleToolbarClick (evnt) {
@@ -120,7 +105,7 @@ const Toolbar = Module({
             const menuItemEl = DOM.getClosest(evnt.target, `.${props.classNames.MENU_ITEM}`);
             const { dataset } = menuItemEl;
             const { configKey } = dataset;
-            const buttonConfig = toolbarConfig.buttonConfigs[configKey];
+            const buttonConfig = mediator.get('config:toolbar:buttonConfig', configKey);
             const { formatter, opts } = buttonConfig;
             const toolbarMenuItemState = this.getMenuItemState(menuItemEl);
 
@@ -243,7 +228,7 @@ const Toolbar = Module({
             const { mediator } = this;
             const { configKey } = toolbarMenuItem.dataset;
 
-            const config = toolbarConfig.buttonConfigs[configKey];
+            const config = mediator.get('config:toolbar:buttonConfig', configKey);
 
             const activeIn = config.activeIn || [];
             const disabledIn = config.disabledIn || [];

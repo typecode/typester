@@ -23,15 +23,10 @@
  * mediator.exec('format:clean', elem); // Clean the HTML inside elem
  */
 import Module from '../core/Module';
-import commands from '../utils/commands';
 import DOM from '../utils/DOM';
 import zeroWidthSpace from '../utils/zeroWidthSpace';
 
-import toolbarConfig from '../config/toolbar';
-
-let validTags = toolbarConfig.getValidTags();
-let blockTags = toolbarConfig.getBlockTags();
-let listTags  = toolbarConfig.getListTags();
+let validTags, blockTags, listTags;
 
 const BaseFormatter = Module({
     name: 'BaseFormatter',
@@ -49,7 +44,12 @@ const BaseFormatter = Module({
         }
     },
     methods: {
-        init () {},
+        init () {
+            const { mediator } = this;
+            validTags = mediator.get('config:toolbar:validTags');
+            blockTags = mediator.get('config:toolbar:blockTags');
+            listTags  = mediator.get('config:toolbar:listTags');
+        },
 
         /**
          * @func exportToCanvas
@@ -64,10 +64,7 @@ const BaseFormatter = Module({
             this.injectHooks(rootElement);
 
             const rangeCoordinates = mediator.get('selection:range:coordinates');
-            const clonedNodes = this.cloneNodes(rootElement);
-            clonedNodes.forEach((node) => {
-                DOM.trimNodeText(node);
-            });
+            const clonedNodes = DOM.cloneNodes(rootElement, { trim: true });
 
             mediator.exec('canvas:content', clonedNodes);
             mediator.exec('canvas:select:by:coordinates', rangeCoordinates);
@@ -109,7 +106,7 @@ const BaseFormatter = Module({
         formatDefault () {
             const { mediator } = this;
             const rootElem = mediator.get('selection:rootelement');
-            commands.defaultBlockFormat();
+            mediator.exec('commands:format:default');
             this.removeStyledSpans(rootElem);
         },
 
@@ -141,14 +138,6 @@ const BaseFormatter = Module({
         /**
          * PRIVATE METHODS:
          */
-        cloneNodes (rootElement) {
-            let clonedNodes = [];
-            rootElement.childNodes.forEach((node) => {
-                clonedNodes.push(node.cloneNode(true));
-            });
-            return clonedNodes;
-        },
-
         injectHooks (rootElement) {
             while (!/\w+/.test(rootElement.firstChild.textContent)) {
                 DOM.removeNode(rootElement.firstChild);
@@ -165,7 +154,8 @@ const BaseFormatter = Module({
         formatEmptyNewLine () {
             const { mediator } = this;
             const anchorNode = mediator.get('selection:anchornode');
-            const canDefaultNewline = !(anchorNode.innerText && anchorNode.innerText.trim().length) && !DOM.isIn(anchorNode, toolbarConfig.preventNewlineDefault);
+            const preventNewlineDefault = mediator.get('config:toolbar:preventNewlineDefault');
+            const canDefaultNewline = !(anchorNode.innerText && anchorNode.innerText.trim().length) && !DOM.isIn(anchorNode, preventNewlineDefault);
             const anchorIsContentEditable = anchorNode.hasAttribute && anchorNode.hasAttribute('contenteditable');
 
             if (canDefaultNewline || anchorIsContentEditable) {
@@ -173,10 +163,12 @@ const BaseFormatter = Module({
             }
         },
 
-        formateBlockquoteNewLine () {
+        formatBlockquoteNewLine () {
             const { mediator } = this;
 
-            commands.exec('outdent');
+            mediator.exec('commands:exec', {
+                command: 'outdent'
+            });
             this.formatDefault();
 
             const currentRangeClone = mediator.get('selection:range').cloneRange();
@@ -207,7 +199,7 @@ const BaseFormatter = Module({
             const isContentEditable = startContainer.nodeType === Node.ELEMENT_NODE && startContainer.hasAttribute('contenteditable');
 
             if (containerIsBlockquote) {
-                this.formateBlockquoteNewLine();
+                this.formatBlockquoteNewLine();
             } else if (containerIsEmpty || isContentEditable) {
                 this.formatEmptyNewLine();
             }
@@ -235,9 +227,10 @@ const BaseFormatter = Module({
                 const isLastChild = brNode === brNode.parentNode.lastChild;
                 const isDoubleBreak = brNode.nextSibling && brNode.nextSibling.nodeName === 'BR';
                 const isInBlock = DOM.isIn(brNode, blockTags, rootElem);
+                const isOrphan = brNode.parentNode === rootElem;
 
-                if (isLastChild) {
-                    brNodesToRemove.push(isLastChild);
+                if (isLastChild || isOrphan) {
+                    brNodesToRemove.push(brNode);
                     return;
                 }
 
@@ -291,8 +284,9 @@ const BaseFormatter = Module({
                 let isInvalid = validTags.indexOf(currentNode.nodeName) < 0;
                 let isBrNode = currentNode.nodeName === 'BR'; // BR nodes are handled elsewhere
                 let isTypesterElem = currentNode.className && /typester/.test(currentNode.className);
+                let isElement = currentNode.nodeType !== Node.TEXT_NODE;
 
-                if (isInvalid && !isBrNode && !isTypesterElem) {
+                if (isInvalid && !isBrNode && !isTypesterElem && isElement) {
                     invalidElements.unshift(currentNode);
                 }
             }
@@ -312,6 +306,7 @@ const BaseFormatter = Module({
 
         defaultOrphanedTextNodes (rootElem) {
             const { childNodes } = rootElem;
+
             for (let i = 0; i < childNodes.length; i++) {
                 let childNode = childNodes[i];
                 if (childNode.nodeType === Node.TEXT_NODE && /\w+/.test(childNode.textContent)) {
