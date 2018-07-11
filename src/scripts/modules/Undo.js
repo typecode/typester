@@ -37,16 +37,27 @@ const Undo = Module({
 
             const {
                 isUndo,
-                isRedo
+                isRedo,
+                noChange
             } = this.analyzeStates(states);
 
-            console.log(Object.assign({}, {
-                states,
-                isUndo,
-                isRedo
-            }));
+            console.log(
+                JSON.parse(
+                    JSON.stringify({
+                        states,
+                        currentHistoryIndex,
+                        history,
+                        isUndo,
+                        isRedo,
+                        noChange
+                    })
+                )
+            );
 
-            if (!isUndo && !isRedo) {
+            if (noChange) {
+                props.history[currentHistoryIndex] = states.current;
+            } else if (!isUndo && !isRedo) {
+                props.history.length = currentHistoryIndex + 1;
                 props.history.push(states.current);
                 props.currentHistoryIndex += 1;
             } else if (isUndo) {
@@ -71,7 +82,7 @@ const Undo = Module({
 
         createHistoryState () {
             const { mediator, props } = this;
-            const editableContentString = DOM.nodesToHTMLString(DOM.cloneNodes(props.contentEditableElem, { trim: true })).replace(/\u200B/g, '');
+            const editableContentString = DOM.nodesToHTMLString(DOM.cloneNodes(props.contentEditableElem, { trim: true })).replace(/\u200B/g, '').trim();
             const selectionRangeCoordinates = mediator.get('selection:range:coordinates');
 
             return {
@@ -90,13 +101,20 @@ const Undo = Module({
             } = states;
             let isUndo = beforePrevious && current.editableContentString === beforePrevious.editableContentString;
             let isRedo = next && current.editableContentString === next.editableContentString;
+            let noChange = previous && current.editableContentString === previous.editableContentString;
 
             isUndo = isUndo || false;
             isRedo = isRedo || false;
+            noChange = noChange || false;
 
+            if (!isUndo && !isRedo && !noChange && previous) {
+                console.log(previous.editableContentString);
+                console.log(current.editableContentString);
+            }
             return {
                 isUndo,
-                isRedo
+                isRedo,
+                noChange
             }
         }
     }

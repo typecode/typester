@@ -672,15 +672,6 @@ const Selection = Module({
             let startContainer = dom.el[0];
             let endContainer = dom.el[0];
 
-            console.log({
-                dom,
-                startContainer,
-                endContainer,
-                startCoordinates,
-                endCoordinates,
-                rangeCoordinates
-            })
-
             while (startCoordinates.length) {
                 let startIndex = startCoordinates.shift();
                 startContainer = startContainer.childNodes[startIndex];
