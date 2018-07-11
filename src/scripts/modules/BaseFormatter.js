@@ -127,6 +127,7 @@ const BaseFormatter = Module({
             this.removeStyleAttributes(rootElem);
             this.removeEmptyNodes(rootElem, { recursive: true });
             this.removeZeroWidthSpaces(rootElem);
+            DOM.trimNodeText(rootElem);
 
             // -----
 
@@ -143,14 +144,6 @@ const BaseFormatter = Module({
         /**
          * PRIVATE METHODS:
          */
-        cloneNodes (rootElement) {
-            let clonedNodes = [];
-            rootElement.childNodes.forEach((node) => {
-                clonedNodes.push(node.cloneNode(true));
-            });
-            return clonedNodes;
-        },
-
         injectHooks (rootElement) {
             while (!/\w+/.test(rootElement.firstChild.textContent)) {
                 DOM.removeNode(rootElement.firstChild);
