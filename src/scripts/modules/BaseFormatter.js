@@ -30,7 +30,9 @@ let validTags, blockTags, listTags;
 
 const BaseFormatter = Module({
     name: 'BaseFormatter',
-    props: {},
+    props: {
+        cachedRangeCoordinates: null
+    },
     handlers: {
         requests: {},
         commands: {
@@ -124,6 +126,18 @@ const BaseFormatter = Module({
             this.ensureRootElems(rootElem);
             this.removeStyleAttributes(rootElem);
             this.removeEmptyNodes(rootElem, { recursive: true });
+            this.removeZeroWidthSpaces(rootElem);
+
+            // -----
+
+            // this.removeBrNodes(rootElem);
+            // // this.removeEmptyNodes(rootElem);
+            // this.removeFontTags(rootElem);
+            // this.removeStyledSpans(rootElem);
+            // this.clearEntities(rootElem);
+            // this.removeZeroWidthSpaces(rootElem);
+            // this.defaultOrphanedTextNodes(rootElem);
+            // this.removeEmptyNodes(rootElem, { recursive: true });
         },
 
         /**
@@ -202,6 +216,7 @@ const BaseFormatter = Module({
             } else if (containerIsEmpty || isContentEditable) {
                 this.formatEmptyNewLine();
             }
+            console.log('handleNewLine');
         },
 
         removeStyleAttributes (rootElem) {

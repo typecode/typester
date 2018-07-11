@@ -40,7 +40,13 @@ const ContentEditable = Module({
     name: 'ContentEditable',
     props: {
         styles: null,
-        cleanupTimeout: null
+        cleanupTimeout: null,
+        observer: null,
+        observerConfig: {
+            attributes: false,
+            childList: true,
+            subtree: true
+        }
     },
     dom: {},
     handlers: {
@@ -52,6 +58,9 @@ const ContentEditable = Module({
             'contenteditable:inserthtml' : 'insertHTML',
             'contenteditable:refocus' : 'reFocus',
             'contenteditable:cleanup' : 'cleanup'
+        },
+        events: {
+            'app:destroy': 'destroy'
         },
         domEvents: {
             'focus' : 'handleFocus',
@@ -75,6 +84,7 @@ const ContentEditable = Module({
             this.ensureEditable();
             this.updatePlaceholderState();
             this.updateValue();
+            this.initObserver();
         },
 
         appendStyles () {
@@ -120,6 +130,19 @@ const ContentEditable = Module({
             if (!rootEl.hasAttribute('contenteditable')) {
                 rootEl.contentEditable = true;
             }
+        },
+
+        initObserver () {
+            const { dom, props } = this;
+            const rootEl = dom.el[0];
+
+            props.observer = new MutationObserver(this.observerCallback);
+            props.observer.observe(rootEl, props.observerConfig);
+        },
+
+        observerCallback (mutationsList) {
+            const { mediator } = this;
+            mediator.emit('contenteditable:mutation:observed');
         },
 
         ensureDefaultBlock () {
@@ -204,6 +227,11 @@ const ContentEditable = Module({
                 clearTimeout(props.cleanupTimeout);
                 props.cleanupTimeout = null;
             }
+        },
+
+        destroy () {
+            const { props } = this;
+            props.observer.disconnect();
         },
 
         // DOM Event Handlers

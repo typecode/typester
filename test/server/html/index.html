@@ -177,7 +177,11 @@
                 node.childNodes.forEach(function (childNode) {
                   if (childNode.nodeType === Node.TEXT_NODE) {
                     if (childNode.textContent.trim().length) {
-                      appendHtmlText(childNode.textContent.replace(/\s/g, '\u00B7'), opts.indentation + 1, true);
+                      if (childNode.textContent.match(/\u200B/g)) {
+                        appendHtmlText('<selection-hook />', opts.indentation, true);
+                      } else {
+                        appendHtmlText(childNode.textContent.replace(/\s/g, '\u00B7'), opts.indentation + 1, true);
+                      }
                     }
                   } else {
                     appendHtmlText(generateHtmlText(childNode, {

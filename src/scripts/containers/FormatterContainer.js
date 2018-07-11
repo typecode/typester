@@ -26,6 +26,7 @@ import ListFormatter from '../modules/ListFormatter';
 import LinkFormatter from '../modules/LinkFormatter';
 import Commands from '../modules/Commands';
 import Paste from '../modules/Paste';
+import Undo from '../modules/Undo';
 
 /**
  * @constructor FormatterContainer
@@ -63,6 +64,9 @@ const FormatterContainer = Container({
         },
         {
             class: Paste
+        },
+        {
+            class: Undo
         }
     ]
 });
