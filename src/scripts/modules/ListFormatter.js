@@ -46,12 +46,11 @@ const ListFormatter = Module({
         process (opts) {
             const { mediator } = this;
             const canvasDoc = mediator.get('canvas:document');
-            let toggle = false;
 
             mediator.exec('canvas:cache:selection');
+
             switch (opts.style) {
             case 'ordered':
-                toggle = mediator.get('selection:in:or:contains', ['OL']);
                 if (mediator.get('selection:in:or:contains', ['UL'])) {
                     mediator.exec('commands:exec', {
                         command: 'insertUnorderedList',
@@ -63,8 +62,8 @@ const ListFormatter = Module({
                     contextDocument: canvasDoc
                 });
                 break;
+
             case 'unordered':
-                toggle = mediator.get('selection:in:or:contains', ['UL']);
                 if (mediator.get('selection:in:or:contains', ['OL'])) {
                     mediator.exec('commands:exec', {
                         command: 'insertOrderedList',
@@ -76,12 +75,14 @@ const ListFormatter = Module({
                     contextDocument: canvasDoc
                 });
                 break;
+
             case 'outdent':
                 mediator.exec('commands:exec', {
                     command: 'outdent',
                     contextDocument: canvasDoc
                 });
                 break;
+
             case 'indent':
                 mediator.exec('commands:exec', {
                     command: 'indent',
@@ -90,14 +91,7 @@ const ListFormatter = Module({
                 break;
             }
 
-            if (toggle) {
-                // mediator.exec('canvas:select:cachedSelection');
-                this.postProcessToggle(opts);
-            } else {
-                mediator.exec('canvas:select:ensure:offsets');
-            }
-
-            // mediator.exec('canvas:select:cachedSelection');
+            mediator.exec('canvas:select:ensure:offsets');
         },
 
         commit () {
@@ -130,130 +124,6 @@ const ListFormatter = Module({
                     this.formatList({ style: 'indent' });
                 }
             }
-        },
-
-        prepListItemsForToggle () {
-            const { mediator } = this;
-
-            const canvasDoc = mediator.get('canvas:document');
-            const canvasBody = mediator.get('canvas:body');
-
-            const {
-                anchorNode,
-                focusNode,
-            } = mediator.get('canvas:selection');
-
-            const anchorLiNode = DOM.getClosest(anchorNode, 'LI', canvasBody);
-            const focusLiNode = DOM.getClosest(focusNode, 'LI', canvasBody);
-
-            mediator.exec('canvas:cache:selection');
-
-            let selectedLiNodes = [anchorLiNode];
-            let nextLiNode = anchorLiNode.nextSibling;
-            while (nextLiNode && nextLiNode !== focusLiNode) {
-                selectedLiNodes.push(nextLiNode);
-                nextLiNode = nextLiNode.nextSibling;
-            }
-            selectedLiNodes.push(focusLiNode);
-
-            selectedLiNodes.forEach((selectedLiNode) => {
-                let contentWrapper = canvasDoc.createElement('span');
-                selectedLiNode.appendChild(contentWrapper);
-                while (selectedLiNode.firstChild !== contentWrapper) {
-                    contentWrapper.appendChild(selectedLiNode.firstChild);
-                }
-            });
-
-            mediator.exec('canvas:select:cachedSelection');
-
-            return;
-            // const canvasBody = mediator.get('canvas:body');
-            // const canvasDoc = mediator.get('canvas:document');
-            //
-            // let rootBlock = anchorNode;
-            // while(rootBlock.parentNode !== canvasBody) {
-            //     rootBlock = rootBlock.parentNode;
-            // }
-            //
-            // const liNodes = rootBlock.querySelectorAll('li');
-            // liNodes.forEach((liNode) => {
-            //     let pNode = canvasDoc.createElement('span');
-            //     liNode.appendChild(pNode);
-            //     while (liNode.firstChild !== pNode) {
-            //         pNode.appendChild(liNode.firstChild);
-            //     }
-            // });
-        },
-
-        postProcessToggle () {
-            const { mediator } = this;
-            // return;
-
-            const canvasDoc = mediator.get('canvas:document');
-            const canvasBody = mediator.get('canvas:body');
-
-            mediator.exec('canvas:cache:selection');
-
-            const {
-                anchorNode,
-                focusNode
-            } = mediator.get('canvas:selection');
-
-            const walkToRoot = function (node) {
-                let rootNode = node;
-                while ( rootNode.parentNode !== canvasBody ) {
-                    rootNode = rootNode.parentNode;
-                }
-                return rootNode;
-            };
-
-            const anchorRootNode = walkToRoot(anchorNode);
-            const focusRootNode = walkToRoot(focusNode);
-
-            let currentNode = anchorRootNode;
-            let currentParagraph;
-
-            const createParagraph = function () {
-                currentParagraph = canvasDoc.createElement('p');
-                DOM.insertBefore(currentParagraph, currentNode);
-            };
-
-            const handleBrNode = function (brNode) {
-                createParagraph();
-                currentNode = brNode.nextSibling;
-                DOM.removeNode(brNode);
-            };
-
-            const handleDivNode = function (divNode) {
-                createParagraph();
-                currentNode = divNode.nextSibling;
-                while (divNode.firstChild) {
-                    currentParagraph.appendChild(divNode.firstChild);
-                }
-                DOM.removeNode(divNode);
-            };
-
-            createParagraph();
-
-            while (currentNode !== focusRootNode) {
-                if (currentNode.nodeName === 'BR') {
-                    handleBrNode(currentNode);
-                } else if (currentNode.nodeName === 'DIV') {
-                    handleDivNode(currentNode);
-                } else {
-                    let orphanedNode = currentNode;
-                    currentNode = currentNode.nextSibling;
-                    currentParagraph.appendChild(orphanedNode);
-                }
-            }
-
-            if (focusRootNode.nodeName === 'DIV') {
-                handleDivNode(focusRootNode);
-            } else {
-                currentParagraph.appendChild(focusRootNode);
-            }
-
-            mediator.exec('canvas:select:cachedSelection');
         },
 
         cleanupListDOM (rootElem) {

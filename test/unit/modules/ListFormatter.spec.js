@@ -56,7 +56,6 @@ describe('modules/ListFormatter', function () {
         mediator.exec('format:list', orderedListOpts);
         expect(editableEl.getElementsByTagName('ol').length).toBe(0);
         expect(editableEl.getElementsByTagName('li').length).toBe(0);
-
     });
 
     it('should toggle unordered lists', () => {

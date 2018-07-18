@@ -46,9 +46,10 @@ const BaseFormatter = Module({
     methods: {
         init () {
             const { mediator } = this;
+
             validTags = mediator.get('config:toolbar:validTags');
             blockTags = mediator.get('config:toolbar:blockTags');
-            listTags  = mediator.get('config:toolbar:listTags');
+            listTags = mediator.get('config:toolbar:listTags');
         },
 
         /**
@@ -106,6 +107,7 @@ const BaseFormatter = Module({
         formatDefault () {
             const { mediator } = this;
             const rootElem = mediator.get('selection:rootelement');
+
             mediator.exec('commands:format:default');
             this.removeStyledSpans(rootElem);
         },
@@ -122,22 +124,19 @@ const BaseFormatter = Module({
             this.ensureRootElems(rootElem);
             this.removeStyleAttributes(rootElem);
             this.removeEmptyNodes(rootElem, { recursive: true });
-
-            // -----
-
-            // this.removeBrNodes(rootElem);
-            // // this.removeEmptyNodes(rootElem);
-            // this.removeFontTags(rootElem);
-            // this.removeStyledSpans(rootElem);
-            // this.clearEntities(rootElem);
-            // this.removeZeroWidthSpaces(rootElem);
-            // this.defaultOrphanedTextNodes(rootElem);
-            // this.removeEmptyNodes(rootElem, { recursive: true });
         },
 
         /**
          * PRIVATE METHODS:
          */
+        cloneNodes (rootElement) {
+            let clonedNodes = [];
+            rootElement.childNodes.forEach((node) => {
+                clonedNodes.push(node.cloneNode(true));
+            });
+            return clonedNodes;
+        },
+
         injectHooks (rootElement) {
             while (!/\w+/.test(rootElement.firstChild.textContent)) {
                 DOM.removeNode(rootElement.firstChild);
@@ -306,7 +305,6 @@ const BaseFormatter = Module({
 
         defaultOrphanedTextNodes (rootElem) {
             const { childNodes } = rootElem;
-
             for (let i = 0; i < childNodes.length; i++) {
                 let childNode = childNodes[i];
                 if (childNode.nodeType === Node.TEXT_NODE && /\w+/.test(childNode.textContent)) {

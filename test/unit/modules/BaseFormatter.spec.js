@@ -53,16 +53,14 @@ describe('modules/BaseFormatter', function () {
 
     it('should clean html on export', () => {
         const canvasBody = mediator.get('canvas:body');
-        canvasBody.innerHTML = `
-            <h1><span>Heading copy</span></h1>
+        canvasBody.innerHTML = `<h1><span>Heading copy</span></h1>
             <div><h2>Sub heading copy</h2></div>
             <article>
                 <p>First paragraph</p>
                 <span style='font-size: 16px;'>After first paragraph</span>
                 <p><font>Second paragraph</font></p>
             </article>
-            <ul><li><font>List item 1</font></li></ul>
-        `;
+            <ul><li><font>List item 1</font></li></ul>`;
         selectionHelper.selectFromTo(canvasBody.firstChild, 0, canvasBody.firstChild, 1);
         mediator.exec('format:import:from:canvas');
         if (!/\w+/.test(canvasBody.firstChild.textContent) && !/\w+/.test(editableEl.firstChild.textContent)) {

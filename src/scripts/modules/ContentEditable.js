@@ -152,7 +152,6 @@ const ContentEditable = Module({
             } else {
                 let currentSelection = mediator.get('selection:current');
                 let currentRange = mediator.get('selection:range');
-
                 currentRange.deleteContents();
 
                 let tmpContainer = document.createElement('container');

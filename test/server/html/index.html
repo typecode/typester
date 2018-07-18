@@ -177,7 +177,7 @@
                 node.childNodes.forEach(function (childNode) {
                   if (childNode.nodeType === Node.TEXT_NODE) {
                     if (childNode.textContent.trim().length) {
-                      appendHtmlText(childNode.textContent.trim(), opts.indentation + 1, true);
+                      appendHtmlText(childNode.textContent.replace(/\s/g, '\u00B7'), opts.indentation + 1, true);
                     }
                   } else {
                     appendHtmlText(generateHtmlText(childNode, {

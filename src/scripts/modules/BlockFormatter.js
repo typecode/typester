@@ -84,7 +84,7 @@ const BlockFormatter = Module({
         },
 
         cleanupBlockquote (rootElem) {
-            const blockquoteParagraphs = rootElem.querySelectorAll('BLOCKQUOTE P');
+            const blockquoteParagraphs = rootElem.querySelectorAll('blockquote p');
             blockquoteParagraphs.forEach((paragraph) => {
                 DOM.unwrap(paragraph);
             });

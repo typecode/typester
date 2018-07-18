@@ -201,7 +201,7 @@ const Selection = Module({
 
         getAnchorNode () {
             const currentSelection = this.getCurrentSelection();
-            return currentSelection.anchorNode;
+            return currentSelection && currentSelection.anchorNode;
         },
 
         getCommonAncestor () {
@@ -293,14 +293,49 @@ const Selection = Module({
                 endContainer,
                 endOffset
             } = this.getCurrentRange();
+
             let startCoordinates = [];
             let endCoordinates = [];
+            let startPrefixTrimLength = 0;
+            let endPrefixTrimLength = 0;
+            let endSuffixTrimLength = 0;
 
             const startTrimmablePrefix = startContainer.textContent.match(/^(\r?\n|\r)?(\s+)?/);
             const endTrimmablePrefix = endContainer.textContent.match(/^(\r?\n|\r)?(\s+)?/);
+            const endTrimmableSuffix = endContainer.textContent.match(/(\r?\n|\r)?(\s+)?$/);
+            const startTrimmableSides = DOM.trimmableSides(startContainer.firstChild ? startContainer.firstChild : startContainer);
+            const endTrimmableSides = DOM.trimmableSides(endContainer.lastChild ? endContainer.lastChild : endContainer);
 
-            startOffset -= startTrimmablePrefix ? startTrimmablePrefix[0].length : 0;
-            endOffset -= endTrimmablePrefix ? endTrimmablePrefix[0].length : 0;
+            if (startTrimmablePrefix && startTrimmablePrefix[0].length) {
+                startPrefixTrimLength += startTrimmablePrefix[0].length;
+                if (!startTrimmableSides.left) {
+                    startPrefixTrimLength -= startTrimmablePrefix[0].match(/\s/) ? 1 : 0;
+                }
+                startOffset -= startPrefixTrimLength;
+                if (endContainer === startContainer) {
+                    endOffset -= startPrefixTrimLength;
+                }
+            }
+
+            if (endTrimmablePrefix && endTrimmablePrefix[0].length && endContainer !== startContainer) {
+                endPrefixTrimLength += endTrimmablePrefix[0].length;
+                if (!endTrimmableSides.left) {
+                    endPrefixTrimLength -= endTrimmablePrefix[0].match(/\s/) ? 1 : 0;
+                }
+                endOffset -= endPrefixTrimLength;
+            }
+
+            if (endTrimmableSuffix && endTrimmableSuffix[0].length) {
+                endSuffixTrimLength += endTrimmableSuffix[0].length;
+                if (!endTrimmableSides.right) {
+                    endSuffixTrimLength -= endTrimmableSuffix[0].match(/\s/) ? 1 : 0;
+                }
+                let trimmedTextLength = endContainer.textContent.length - endPrefixTrimLength - endSuffixTrimLength;
+                endOffset = Math.min(trimmedTextLength, endOffset);
+            }
+
+            startOffset = Math.max(0, startOffset);
+            endOffset = Math.min(endContainer.textContent.length, endOffset);
 
             startCoordinates.unshift(startOffset);
             endCoordinates.unshift(endOffset);
@@ -331,7 +366,6 @@ const Selection = Module({
             }
 
             const isIn = DOM.isIn(anchorNode, selectors, rootEl);
-
             if (isIn) {
                 return isIn;
             }
@@ -341,8 +375,8 @@ const Selection = Module({
             let contains = false;
 
             if (rangeFrag.childNodes.length) {
-                selectors.forEach(selector => {
-                    contains = contains || rangeFrag.childNodes[0].nodeName === selector;
+                rangeFrag.childNodes.forEach(childNode => {
+                    contains = contains || selectors.indexOf(childNode.nodeName) > -1;
                 });
             }
 
@@ -365,6 +399,7 @@ const Selection = Module({
             if (anchorNode.nodeType !== Node.ELEMENT_NODE) {
                 anchorNode = anchorNode.parentNode;
             }
+
             if (focusNode.nodeType !== Node.ELEMENT_NODE) {
                 focusNode = focusNode.parentNode;
             }
