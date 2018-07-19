@@ -64,6 +64,8 @@ const BaseFormatter = Module({
             const { mediator } = this;
             const rootElement = mediator.get('selection:rootelement');
             const canvasBody = mediator.get('canvas:body');
+
+            mediator.emit('export:to:canvas:start');
             this.injectHooks(rootElement);
 
             const rangeCoordinates = mediator.get('selection:range:coordinates');
@@ -85,6 +87,8 @@ const BaseFormatter = Module({
         importFromCanvas (opts={}) {
             const { mediator } = this;
             const canvasBody = mediator.get('canvas:body');
+
+            mediator.emit('import:from:canvas:start');
 
             mediator.exec('canvas:cache:selection');
             mediator.exec('format:clean', canvasBody);
@@ -209,7 +213,6 @@ const BaseFormatter = Module({
             } else if (containerIsEmpty || isContentEditable) {
                 this.formatEmptyNewLine();
             }
-            console.log('handleNewLine');
         },
 
         removeStyleAttributes (rootElem) {

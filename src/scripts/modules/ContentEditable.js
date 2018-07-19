@@ -140,7 +140,7 @@ const ContentEditable = Module({
             props.observer.observe(rootEl, props.observerConfig);
         },
 
-        observerCallback (mutationsList) {
+        observerCallback () {
             const { mediator } = this;
             mediator.emit('contenteditable:mutation:observed');
         },
@@ -243,10 +243,18 @@ const ContentEditable = Module({
          * @fires contenteditable:focus
          */
         handleFocus () {
-            const { mediator } = this;
+            const { mediator, dom } = this;
             this.clearCleanupTimeout();
             this.ensureDefaultBlock();
             this.updatePlaceholderState();
+
+            // Trim out orphaned empty root level text nodes. Should maybe move this somewhere else.
+            dom.el[0].childNodes.forEach((childNode) => {
+                if (childNode.nodeType === Node.TEXT_NODE && !childNode.textContent.trim().length) {
+                    DOM.removeNode(childNode);
+                }
+            });
+
             mediator.emit('contenteditable:focus');
         },
 

@@ -212,10 +212,17 @@
                 generateHtmlText(targetEl);
                 contentInspector.innerText = generateHtmlText(targetEl);
                 hljs.highlightBlock(contentInspector);
-                requestAnimationFrame(updateInspector);
+                // requestAnimationFrame(updateInspector);
               };
 
-              requestAnimationFrame(updateInspector);
+              const observerConfig = { attributes: true, childList: true, subtree: true };
+              const editorObserver = new MutationObserver(updateInspector);
+              const canvasObserver = new MutationObserver(updateInspector);
+
+              editorObserver.observe(contentEditable, observerConfig);
+              canvasObserver.observe(document.querySelector('.typester-canvas'), observerConfig);
+              updateInspector();
+              // requestAnimationFrame(updateInspector);
           })();
         </script>
     </body>

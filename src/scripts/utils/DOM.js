@@ -590,7 +590,9 @@ const DOM = {
 
         nodes.forEach((node) => {
             if (node.nodeType === Node.TEXT_NODE) {
-                HTMLString += node.textContent;
+                if(node.textContent.match(/\w+/)) {
+                    HTMLString += node.textContent;
+                }
             } else {
                 HTMLString += node.outerHTML;
             }

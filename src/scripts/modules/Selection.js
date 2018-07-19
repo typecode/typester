@@ -255,6 +255,7 @@ const Selection = Module({
             let startCoordinates = [];
             let endCoordinates = [];
             let startRootChildIndex = 0;
+            console.log('getRangeRelativeToRoot:start');
 
             startCoordinates.unshift(startOffset);
             endCoordinates.unshift(endOffset);
@@ -278,6 +279,8 @@ const Selection = Module({
                 endContainer = endContainer.parentNode;
             }
 
+            console.log('getRangeRelativeToRoot:end');
+
             return {
                 startCoordinates,
                 endCoordinates
@@ -286,7 +289,7 @@ const Selection = Module({
 
         rangeCoordinates () {
             this.ensureTextOnlySelection();
-
+            console.log('rangeCoordinates:start');
             let {
                 startContainer,
                 startOffset,
@@ -349,6 +352,7 @@ const Selection = Module({
                 endCoordinates.unshift(DOM.childIndex(endContainer));
                 endContainer = endContainer.parentNode;
             }
+            console.log('rangeCoordinates:end');
 
             return {
                 startCoordinates,

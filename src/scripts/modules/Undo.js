@@ -6,24 +6,26 @@ const Undo = Module({
     props: {
         contentEditableElem: null,
         currentHistoryIndex: -1,
-        history: []
+        history: [],
+        ignoreSelectionChanges: false
     },
 
     handlers: {
         events: {
-            'contenteditable:mutation:observed': 'handleMutation',
-            'contenteditable:focus': 'handleFocus'
+            // 'contenteditable:mutation:observed': 'handleMutation',
+            'contenteditable:focus': 'handleFocus',
+            'import:from:canvas:start': 'handleImportStart',
+            'import:from:canvas:complete': 'handleImportComplete',
+            'selection:change': 'handleSelectionChange',
+            'export:to:canvas:start': 'handleExportStart'
         }
     },
 
     methods: {
         setup () {},
-        init () {
-            console.log('Undo init');
-        },
+        init () {},
 
         handleMutation () {
-            console.log('Undo handleMutation');
             const { props, mediator } = this;
             const { history, currentHistoryIndex } = props;
             const states = {
@@ -41,21 +43,8 @@ const Undo = Module({
                 noChange
             } = this.analyzeStates(states);
 
-            console.log(
-                JSON.parse(
-                    JSON.stringify({
-                        states,
-                        currentHistoryIndex,
-                        history,
-                        isUndo,
-                        isRedo,
-                        noChange
-                    })
-                )
-            );
-
             if (noChange) {
-                props.history[currentHistoryIndex] = states.current;
+                return;
             } else if (!isUndo && !isRedo) {
                 props.history.length = currentHistoryIndex + 1;
                 props.history.push(states.current);
@@ -63,7 +52,11 @@ const Undo = Module({
             } else if (isUndo) {
                 props.currentHistoryIndex -= 1;
                 mediator.exec('format:clean', props.contentEditableElem);
-                mediator.exec('selection:select:coordinates', states.previous.selectionRangeCoordinates);
+                mediator.exec('selection:select:coordinates', states.beforePrevious.selectionRangeCoordinates);
+            } else if (isRedo) {
+                props.currentHistoryIndex += 1;
+                mediator.exec('format:clean', props.contentEditableElem);
+                mediator.exec('selection:select:coordinates', states.next.selectionRangeCoordinates);
             }
         },
 
@@ -80,15 +73,55 @@ const Undo = Module({
             }
         },
 
-        createHistoryState () {
-            const { mediator, props } = this;
-            const editableContentString = DOM.nodesToHTMLString(DOM.cloneNodes(props.contentEditableElem, { trim: true })).replace(/\u200B/g, '').trim();
-            const selectionRangeCoordinates = mediator.get('selection:range:coordinates');
+        handleImportStart () {
+            const { props } = this;
+            props.ignoreSelectionChanges = true;
+        },
 
-            return {
+        handleImportComplete () {
+            const { props } = this;
+            props.ignoreSelectionChanges = false;
+        },
+
+        handleExportStart () {
+            this.updateCurrentHistoryState();
+        },
+
+        handleSelectionChange () {
+            const { props } = this;
+            if (!props.ignoreSelectionChanges) {
+                this.updateCurrentHistoryState();
+            }
+        },
+
+        updateCurrentHistoryState () {
+            const { props } = this;
+            const { history, currentHistoryIndex } = props;
+            const currentHistoryState = history[currentHistoryIndex];
+
+            if (currentHistoryState) {
+                this.cacheSelectionRangeOnState(currentHistoryState);
+            }
+        },
+
+        createHistoryState () {
+            const { props } = this;
+
+            if (!props.contentEditableElem) { return; }
+
+            const editableContentString = DOM.nodesToHTMLString(DOM.cloneNodes(props.contentEditableElem, { trim: true })).replace(/\u200B/g, '');
+            const historyState = {
                 editableContentString,
-                selectionRangeCoordinates
             };
+
+            this.cacheSelectionRangeOnState(historyState);
+
+            return historyState;
+        },
+
+        cacheSelectionRangeOnState (state) {
+            const { mediator } = this;
+            state.selectionRangeCoordinates = mediator.get('selection:range:coordinates');
         },
 
         analyzeStates (states) {
@@ -96,8 +129,7 @@ const Undo = Module({
                 current,
                 previous,
                 beforePrevious,
-                next,
-                afterNext
+                next
             } = states;
             let isUndo = beforePrevious && current.editableContentString === beforePrevious.editableContentString;
             let isRedo = next && current.editableContentString === next.editableContentString;
@@ -107,17 +139,13 @@ const Undo = Module({
             isRedo = isRedo || false;
             noChange = noChange || false;
 
-            if (!isUndo && !isRedo && !noChange && previous) {
-                console.log(previous.editableContentString);
-                console.log(current.editableContentString);
-            }
             return {
                 isUndo,
                 isRedo,
                 noChange
-            }
+            };
         }
     }
-})
+});
 
 export default Undo;
