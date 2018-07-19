@@ -12,7 +12,7 @@ const Undo = Module({
 
     handlers: {
         events: {
-            // 'contenteditable:mutation:observed': 'handleMutation',
+            'contenteditable:mutation:observed': 'handleMutation',
             'contenteditable:focus': 'handleFocus',
             'import:from:canvas:start': 'handleImportStart',
             'import:from:canvas:complete': 'handleImportComplete',
