@@ -177,7 +177,11 @@
                 node.childNodes.forEach(function (childNode) {
                   if (childNode.nodeType === Node.TEXT_NODE) {
                     if (childNode.textContent.trim().length) {
-                      appendHtmlText(childNode.textContent.replace(/\s/g, '\u00B7'), opts.indentation + 1, true);
+                      if (childNode.textContent.match(/\u200B/g)) {
+                        appendHtmlText('<selection-hook />', opts.indentation, true);
+                      } else {
+                        appendHtmlText(childNode.textContent.replace(/\s/g, '\u00B7'), opts.indentation + 1, true);
+                      }
                     }
                   } else {
                     appendHtmlText(generateHtmlText(childNode, {
@@ -208,10 +212,17 @@
                 generateHtmlText(targetEl);
                 contentInspector.innerText = generateHtmlText(targetEl);
                 hljs.highlightBlock(contentInspector);
-                requestAnimationFrame(updateInspector);
+                // requestAnimationFrame(updateInspector);
               };
 
-              requestAnimationFrame(updateInspector);
+              const observerConfig = { attributes: true, childList: true, subtree: true };
+              const editorObserver = new MutationObserver(updateInspector);
+              const canvasObserver = new MutationObserver(updateInspector);
+
+              editorObserver.observe(contentEditable, observerConfig);
+              canvasObserver.observe(document.querySelector('.typester-canvas'), observerConfig);
+              updateInspector();
+              // requestAnimationFrame(updateInspector);
           })();
         </script>
     </body>

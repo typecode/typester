@@ -40,7 +40,13 @@ const ContentEditable = Module({
     name: 'ContentEditable',
     props: {
         styles: null,
-        cleanupTimeout: null
+        cleanupTimeout: null,
+        observer: null,
+        observerConfig: {
+            attributes: false,
+            childList: true,
+            subtree: true
+        }
     },
     dom: {},
     handlers: {
@@ -52,6 +58,9 @@ const ContentEditable = Module({
             'contenteditable:inserthtml' : 'insertHTML',
             'contenteditable:refocus' : 'reFocus',
             'contenteditable:cleanup' : 'cleanup'
+        },
+        events: {
+            'app:destroy': 'destroy'
         },
         domEvents: {
             'focus' : 'handleFocus',
@@ -75,6 +84,7 @@ const ContentEditable = Module({
             this.ensureEditable();
             this.updatePlaceholderState();
             this.updateValue();
+            this.initObserver();
         },
 
         appendStyles () {
@@ -120,6 +130,19 @@ const ContentEditable = Module({
             if (!rootEl.hasAttribute('contenteditable')) {
                 rootEl.contentEditable = true;
             }
+        },
+
+        initObserver () {
+            const { dom, props } = this;
+            const rootEl = dom.el[0];
+
+            props.observer = new MutationObserver(this.observerCallback);
+            props.observer.observe(rootEl, props.observerConfig);
+        },
+
+        observerCallback () {
+            const { mediator } = this;
+            mediator.emit('contenteditable:mutation:observed');
         },
 
         ensureDefaultBlock () {
@@ -206,6 +229,11 @@ const ContentEditable = Module({
             }
         },
 
+        destroy () {
+            const { props } = this;
+            props.observer.disconnect();
+        },
+
         // DOM Event Handlers
 
         /**
@@ -215,10 +243,18 @@ const ContentEditable = Module({
          * @fires contenteditable:focus
          */
         handleFocus () {
-            const { mediator } = this;
+            const { mediator, dom } = this;
             this.clearCleanupTimeout();
             this.ensureDefaultBlock();
             this.updatePlaceholderState();
+
+            // Trim out orphaned empty root level text nodes. Should maybe move this somewhere else.
+            dom.el[0].childNodes.forEach((childNode) => {
+                if (childNode.nodeType === Node.TEXT_NODE && !childNode.textContent.trim().length) {
+                    DOM.removeNode(childNode);
+                }
+            });
+
             mediator.emit('contenteditable:focus');
         },
 

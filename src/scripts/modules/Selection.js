@@ -340,12 +340,12 @@ const Selection = Module({
             startCoordinates.unshift(startOffset);
             endCoordinates.unshift(endOffset);
 
-            while (!this.isContentEditable(startContainer)) {
+            while (startContainer && !this.isContentEditable(startContainer)) {
                 startCoordinates.unshift(DOM.childIndex(startContainer));
                 startContainer = startContainer.parentNode;
             }
 
-            while (!this.isContentEditable(endContainer)) {
+            while (endContainer && !this.isContentEditable(endContainer)) {
                 endCoordinates.unshift(DOM.childIndex(endContainer));
                 endContainer = endContainer.parentNode;
             }

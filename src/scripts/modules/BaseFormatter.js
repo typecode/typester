@@ -30,7 +30,9 @@ let validTags, blockTags, listTags;
 
 const BaseFormatter = Module({
     name: 'BaseFormatter',
-    props: {},
+    props: {
+        cachedRangeCoordinates: null
+    },
     handlers: {
         requests: {},
         commands: {
@@ -62,6 +64,8 @@ const BaseFormatter = Module({
             const { mediator } = this;
             const rootElement = mediator.get('selection:rootelement');
             const canvasBody = mediator.get('canvas:body');
+
+            mediator.emit('export:to:canvas:start');
             this.injectHooks(rootElement);
 
             const rangeCoordinates = mediator.get('selection:range:coordinates');
@@ -83,6 +87,8 @@ const BaseFormatter = Module({
         importFromCanvas (opts={}) {
             const { mediator } = this;
             const canvasBody = mediator.get('canvas:body');
+
+            mediator.emit('import:from:canvas:start');
 
             mediator.exec('canvas:cache:selection');
             mediator.exec('format:clean', canvasBody);
@@ -124,19 +130,24 @@ const BaseFormatter = Module({
             this.ensureRootElems(rootElem);
             this.removeStyleAttributes(rootElem);
             this.removeEmptyNodes(rootElem, { recursive: true });
+            this.removeZeroWidthSpaces(rootElem);
+            DOM.trimNodeText(rootElem);
+
+            // -----
+
+            // this.removeBrNodes(rootElem);
+            // // this.removeEmptyNodes(rootElem);
+            // this.removeFontTags(rootElem);
+            // this.removeStyledSpans(rootElem);
+            // this.clearEntities(rootElem);
+            // this.removeZeroWidthSpaces(rootElem);
+            // this.defaultOrphanedTextNodes(rootElem);
+            // this.removeEmptyNodes(rootElem, { recursive: true });
         },
 
         /**
          * PRIVATE METHODS:
          */
-        cloneNodes (rootElement) {
-            let clonedNodes = [];
-            rootElement.childNodes.forEach((node) => {
-                clonedNodes.push(node.cloneNode(true));
-            });
-            return clonedNodes;
-        },
-
         injectHooks (rootElement) {
             while (!/\w+/.test(rootElement.firstChild.textContent)) {
                 DOM.removeNode(rootElement.firstChild);
