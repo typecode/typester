@@ -6,7 +6,6 @@
  * namespaced collection of utility methods for working with the DOM.
  * @access protected
  */
-import browser from './browser';
 
 const DOM = {
     regex: {
