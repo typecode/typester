@@ -15,7 +15,7 @@ const DOM = {
         getByTag: /^[a-z]/
     },
 
-    getElements (elementsObj, rootEl) {
+    xgetElements (elementsObj, rootEl) {
         for (let elementKey in elementsObj) {
             if (elementsObj.hasOwnProperty(elementKey) && elementKey !== 'rootEl') {
                 let elementObj = elementsObj[elementKey];

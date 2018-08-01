@@ -185,14 +185,6 @@ const LinkFormatter = Module({
 
             if (targetEl) {
                 targetBounds = targetEl.getBoundingClientRect();
-
-                // See reason below - Fred
-                // elStyles = window.getComputedStyle(targetEl);
-                // elLineHeight = elStyles.getPropertyValue('line-height');
-                // elLineHeight = elLineHeight === 'normal' ? elStyles.getPropertyValue('font-size') : elStyles.getPropertyValue('line-height');
-                // elLineHeight = parseInt(elLineHeight, 10);
-                // lineCount = Math.ceil(targetBounds.height / elLineHeight);
-                // lineStepHeight = targetBounds.height / lineCount;
             } else {
                 targetBounds = mediator.get('selection:bounds');
             }
@@ -201,31 +193,9 @@ const LinkFormatter = Module({
                 const scrollOffset = DOM.getScrollOffset();
                 let docRelTop, docRelCenter;
 
-                // Commenting this out because it is trying to do something smart (position
-                // the flyout close to the user's cursor when they hover over a link)
-                // but isn't particularly stable. And the alternative of positioning it underneath
-                // is acceptable and stable. Leaving this here in case the alternative
-                // proves to be a pain.
-                // - Fred
-                //
-                // const { initialEvent } = props;
-                // if (false && initialEvent) {
-                //     const topDiff = initialEvent.clientY - targetBounds.top;
-                //
-                //     docRelTop = initialEvent.clientY;
-                //     docRelCenter = initialEvent.clientX;
-                //
-                //     if (opts.flyoutPlacement === 'below') {
-                //         docRelTop = targetBounds.top + (lineStepHeight * Math.ceil(topDiff / lineStepHeight));
-                //     } else {
-                //         docRelTop = targetBounds.top + (lineStepHeight * Math.floor(topDiff / lineStepHeight));
-                //     }
-                // } else {
                 docRelTop = (opts.flyoutPlacement === 'below' ? targetBounds.bottom : targetBounds.top);
-                docRelCenter = targetBounds.width / 2 + targetBounds.left + scrollOffset.x;
-                // }
-
                 docRelTop += scrollOffset.y;
+                docRelCenter = targetBounds.width / 2 + targetBounds.left + scrollOffset.x;
 
                 props.flyout.position({
                     left: docRelCenter + 'px',
