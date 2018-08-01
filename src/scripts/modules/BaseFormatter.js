@@ -223,7 +223,7 @@ const BaseFormatter = Module({
                     return;
                 }
 
-                const isLastChild = brNode === brNode.parentNode.lastChild;
+                const isLastChild = DOM.isLastChild(brNode);
                 const isDoubleBreak = brNode.nextSibling && brNode.nextSibling.nodeName === 'BR';
                 const isInBlock = DOM.isIn(brNode, blockTags, rootElem);
                 const isOrphan = brNode.parentNode === rootElem;
