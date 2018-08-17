@@ -14,19 +14,12 @@
  *     'canvas:document' : 'getCanvasDocument',
  *     'canvas:window' : 'getCanvasWindow',
  *     'canvas:body' : 'getCanvasBody',
- *     'canvas:formatted:block': 'getFormattedBlock',
  *     'canvas:selection:coordinates' : 'getSelectionCoordinates',
  *     'canvas:selection': 'getSelection',
- *     'canvas:selection:in:or:contains': 'selectionInOrContains'
  * },
  * commands: {
  *     'canvas:content' : 'setContent',
- *     'canvas:insert:range' : 'insertRange',
- *     'canvas:insert:node' : 'insertNode',
- *     'canvas:select:all' : 'selectAll',
  *     'canvas:select:by:coordinates' : 'selectByCoordinates',
- *     'canvas:import:selection' : 'importSelection',
- *     'canvas:export:prep': 'exportPrep',
  *     'canvas:export:all': 'exportAll',
  *     'canvas:cache:selection': 'cacheSelection',
  *     'canvas:select:cachedSelection': 'selectCachedSelection',
@@ -55,19 +48,12 @@ const Canvas = Module({
             'canvas:document' : 'getCanvasDocument',
             'canvas:window' : 'getCanvasWindow',
             'canvas:body' : 'getCanvasBody',
-            'canvas:formatted:block': 'getFormattedBlock',
             'canvas:selection:coordinates' : 'getSelectionCoordinates',
-            'canvas:selection': 'getSelection',
-            'canvas:selection:in:or:contains': 'selectionInOrContains'
+            'canvas:selection': 'getSelection'
         },
         commands: {
             'canvas:content' : 'setContent',
-            'canvas:insert:range' : 'insertRange',
-            'canvas:insert:node' : 'insertNode',
-            'canvas:select:all' : 'selectAll',
             'canvas:select:by:coordinates' : 'selectByCoordinates',
-            'canvas:import:selection' : 'importSelection',
-            'canvas:export:prep': 'exportPrep',
             'canvas:export:all': 'exportAll',
             'canvas:cache:selection': 'cacheSelection',
             'canvas:select:cachedSelection': 'selectCachedSelection',
@@ -257,13 +243,6 @@ const Canvas = Module({
             canvasBody.appendChild(rangeDocFrag);
         },
 
-        insertNode (node) {
-            const nodeClone = node.cloneNode(true);
-            const canvasBody = this.getCanvasBody();
-            this.reset();
-            canvasBody.appendChild(nodeClone);
-        },
-
         selectAll (opts={}) {
             const { mediator } = this;
             mediator.exec('selection:select:all', opts);
@@ -277,31 +256,6 @@ const Canvas = Module({
             mediator.exec('selection:select:coordinates', rangeCoordinates);
         },
 
-        importSelection (opts={}) {
-            const { mediator } = this;
-            let rangeCoordinates;
-
-            if (opts.toRoot) {
-                rangeCoordinates = mediator.get('selection:range:relative:toroot');
-                mediator.exec('selection:expand:toroot');
-            }
-
-            const selectionRange = mediator.get('selection:range');
-
-            this.insertRange(selectionRange);
-            if (opts.toRoot) {
-                this.selectByCoordinates(rangeCoordinates);
-            } else {
-                this.selectAll();
-            }
-            this.setCanvasBodyEditable();
-
-        },
-
-        exportPrep () {
-            this.cleanHtml();
-        },
-
         exportAll () {
             const { mediator } = this;
             const canvasBody = this.getCanvasBody();
@@ -309,13 +263,6 @@ const Canvas = Module({
             const exportHTMLString = DOM.nodesToHTMLString(clonedNodes);
 
             mediator.exec('contenteditable:inserthtml', exportHTMLString);
-        },
-
-        getFormattedBlock () {
-            const { mediator } = this;
-            mediator.exec('selection:expand:toroot');
-            const blockRange = mediator.get('selection:range');
-            return blockRange.cloneContents();
         },
 
         cleanHtml () {
@@ -365,11 +312,6 @@ const Canvas = Module({
         getSelectionCoordinates () {
             const { mediator } = this;
             return mediator.get('selection:range:coordinates');
-        },
-
-        selectionInOrContains (selectors) {
-            const { mediator } = this;
-            return mediator.get('selection:in:or:contains', selectors);
         },
 
         destroy () {

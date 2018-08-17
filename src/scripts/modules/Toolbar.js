@@ -10,8 +10,7 @@
  * @example
  * // Available commands
  * commands: {
- *   'toolbar:hide' : 'hideToolbar',
- *   'toolbar:set:buttons' : 'setButtons'
+ *   'toolbar:hide' : 'hideToolbar'
  * }
  */
 import Module from '../core/Module';
@@ -36,14 +35,11 @@ const Toolbar = Module({
     },
     handlers: {
         commands: {
-            'toolbar:hide' : 'hideToolbar',
-            'toolbar:set:buttons' : 'setButtons'
+            'toolbar:hide' : 'hideToolbar'
         },
         events: {
-            // 'contenteditable:focus': 'showToolbar',
             'app:destroy' : 'destroy',
             'selection:update' : 'handleSelectionChange',
-            // 'selection:start' : 'handleSelectStart',
             'selection:change' : 'handleSelectionChange',
             'mouse:down': 'handleMouseDown',
             'mouse:up': 'handleMouseUp',
@@ -112,10 +108,6 @@ const Toolbar = Module({
             opts.toggle = buttonConfig.toggles && toolbarMenuItemState.isActive;
             mediator.exec(`format:${formatter}`, opts);
         },
-
-        // handleSelectStart () {
-        //     this.hideToolbar();
-        // },
 
         handleSelectionChange () {
             const { props } = this;

@@ -6,27 +6,12 @@
  * namespaced collection of utility methods for working with the DOM.
  * @access protected
  */
-import browser from './browser';
 
 const DOM = {
     regex: {
         getById: /^#/,
         getByClassName: /^\./,
         getByTag: /^[a-z]/
-    },
-
-    getElements (elementsObj, rootEl) {
-        for (let elementKey in elementsObj) {
-            if (elementsObj.hasOwnProperty(elementKey) && elementKey !== 'rootEl') {
-                let elementObj = elementsObj[elementKey];
-                let { selector } = elementObj;
-
-                rootEl = elementObj.rootEl || rootEl;
-                rootEl = typeof rootEl === 'function' ? rootEl() : rootEl;
-
-                elementObj.el = DOM.get(selector, rootEl);
-            }
-        }
     },
 
     // Public methods
@@ -114,37 +99,6 @@ const DOM = {
         }
     },
 
-    getFurthest (node, selector) {
-        const rootEl = DOM.getRootEl();
-        let currentNode = node;
-        let furthest = null;
-
-        selector = selector instanceof Array ? selector : [selector];
-
-        while (currentNode && currentNode !== rootEl) {
-            if (selector.indexOf(currentNode.nodeName) > -1) {
-                furthest = currentNode;
-            }
-            currentNode = currentNode.parentNode || currentNode.parentElement;
-        }
-
-        return furthest;
-    },
-
-    nextNode (node) {
-        if (node.hasChildNodes()) {
-            return node.firstChild;
-        } else {
-            while (node && !node.nextSibling) {
-                node = node.parentNode;
-            }
-            if (!node) {
-                return null;
-            }
-            return node.nextSibling;
-        }
-    },
-
     appendTo(selector, tag) {
         const htmlNode = DOM.isElement(tag) ? tag : document.createElement(tag);
         const targetEl = DOM.get(selector);
@@ -179,14 +133,6 @@ const DOM = {
         }
 
         return styleEl;
-    },
-
-    // From http://stackoverflow.com/questions/384286/javascript-isdom-how-do-you-check-if-a-javascript-object-is-a-dom-object
-    isNode(o) {
-        return (
-            typeof Node === 'object' ? o instanceof Node :
-            o && typeof o === 'object' && typeof o.nodeType === 'number' && typeof o.nodeName === 'string'
-        );
     },
 
     isElement(elem) {
@@ -247,10 +193,6 @@ const DOM = {
         el.classList.remove(classStr);
     },
 
-    isBlock(node) {
-        return DOM.getStyle(node, 'display') === 'block';
-    },
-
     closestElement(node) {
         let returnNode = node;
 
@@ -259,17 +201,6 @@ const DOM = {
         }
 
         return returnNode;
-    },
-
-    getStyles(node) {
-        const closestElement = DOM.closestElement(node);
-        const gcs = 'getComputedStyle' in window;
-        return (gcs ? window.getComputedStyle(closestElement) : closestElement.currentStyle);
-    },
-
-    getStyle(node, property) {
-        const nodeStyles = DOM.getStyles(node);
-        return nodeStyles[property];
     },
 
     insertBefore (newNode, referenceNode) {
@@ -288,27 +219,11 @@ const DOM = {
     },
 
     isLastChild (node) {
-        return node === node.parentNode.lastChild;
+        return node.parentNode && node === node.parentNode.lastChild;
     },
 
     isFirstChild (node) {
-        return node === node.parentNode.firstChild;
-    },
-
-    wrapRange (nodeName, nodeOpts) {
-        const sel = window.getSelection();
-        const range = sel.getRangeAt(0);
-        const wrapper = document.createElement(nodeName);
-
-        for (let optKey in nodeOpts) {
-            if (nodeOpts.hasOwnProperty(optKey)) {
-                wrapper[optKey] = nodeOpts[optKey];
-            }
-        }
-
-        range.surroundContents(wrapper);
-
-        return wrapper;
+        return node.parentNode && node === node.parentNode.firstChild;
     },
 
     unwrap(node, opts={}) {
@@ -327,46 +242,10 @@ const DOM = {
         return unwrappedNodes;
     },
 
-    unwrapFrom (node, wrappers) {
-        const rootEl = DOM.getRootEl();
-        let currentNode = node;
-        let unwrappedNodes = [currentNode];
-
-        while (currentNode !== rootEl) {
-            let parentNode = currentNode.parentNode || currentNode.parentElement;
-
-            if (wrappers.indexOf(currentNode.nodeName) > -1) {
-                unwrappedNodes = DOM.unwrap(currentNode);
-            }
-
-            currentNode = parentNode;
-        }
-
-        return unwrappedNodes;
-    },
-
-    unwrapToRoot (node) {
-        const rootEl = DOM.getRootEl();
-        let currentNode = node.parentNode;
-
-        while (currentNode !== rootEl) {
-            let parentNode = currentNode.parentNode;
-            DOM.unwrap(currentNode);
-            currentNode = parentNode;
-        }
-    },
-
     removeNode (node) {
         const parentNode = node.parentElement || node.parentNode;
         if (parentNode) {
             parentNode.removeChild(node);
-        }
-    },
-
-    replaceNode (node, newNode) {
-        const parentNode = node.parentNode || node.parentElement;
-        if (parentNode) {
-            parentNode.replaceChild(newNode, node);
         }
     },
 
@@ -385,28 +264,6 @@ const DOM = {
         return topMostContainerZIndex;
     },
 
-    // // From http://stackoverflow.com/questions/6139107/programmatically-select-text-in-a-contenteditable-html-element
-    // selectNodeContents(node) {
-    //     node = node || DOM.getAnchorNode();
-    //     if (!node) {
-    //         return;
-    //     }
-    //
-    //     const nodes = node instanceof Array ? node : [node];
-    //     const startNode = nodes[0];
-    //     const endNode = nodes[nodes.length - 1];
-    //
-    //     const range = document.createRange();
-    //     range.setStart(startNode, 0);
-    //     range.setEnd(endNode, endNode.length);
-    //
-    //     const sel = window.getSelection();
-    //     if (sel.rangeCount > 0) {
-    //         sel.removeAllRanges();
-    //     }
-    //     sel.addRange(range);
-    // },
-
     getRootEl() {
         const selection = document.getSelection();
         const anchorNode = selection.anchorNode;
@@ -417,100 +274,6 @@ const DOM = {
         }
 
         return rootEl;
-    },
-
-    removeInvalidTagsUpward (node, acceptedTags) {
-        const rootEl = DOM.getRootEl();
-        let currentNode = node;
-        let invalidTags = [];
-        let unwrappedNodes = [node];
-
-        while (currentNode !== rootEl) {
-            if (currentNode.nodeType === 1 && acceptedTags.indexOf(currentNode.nodeName) < 0) {
-                invalidTags.push(currentNode);
-            }
-            currentNode = currentNode.parentNode || currentNode.parentElement;
-        }
-
-        for (let i = 0; i < invalidTags.length; i++) {
-            let invalidTag = invalidTags[i];
-            unwrappedNodes = DOM.unwrap(invalidTag);
-        }
-
-        return unwrappedNodes;
-    },
-
-    // From: http://stackoverflow.com/questions/37025488/remove-whitespace-from-window-selection-in-js
-    trimSelection (opts) {
-        opts = opts || { fromEnd: true };
-
-        const sel = window.getSelection();
-        const range = sel.getRangeAt(0);
-        const selStr = sel.toString();
-
-        let regEx, container, method, regExResult,
-            offset = range.startOffset, rangeClone;
-
-        if (opts.bothEnds) {
-            opts.fromEnd = true;
-        }
-
-        if (opts.fromEnd) {
-            regEx = /\s+$/;
-            container = range.endContainer;
-            method = range.setEnd;
-        } else if (opts.fromStart) {
-            regEx = /[^\s]/;
-            container = range.startContainer;
-            method = range.setStart;
-        }
-
-
-        regExResult = regEx.exec(selStr);
-        if (regExResult && regExResult.index > 0) {
-            if (opts.fromEnd && offset + regExResult.index > container.length) {
-                regExResult = regEx.exec(container.textContent);
-                if (regExResult) {
-                    method.call(range, container, regExResult.index);
-                }
-            } else {
-                method.call(range, container, offset + regExResult.index);
-            }
-
-            rangeClone = range.cloneRange();
-            sel.removeAllRanges();
-            sel.addRange(rangeClone);
-        }
-
-        if (opts.bothEnds) {
-            if (opts.fromEnd) {
-                DOM.trimSelection({ fromStart: true });
-            } else {
-                DOM.trimSelection({ fromEnd: true });
-            }
-        }
-    },
-
-    createPseudoSelect () {
-        const rootEl = DOM.getRootEl();
-        const wrapper = DOM.wrapRange('SPAN', {
-            className: 'pseudo-selection'
-        });
-        let selectionStyles;
-
-        if (browser.isFirefox()) {
-            selectionStyles = window.getComputedStyle(rootEl, '::-moz-selection');
-        } else {
-            selectionStyles = window.getComputedStyle(rootEl, '::selection');
-        }
-
-        wrapper.style['background-color'] = selectionStyles['background-color'];
-        if (wrapper.style['background-color'] === 'transparent') {
-            wrapper.style['background-color'] = '#EEEEEE';
-        }
-        wrapper.style.color = selectionStyles.color;
-
-        return wrapper;
     },
 
     // From: https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
@@ -574,10 +337,9 @@ const DOM = {
     },
 
     trimmableSides (node) {
-        const { parentNode } = node;
         const isInline = DOM.nodeIsInline(node);
-        const isFirstChild = parentNode && node === parentNode.firstChild;
-        const isLastChild = parentNode && node === parentNode.lastChild;
+        const isFirstChild = DOM.isFirstChild(node);
+        const isLastChild = DOM.isLastChild(node);
 
         return {
             left: !isInline && isFirstChild,
@@ -629,10 +391,6 @@ const DOM = {
 
     _cleanSelector(selector) {
         return selector.replace(/^[\.#]/, '');
-    },
-
-    _createEl(tag) {
-        return document.createElement(tag);
     }
 };
 

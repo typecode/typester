@@ -38,9 +38,6 @@ const Mouse = Module({
                 this.unsetMousedown();
                 mediator.emit('mouse:up');
             };
-            // document.body.onmouseout = () => {
-            //     props.mousedown = 0;
-            // };
         },
 
         setMousedown () {

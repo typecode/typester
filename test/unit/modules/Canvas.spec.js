@@ -58,14 +58,4 @@ describe('modules/Canvas', function () {
         mediator.exec('canvas:content', testContentHTML);
         expect(canvasDoc.body.innerHTML).toBe(testContentHTML);
     });
-
-    it('should insert a given range', () => {
-        selectionHelper.selectAll(editableEl);
-
-        const selectedRange = selectionHelper.getSelectionRange();
-        const canvasBody = mediator.get('canvas:body');
-
-        mediator.exec('canvas:insert:range', selectedRange);
-        expect(canvasBody.innerHTML).toBe(editableElInnerHTML);
-    });
 });

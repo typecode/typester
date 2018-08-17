@@ -56,8 +56,7 @@ const ContentEditable = Module({
         },
         commands: {
             'contenteditable:inserthtml' : 'insertHTML',
-            'contenteditable:refocus' : 'reFocus',
-            'contenteditable:cleanup' : 'cleanup'
+            'contenteditable:refocus' : 'reFocus'
         },
         events: {
             'app:destroy': 'destroy'

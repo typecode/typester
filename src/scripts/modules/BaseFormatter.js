@@ -132,17 +132,6 @@ const BaseFormatter = Module({
             this.removeEmptyNodes(rootElem, { recursive: true });
             this.removeZeroWidthSpaces(rootElem);
             DOM.trimNodeText(rootElem);
-
-            // -----
-
-            // this.removeBrNodes(rootElem);
-            // // this.removeEmptyNodes(rootElem);
-            // this.removeFontTags(rootElem);
-            // this.removeStyledSpans(rootElem);
-            // this.clearEntities(rootElem);
-            // this.removeZeroWidthSpaces(rootElem);
-            // this.defaultOrphanedTextNodes(rootElem);
-            // this.removeEmptyNodes(rootElem, { recursive: true });
         },
 
         /**
@@ -234,7 +223,7 @@ const BaseFormatter = Module({
                     return;
                 }
 
-                const isLastChild = brNode === brNode.parentNode.lastChild;
+                const isLastChild = DOM.isLastChild(brNode);
                 const isDoubleBreak = brNode.nextSibling && brNode.nextSibling.nodeName === 'BR';
                 const isInBlock = DOM.isIn(brNode, blockTags, rootElem);
                 const isOrphan = brNode.parentNode === rootElem;
@@ -327,28 +316,6 @@ const BaseFormatter = Module({
                     }
                 }
             }
-        },
-
-        clearEntities (rootElem) {
-            const rootDoc = rootElem.ownerDocument;
-            const walker = rootDoc.createTreeWalker(
-                rootElem,
-                NodeFilter.SHOW_TEXT,
-                null,
-                false
-            );
-
-            let textNodes = [];
-            while(walker.nextNode()) {
-                textNodes.push(walker.currentNode);
-            }
-
-            textNodes.forEach((textNode) => {
-                if (/\w+/.test(textNode.textContent)) {
-                    textNode.nodeValue = textNode.nodeValue.replace(/^\u00a0/, '');
-                    textNode.nodeValue = textNode.nodeValue.replace(/\u00a0$/, '');
-                }
-            });
         },
 
         ensureRootElems (rootElem) {
@@ -455,17 +422,6 @@ const BaseFormatter = Module({
                     DOM.insertBefore(styledSpan.firstChild, styledSpan);
                 }
                 DOM.removeNode(styledSpan);
-            }
-        },
-
-        removeFontNodes (rootElem) {
-            const fontTags = rootElem.querySelectorAll('font');
-            for (let i = fontTags.length - 1; i >= 0; i--) {
-                let fontTag = fontTags[i];
-                while (fontTag.firstChild) {
-                    DOM.insertBefore(fontTag.firstChild, fontTag);
-                }
-                DOM.removeNode(fontTag);
             }
         }
     }

@@ -15,38 +15,28 @@
  *     'selection:current': 'getCurrentSelection',
  *     'selection:range': 'getCurrentRange',
  *     'selection:anchornode': 'getAnchorNode',
- *     'selection:commonancestor': 'getCommonAncestor',
- *     'selection:closestblock': 'getClosestBlock',
  *     'selection:rootelement': 'getRootElement',
- *     'selection:range:clone': 'getRangeClone',
  *     'selection:bounds': 'getSelectionBounds',
- *     'selection:range:relative:toroot': 'getRangeRelativeToRoot',
  *     'selection:in:or:contains': 'inOrContains',
  *     'selection:range:coordinates': 'rangeCoordinates',
  *     'selection:contains:node': 'containsNode',
- *     'selection:spans:multiple:blocks': 'spansMultipleBlocks',
- *     'selection:pseudo': 'getPseudo'
+ *     'selection:spans:multiple:blocks': 'spansMultipleBlocks'
  * },
  *
  * commands: {
  *     'selection:set:contextWindow': 'setContextWindow',
  *     'selection:set:contextDocument': 'setContextDocument',
  *     'selection:set:el': 'setRootElement',
- *     'selection:expand:toroot': 'expandToRoot',
  *     'selection:update:range': 'updateRange',
  *     'selection:wrap:element': 'wrapElement',
- *     'selection:wrap:content': 'wrapContent',
  *     'selection:wrap:pseudo': 'wrapPseudoSelect',
  *     'selection:select:pseudo': 'selectPseudo',
  *     'selection:select:remove:pseudo': 'removePseudo',
- *     'selection:collapse:tostart': 'collapseToStart',
  *     'selection:reselect': 'reSelect',
  *     'selection:select:contents': 'selectContents',
- *     'selection:collapse:toend': 'collapseToEnd',
  *     'selection:select:all': 'selectAll',
  *     'selection:select:coordinates': 'selectByCoordinates',
  *     'selection:ensure:text:only' : 'ensureTextOnlySelection',
- *     'selection:deselect': 'deSelect'
  * }
  */
 
@@ -75,38 +65,28 @@ const Selection = Module({
             'selection:current': 'getCurrentSelection',
             'selection:range': 'getCurrentRange',
             'selection:anchornode': 'getAnchorNode',
-            'selection:commonancestor': 'getCommonAncestor',
-            'selection:closestblock': 'getClosestBlock',
             'selection:rootelement': 'getRootElement',
-            'selection:range:clone': 'getRangeClone',
             'selection:bounds': 'getSelectionBounds',
-            'selection:range:relative:toroot': 'getRangeRelativeToRoot',
             'selection:in:or:contains': 'inOrContains',
             'selection:range:coordinates': 'rangeCoordinates',
             'selection:contains:node': 'containsNode',
-            'selection:spans:multiple:blocks': 'spansMultipleBlocks',
-            'selection:pseudo': 'getPseudo'
+            'selection:spans:multiple:blocks': 'spansMultipleBlocks'
         },
 
         commands: {
             'selection:set:contextWindow': 'setContextWindow',
             'selection:set:contextDocument': 'setContextDocument',
             'selection:set:el': 'setRootElement',
-            'selection:expand:toroot': 'expandToRoot',
             'selection:update:range': 'updateRange',
             'selection:wrap:element': 'wrapElement',
-            'selection:wrap:content': 'wrapContent',
             'selection:wrap:pseudo': 'wrapPseudoSelect',
             'selection:select:pseudo': 'selectPseudo',
             'selection:select:remove:pseudo': 'removePseudo',
-            'selection:collapse:tostart': 'collapseToStart',
             'selection:reselect': 'reSelect',
             'selection:select:contents': 'selectContents',
-            'selection:collapse:toend': 'collapseToEnd',
             'selection:select:all': 'selectAll',
             'selection:select:coordinates': 'selectByCoordinates',
-            'selection:ensure:text:only' : 'ensureTextOnlySelection',
-            'selection:deselect': 'deSelect'
+            'selection:ensure:text:only' : 'ensureTextOnlySelection'
         }
     },
     methods: {
@@ -204,84 +184,9 @@ const Selection = Module({
             return currentSelection && currentSelection.anchorNode;
         },
 
-        getCommonAncestor () {
-            const currentSelection = this.getCurrentSelection();
-            if (currentSelection.rangeCount > 0) {
-                const selectionRange = currentSelection.getRangeAt(0);
-                return selectionRange.commonAncestorContainer;
-            }
-        },
-
-        getClosestBlock () {
-            const { mediator } = this;
-            const commonAncestor = this.getCommonAncestor();
-            const blockElementNames = mediator.get('config:blockElementNames');
-            let closestBlockEl = null;
-            let currentNode = commonAncestor;
-
-            while (!closestBlockEl && !this.isContentEditable(currentNode) && currentNode) {
-                if (currentNode.nodeType === Node.ELEMENT_NODE) {
-                    let nodeTagName = currentNode.tagName.toLowerCase();
-                    if (blockElementNames.indexOf(nodeTagName) > -1) {
-                        closestBlockEl = currentNode;
-                    } else {
-                        currentNode = currentNode.parentNode;
-                    }
-                } else {
-                    currentNode = currentNode.parentNode;
-                }
-            }
-
-            return closestBlockEl;
-        },
-
         getRootElement () {
             const { dom } = this;
             return dom.el[0];
-        },
-
-        getRangeClone () {
-            const currentRange = this.getCurrentRange();
-            return currentRange.cloneRange();
-        },
-
-        getRangeRelativeToRoot () {
-            let {
-                startContainer,
-                startOffset,
-                endContainer,
-                endOffset
-            } = this.getCurrentRange();
-            let startCoordinates = [];
-            let endCoordinates = [];
-            let startRootChildIndex = 0;
-
-            startCoordinates.unshift(startOffset);
-            endCoordinates.unshift(endOffset);
-
-            while (!this.isContentEditable(startContainer)) {
-                if (this.isContentEditable(startContainer.parentNode)) {
-                    startRootChildIndex = DOM.childIndex(startContainer);
-                    startCoordinates.unshift(0);
-                } else {
-                    startCoordinates.unshift(DOM.childIndex(startContainer));
-                }
-                startContainer = startContainer.parentNode;
-            }
-
-            while (!this.isContentEditable(endContainer)) {
-                if (this.isContentEditable(endContainer.parentNode)) {
-                    endCoordinates.unshift(DOM.childIndex(endContainer) - startRootChildIndex);
-                } else {
-                    endCoordinates.unshift(DOM.childIndex(endContainer));
-                }
-                endContainer = endContainer.parentNode;
-            }
-
-            return {
-                startCoordinates,
-                endCoordinates
-            };
         },
 
         rangeCoordinates () {
@@ -407,41 +312,6 @@ const Selection = Module({
             return anchorNode === node || focusNode === node;
         },
 
-        expandToRoot (opts={}) {
-            const currentRange = opts.range || this.getCurrentRange();
-            let startRootNode = currentRange.startContainer;
-            let endRootNode = currentRange.endContainer;
-            const newRange = document.createRange();
-            const startEqualsEnd = startRootNode === endRootNode;
-
-            if (this.isContentEditable(startRootNode)) {
-                return;
-            }
-
-            const getRootEl = (node) => {
-                let currentNode = node;
-                if (!this.isContentEditable(currentNode)) {
-                    while (currentNode.parentNode && !this.isContentEditable(currentNode.parentNode)) {
-                        currentNode = currentNode.parentNode;
-                    }
-                }
-                return currentNode;
-            };
-
-            startRootNode = getRootEl(startRootNode);
-            endRootNode = startEqualsEnd ? startRootNode : getRootEl(endRootNode);
-
-            if (opts.innerBounds) {
-                newRange.setStartAfter(startRootNode);
-                newRange.setEndBefore(endRootNode);
-            } else {
-                newRange.setStart(startRootNode, 0);
-                newRange.setEndAfter(endRootNode);
-            }
-
-            this.updateRange(newRange, { silent:true });
-        },
-
         wrapElement (elem, opts={}) {
             const currentRange = this.getCurrentRange();
 
@@ -454,13 +324,6 @@ const Selection = Module({
             }
 
             this.updateRange(currentRange, opts);
-        },
-
-        wrapContent () {
-            const currentRange = this.getCurrentRange();
-            const selectionRootEl = this.getRootElement();
-            currentRange.selectNodeContents(selectionRootEl);
-            this.updateRange(currentRange);
         },
 
         wrapPseudoSelect () {
@@ -484,11 +347,6 @@ const Selection = Module({
                 dom.el[0].focus();
                 this.wrapElement(unwrappedNodes, { silent: true });
             }
-        },
-
-        getPseudo () {
-            const { props } = this;
-            return props.pseudoSelection;
         },
 
         removePseudo () {
@@ -536,11 +394,6 @@ const Selection = Module({
             }
         },
 
-        deSelect () {
-            const currentSelection = this.getCurrentSelection();
-            currentSelection.removeAllRanges();
-        },
-
         isContentEditable (node) {
             return node && node.nodeType === Node.ELEMENT_NODE && node.hasAttribute('contenteditable');
         },
@@ -548,10 +401,6 @@ const Selection = Module({
         getSelectionBounds () {
             const currentRange = this.getCurrentRange();
             const rangeRects = currentRange ? currentRange.getClientRects() : [];
-            // NB: This seems to be unnecessary. It's used later for logic that is causing incorrect toolbar alignment.
-            // Have commented out in case this is actually required for something else.
-            // - Fred
-            // const rangeBoundingClientRect = currentRange ? currentRange.getBoundingClientRect() : null;
 
             let selectionBounds = {
                 top: null,
@@ -618,21 +467,6 @@ const Selection = Module({
             }
 
             return selectionBounds;
-        },
-
-        collapseToStart () {
-            const currentRange = this.getCurrentRange();
-            const newRange = document.createRange();
-
-            newRange.setStart(currentRange.startContainer, currentRange.startOffset);
-            newRange.setEnd(currentRange.startContainer, currentRange.startOffset);
-
-            this.updateRange(newRange);
-        },
-
-        collapseToEnd () {
-            const currentSelection = this.getCurrentSelection();
-            currentSelection.collapseToEnd();
         },
 
         reSelect () {
