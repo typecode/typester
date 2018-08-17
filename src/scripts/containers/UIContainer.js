@@ -19,6 +19,7 @@ import Container from '../core/Container';
 import Toolbar from '../modules/Toolbar';
 import Flyout from '../modules/Flyout';
 import Mouse from '../modules/Mouse';
+import Styles from '../modules/Styles';
 
 /**
  * @constructor UIContainer
@@ -32,7 +33,7 @@ const UIContainer = Container({
     /**
      * Child Modules: [{@link modules/Flyout}, {@link modules/Toolbar}]
      * Note: The Toobar is instantiated with the document body set as it's dom.el.
-     * @enum {Array<{class:Module}>} modules    
+     * @enum {Array<{class:Module}>} modules
      */
     modules: [
         {
@@ -48,6 +49,9 @@ const UIContainer = Container({
         },
         {
             class: Mouse
+        },
+        {
+            class: Styles
         }
     ]
 });
