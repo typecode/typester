@@ -1,6 +1,7 @@
 ## Typester Development
 
 ### TOC
+* [Deep Dive Articles](#deep-dive-articles)
 * [Project Architecture](#project-architecture)
 * [Core Concepts](#core-concepts)
     - [Containers](#core-concepts-containers)
@@ -8,6 +9,13 @@
     - [Modules](#core-concepts-modules)
     - [The Canvas](#core-concepts-the-canvas)
     - [Formatters](#core-concepts-formatters)
+
+---
+<a id='deep-dive-articles'></a>
+## Deep Dive Articles
+For a deeper understanding of how the system is pieced together check out these articles:
+- ![The Typester Series: Core](https://medium.com/typecode/the-typester-series-core-abc63affaef0)
+- ![The Typester Series: Formatters](https://medium.com/typecode/the-typester-series-formatters-c9ed8f78424e)
 
 ---
 <a id='project-architecture'></a>
