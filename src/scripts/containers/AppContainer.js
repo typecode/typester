@@ -116,6 +116,15 @@ const AppContainer = Container({
          */
         handleBlur () {
             // Should the container require to do anything in particular here
+        },
+
+        /**
+         * Destroy the entire Typeset instance
+         * @func destroy
+         */
+        destroy () {
+            const { mediator } = this;
+            mediator.emit('app:destroy');
         }
     }
 });
