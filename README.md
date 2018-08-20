@@ -29,7 +29,10 @@ Setting up Typester on your page is as easy as:
 ```
 import Typester from 'typester-editor'
 
-new Typester({ el: document.querySelector('[contenteditable]') }) // Where document.querySelector(...) is a single DOM element.
+const typesterInstance = new Typester({ el: document.querySelector('[contenteditable]') }) // Where document.querySelector(...) is a single DOM element.
+
+// If you need to tear down for any reason:
+typesterInstance.destroy();
 ```
 
 ### Configuration
