@@ -122,6 +122,10 @@ const Mediator = function (opts={}) {
             if (requestHandler) {
                 return requestHandler(options);
             }
+        },
+
+        destroy () {
+            requests.handlers = {};
         }
     };
 
@@ -152,6 +156,10 @@ const Mediator = function (opts={}) {
             if (commandHandler) {
                 commandHandler(options);
             }
+        },
+
+        destroy () {
+            commands.handlers = {};
         }
     };
 
@@ -176,9 +184,18 @@ const Mediator = function (opts={}) {
 
         emit (eventKey, options) {
             const eventHandlers = events.getHandlers(eventKey);
+
             if (eventHandlers.length) {
                 eventHandlers.forEach((eventHandler) => eventHandler(options));
             }
+
+            if (eventKey === 'app:destroy') {
+                fn.destroy();
+            }
+        },
+
+        destroy () {
+            events.handlers = {};
         }
     };
 
@@ -370,6 +387,12 @@ const Mediator = function (opts={}) {
 
         getId () {
             return internal.id;
+        },
+
+        destroy () {
+            requests.destroy();
+            commands.destroy();
+            events.destroy();
         }
     };
 

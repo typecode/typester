@@ -61,7 +61,10 @@
     </head>
     <body>
         <div class='header'>
-          <h1>Typester test server</h1>
+          <h1>
+            Typester test server
+            <button class='destroy-btn'>Destroy</button>
+          </h1>
           <div class='inspector-tools'>
             <a class='inspect-content' data-target-inspector='content'>Inspect Content</a>
             <a class='inspect-canvas' data-target-inspector='canvas'>Inspect Canvas</a>
@@ -114,12 +117,20 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>
           const contentEditable = document.getElementById('content-editable');
-          new Typester({
+          const typesterInstance = new Typester({
               el: contentEditable,
               configs: {
                 // toolbar: {
                 //   buttons: ['bold', 'italic', 'h1', 'h2', 'orderedlist', 'unorderedlist', 'quote', 'link']
                 // }
+                styles: {
+                  colors: {
+                    flyoutBg: '#C00',
+                    menuItemIcon: '#00C',
+                    menuItemHover: '#0C0',
+                    menuItemActive: '#0A0'
+                  }
+                }
               }
           });
         </script>
@@ -130,6 +141,7 @@
 
               const contentInspector = document.getElementById('content-inspector');
               const inspectorTools = document.querySelectorAll('.inspector-tools a');
+              const destroyBtn = document.querySelector('.destroy-btn');
 
               inspectorTools.forEach(function (inspectorTool, index) {
                 if (index === 0) {
@@ -222,7 +234,10 @@
               editorObserver.observe(contentEditable, observerConfig);
               canvasObserver.observe(document.querySelector('.typester-canvas'), observerConfig);
               updateInspector();
-              // requestAnimationFrame(updateInspector);
+
+              destroyBtn.addEventListener('click', function () {
+                typesterInstance.destroy();
+              });
           })();
         </script>
     </body>

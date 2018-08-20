@@ -29,7 +29,10 @@ Setting up Typester on your page is as easy as:
 ```
 import Typester from 'typester-editor'
 
-new Typester({ el: document.querySelector('[contenteditable]') }) // Where document.querySelector(...) is a single DOM element.
+const typesterInstance = new Typester({ el: document.querySelector('[contenteditable]') }) // Where document.querySelector(...) is a single DOM element.
+
+// If you need to tear down for any reason:
+typesterInstance.destroy();
 ```
 
 ### Configuration
@@ -43,6 +46,15 @@ new Typester({
     configs: {
         toolbar: {
             buttons: ['bold', 'italic', 'h1', 'h2', 'orderedlist', 'unorderedlist', 'quote', 'link']
+        },
+
+        styles: {
+          colors: {
+            flyoutBg: 'rgb(32, 31, 32)',
+            menuItemIcon: 'rgb(255, 255, 255)',
+            menuItemHover: 'rgb(0, 174, 239)',
+            menuItemActive: 'rgb(0, 156, 215)'
+          }
         }
     }
 });

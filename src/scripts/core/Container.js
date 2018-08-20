@@ -166,7 +166,9 @@ const Container = function Container(containerObj) {
             return {
                 setMediatorParent (parentMediator) {
                     mediator.setParent(parentMediator);
-                }
+                },
+
+                destroy: boundMethods.destroy
             };
         }
     };

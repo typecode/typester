@@ -1,11 +1,12 @@
 import Module from '../core/Module';
 import toolbarConfig from '../config/toolbar';
 import config from '../config/config';
+import stylesConfig from '../config/styles';
 
 const Config = Module({
     name: 'Config',
     props: {},
-    acceptsConfigs: ['toolbar'],
+    acceptsConfigs: ['toolbar', 'styles'],
 
     handlers: {
         requests: {
@@ -16,7 +17,8 @@ const Config = Module({
             'config:toolbar:listTags' : 'getToolbarListTags',
             'config:toolbar:preventNewlineDefault' : 'getToolbarPreventNewlineDefault',
             'config:blockElementNames' : 'getConfigBlockElementNames',
-            'config:defaultBlock' : 'getDefaultBlock'
+            'config:defaultBlock' : 'getDefaultBlock',
+            'config:styles': 'getStyles'
         }
     },
 
@@ -70,6 +72,13 @@ const Config = Module({
 
         getDefaultBlock () {
             return config.defaultBlock;
+        },
+
+        getStyles () {
+            const { configs } = this;
+            return {
+                colors: Object.assign({}, stylesConfig.colors, configs.styles.colors)
+            };
         }
     }
 });

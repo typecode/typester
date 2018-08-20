@@ -175,6 +175,24 @@ var pageCommands = {
             console.log(response);
         });
         return this;
+    },
+
+    destroy: function () {
+        var api = this.api;
+
+        api.execute(function () {
+            try {
+                window.typesterInstance.destroy();
+                return 'Destroyed!';
+            } catch (e) {
+                return e.message;
+            }
+        }, [], function (response) {
+            console.log('Destroy:');
+            console.log(response);
+        });
+
+        return this;
     }
 };
 
