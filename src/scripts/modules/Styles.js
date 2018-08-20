@@ -16,7 +16,11 @@ const Styles = Module({
         stylesheet: null,
     },
 
-    handlers: {},
+    handlers: {
+        events: {
+            'app:destroy': 'destroy'
+        }
+    },
 
     methods: {
         setup () {
@@ -85,6 +89,14 @@ const Styles = Module({
 
         updateStylesheet (stylesheetContent) {
             this.stylesheet.textContent = stylesheetContent;
+        },
+
+        removeStylesheet () {
+            document.head.removeChild(this.stylesheet);
+        },
+
+        destroy () {
+            this.removeStylesheet();
         }
     }
 });

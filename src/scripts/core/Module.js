@@ -112,6 +112,11 @@ const Module = function (moduleObj) {
             moduleUtils.bindDomEvents(handlerMethods, context);
         },
 
+        deregisterDomHandlers (domHandlersMap, context) {
+            let handlerMethods = moduleUtils.getHandlerMethods(domHandlersMap, context);
+            moduleUtils.unbindDomEvents(handlerMethods, context);
+        },
+
         getHandlerMethods (handlerMap, context) {
             let routedHandlers = {};
 
@@ -168,6 +173,22 @@ const Module = function (moduleObj) {
                 const eventHandler = handlers[eventElKey];
 
                 elem.addEventListener(eventKey, eventHandler);
+            });
+        },
+
+        unbindDomEvents (handlers, context) {
+            const { dom } = context;
+
+            if (!dom) {
+                return;
+            }
+
+            Object.keys(handlers).forEach((eventElKey) => {
+                const [eventKey, elemKey] = eventElKey.split(' @');
+                const elem = elemKey ? dom[elemKey][0] : dom.el[0];
+                const eventHandler = handlers[eventElKey];
+
+                elem.removeEventListener(eventKey, eventHandler);
             });
         },
 
@@ -248,6 +269,10 @@ const Module = function (moduleObj) {
                 context.setup();
             }
 
+            context.mediator.registerHandler('event', 'app:destroy', function () {
+                moduleProto.destroyModule(opts);
+            });
+
             if (moduleHandlers) {
                 moduleUtils.registerHandlers(opts.mediator, moduleHandlers, context);
             }
@@ -280,8 +305,12 @@ const Module = function (moduleObj) {
             }
         },
 
-        destroyModule () {
+        destroyModule (opts) {
+            const { context } = opts;
 
+            if (moduleHandlers.domEvents) {
+                moduleUtils.deregisterDomHandlers(moduleHandlers.domEvents, context);
+            }
         }
     };
 
