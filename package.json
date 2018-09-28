@@ -1,6 +1,6 @@
 {
   "name": "typester-editor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple to use wysiwyg text editor inspired by Medium and Medium Editor that gives you clean and predictable html from your user's input.",
   "repository": {
     "type": "git",
