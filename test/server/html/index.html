@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+    <head>
+
+        <style>
+            .header,
+            .content-panes {
+              display: flex;
+            }
+
+            .header {
+              justify-content: space-between;
+              align-items: center;
+            }
+
+            .inspector-tools {
+              display: flex;
+            }
+
+            .inspector-tools a {
+              padding: 0.5em 1em;
+              border: 1px solid #CCC;
+              background-color: #CCC;
+              cursor: pointer;
+            }
+
+            .inspector-tools a.active {
+              background-color: #FFF;
+            }
+
+            .content-panes {
+              align-items: stretch;
+            }
+
+            #content-editable {
+                border: 1px solid #CCC;
+                width: 50%;
+            }
+
+            pre {
+              width: 50%;
+              margin: 0;
+              padding: 0;
+            }
+
+            #content-inspector {
+              /* width: 50%; */
+              margin: 0;
+              padding: 0;
+              height: 100%;
+            }
+
+            .typester-canvas {
+              position: relative;
+              opacity: 1;
+              height: auto;
+              width: 100%;
+            }
+        </style>
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css' />
+    </head>
+    <body>
+        <div class='header'>
+          <h1>
+            Typester test server
+            <button class='destroy-btn'>Destroy</button>
+          </h1>
+          <div class='inspector-tools'>
+            <a class='inspect-content' data-target-inspector='content'>Inspect Content</a>
+            <a class='inspect-canvas' data-target-inspector='canvas'>Inspect Canvas</a>
+          </div>
+        </div>
+
+        <div class='content-panes'>
+          <div id='content-editable'>
+            <p>
+              Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec rutrum congue leo eget malesuada. Cras ultricies ligula sed magna dictum porta. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.
+            </p>
+            <p>
+              Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Pellentesque in ipsum id orci porta dapibus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
+            </p>
+            <p>
+              Praesent sapien massa, <a href='https://typecode.com'>convallis a pellentesque nec</a>, egestas non nisi. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+                <a href='https://typecode.com'>
+                    Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Cras ultricies ligula sed magna dictum porta. Donec sollicitudin molestie malesuada. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                </a>
+            </p>
+            <p>
+              Nulla quis lorem ut libero malesuada feugiat. Donec sollicitudin molestie malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Sed porttitor lectus nibh. Donec sollicitudin molestie malesuada.
+            </p>
+            <ul>
+              <li>
+                <a href='https://typecode.com'>Sed porttitor lectus nibh.</a>
+              </li>
+              <li>
+                Donec rutrum congue leo eget malesuada.
+              </li>
+              <li>
+                Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.
+              </li>
+              <li>
+                Vivamus suscipit tortor eget felis porttitor volutpat.
+              </li>
+              <li>
+                Donec sollicitudin molestie malesuada.
+              </li>
+            </ul>
+          </div>
+
+          <pre><code id='content-inspector' class='html'></code></pre>
+
+        </div>
+
+        <script src='/js/typester.js'></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>
+          const contentEditable = document.getElementById('content-editable');
+          const typesterInstance = new Typester({
+              el: contentEditable,
+              configs: {
+                // toolbar: {
+                //   buttons: ['bold', 'italic', 'h1', 'h2', 'orderedlist', 'unorderedlist', 'quote', 'link']
+                // }
+                styles: {
+                  colors: {
+                    flyoutBg: '#C00',
+                    menuItemIcon: '#00C',
+                    menuItemHover: '#0C0',
+                    menuItemActive: '#0A0'
+                  }
+                }
+              }
+          });
+        </script>
+
+        <script>
+          (function () {
+              let currentInspectorTarget, canvasIFrame;
+
+              const contentInspector = document.getElementById('content-inspector');
+              const inspectorTools = document.querySelectorAll('.inspector-tools a');
+              const destroyBtn = document.querySelector('.destroy-btn');
+
+              inspectorTools.forEach(function (inspectorTool, index) {
+                if (index === 0) {
+                  inspectorTool.classList.add('active');
+                  currentInspectorTarget = inspectorTool.dataset.targetInspector;
+                }
+
+                inspectorTool.addEventListener('click', function (evnt) {
+                  inspectorTools.forEach(function (inspectorTool, index) {
+                    inspectorTool.classList.remove('active');
+                  });
+                  evnt.target.classList.add('active');
+
+                  currentInspectorTarget = evnt.target.dataset.targetInspector;
+                });
+              });
+
+              const indentation = function (multiplier) {
+                let spaces = '';
+                for (let i = 0; i < multiplier * 2; i++) {
+                  spaces += '  ';
+                }
+                return spaces;
+              };
+
+              const generateHtmlText = function (node, opts) {
+                const clonedNode = node.cloneNode();
+                let htmlText = '';
+
+                opts = opts || {
+                  indentation: 0
+                };
+
+                clonedNode.innerText = '|';
+                const [openTag, closeTag] = opts.includeNodeTags ? clonedNode.outerHTML.split('|') : clonedNode.innerText.split('|');
+                const appendHtmlText = function (newHtmlText, currentIndentation, newLine) {
+                  htmlText = htmlText + indentation(currentIndentation) + newHtmlText;
+                  if (newLine) {
+                    htmlText = htmlText + '\r\n';
+                  }
+                };
+
+                appendHtmlText(openTag || '<no-open-tag>', opts.indentation, true);
+
+                node.childNodes.forEach(function (childNode) {
+                  if (childNode.nodeType === Node.TEXT_NODE) {
+                    if (childNode.textContent.trim().length) {
+                      if (childNode.textContent.match(/\u200B/g)) {
+                        appendHtmlText('<selection-hook />', opts.indentation, true);
+                      } else {
+                        appendHtmlText(childNode.textContent.replace(/\s/g, '\u00B7'), opts.indentation + 1, true);
+                      }
+                    }
+                  } else {
+                    appendHtmlText(generateHtmlText(childNode, {
+                      indentation: opts.indentation + 1,
+                      includeNodeTags: true
+                    }));
+                  }
+                });
+
+                appendHtmlText(closeTag || '</no-close-tag open-tag="' + openTag + '">', opts.indentation, true);
+
+                return htmlText;
+              };
+
+              const updateInspector = function () {
+                let targetEl;
+                let innerText = '';
+
+                switch (currentInspectorTarget) {
+                  case 'canvas':
+                    canvasIFrame = canvasIFrame || document.querySelector('.typester-canvas');
+                    targetEl = canvasIFrame.contentDocument.body;
+                    break;
+                  case 'content':
+                    targetEl = contentEditable;
+                    break;
+                }
+                generateHtmlText(targetEl);
+                contentInspector.innerText = generateHtmlText(targetEl);
+                hljs.highlightBlock(contentInspector);
+                // requestAnimationFrame(updateInspector);
+              };
+
+              const observerConfig = { attributes: true, childList: true, subtree: true };
+              const editorObserver = new MutationObserver(updateInspector);
+              const canvasObserver = new MutationObserver(updateInspector);
+
+              editorObserver.observe(contentEditable, observerConfig);
+              canvasObserver.observe(document.querySelector('.typester-canvas'), observerConfig);
+              updateInspector();
+
+              destroyBtn.addEventListener('click', function () {
+                typesterInstance.destroy();
+              });
+          })();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+.typester-link-display {
+    display: flex;
+
+    a {
+        display: block;
+        cursor: pointer;
+        line-height: 20px;
+        padding: 10px;
+    }
+
+    a[href] {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .typester-link-edit {
+        display: block;
+        height: 20px;
+        text-align: center;
+
+        svg {
+            display: block;
+            width: 20px;
+            height: 20px;
+            fill: #FFF;
+        }
+
+        &:hover {
+            background: rgb(0, 174, 239);
+        }
+    }
+}

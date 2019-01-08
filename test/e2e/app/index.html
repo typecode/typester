@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Nightwatch.js Test</title>
+  </head>
+  <body>
+      <div id='content-editable' class='content-editable' style='margin-top: 200px'></div>
+      <a class='destroy-control'>Destroy</a>
+      <script src='/js/typester.js'></script>
+      <script>
+        console.log('Typester')
+        console.log(Typester);
+        window.typesterInstance = new Typester({
+            el: document.getElementById('content-editable')
+        });
+      </script>
+  </body>
+</html>

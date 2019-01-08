@@ -1,0 +1,76 @@
+{
+  "name": "typester-editor",
+  "version": "0.0.3",
+  "description": "A simple to use wysiwyg text editor inspired by Medium and Medium Editor that gives you clean and predictable html from your user's input.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/typecode/typester"
+  },
+  "homepage": "https://typecode.github.io/typester/",
+  "keywords": [
+    "wysiwyg",
+    "typester",
+    "rich text editor",
+    "typester-editor",
+    "medium",
+    "medium-editor",
+    "wysiwyg-editor",
+    "html editor",
+    "html text editor",
+    "contenteditable"
+  ],
+  "main": "build/js/typester.js",
+  "scripts": {
+    "test": "yarn test_unit && yarn test_e2e",
+    "test_unit": "./node_modules/karma/bin/karma start karma.conf.js",
+    "test_e2e": "cd ./test/e2e && docker-compose run --rm nightwatch",
+    "build": "rollup -c",
+    "build_prod": "BUILD=production npm run build",
+    "watch": "./node_modules/.bin/watch \"npm run build\" src/",
+    "docs": "./node_modules/.bin/jsdoc -c .jsdoc.json",
+    "docs_watch": "./node_modules/.bin/watch \"yarn docs\" src/ docs/src/",
+    "local_server": "cd ./test/server && docker-compose up server",
+    "docs_server": "yarn docs && cd ./docs && docker-compose up docs_server",
+    "publish": "npm publish"
+  },
+  "author": "Fred Every <fred@fredevery.co.za>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/typecode/typester/issues"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "jasmine": "^2.6.0",
+    "jsdoc": "^3.5.5",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-jasmine-jquery": "^0.1.1",
+    "karma-junit-reporter": "^1.2.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-rollup-preprocessor": "^4.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.31",
+    "postcss": "^5.2.16",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-eslint": "^3.0.0",
+    "rollup-plugin-gzip": "^1.3.0",
+    "rollup-plugin-handlebars-plus": "^0.2.0",
+    "rollup-plugin-istanbul": "^1.1.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-sass": "^0.4.10",
+    "rollup-plugin-uglify": "^4.0.0",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "dompurify": "^1.0.2"
+  }
+}
