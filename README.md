@@ -106,7 +106,7 @@ and submit your issue / feature request.
 3. Make sure all tests pass
     1. If you have added a new feature, make sure there is a test for it
     2. Run the following:
-       `~> yarn test` (for unit tests) & `~>yarn test_e2e` (end-to-end tests)
+       `~> yarn test_unit` (for unit tests) & `~>yarn test_e2e` (end-to-end tests)
     3. If you have changed the codebase in a way that requires the tests to be updated
        please do so.
 4. Update the documentation if you've added any publicly accessible methods or options.
@@ -115,11 +115,11 @@ and submit your issue / feature request.
 7. Create a new pull request.
 
 ### Setup local dev environment
-Install all the node moudles
+Install all the node modules
 ```
 ~> yarn
-~> cd test/e2e/test && yarn
 ```
+
 ### Run build scripts
 For a one time build
 ```
@@ -130,32 +130,31 @@ For a continuous reactive build that watches for changes
 ~> yarn watch
 ```
 
-### Run the local server
-You will need to have [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed firstly.
-
-Then:
+### Run the dev server
 ```
-~> yarn local_server
+~> yarn dev-server
 ```
 You should then be able to navigate your browser to:
 ```
-http://localhost:4848
+http://localhost:9000
 ```
 
 ### Run the tests
 **Make sure you build first**
-Once again, you will need to have [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
-
-Then:
 
 Unit tests (Karma & Jasmine)
 ```
-~> yarn test
+~> yarn test_unit
 ```
 
 e2e tests (nightwatch)
 ```
 ~> yarn test_e2e
+```
+
+all tests (unit & e2e)
+```
+~> yarn test
 ```
 
 ### Build and read the developer docs
@@ -176,5 +175,5 @@ Then, to read the docs:
 
 And point you browser to:
 ```
-http://localhost:4849
+http://localhost:9001
 ```

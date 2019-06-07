@@ -5,12 +5,13 @@ import Commands from '../../../src/scripts/modules/Commands';
 import Config from '../../../src/scripts/modules/Config';
 import selectionHelper from '../helpers/selection';
 import DOM from '../../../src/scripts/utils/DOM';
+import { loadFixtures } from '../helpers/fixtures.js';
 
 describe('modules/Commands', function () {
     let mediator, $editableEl, editableEl;
 
     beforeEach((done) => {
-        loadFixtures('index.html');
+        loadFixtures();
 
         mediator = new Mediator();
         new Commands({ mediator });

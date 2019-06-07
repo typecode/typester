@@ -39,10 +39,13 @@ const DOM = {
 
     getClosest(node, selector, ceilNode) {
         const rootEl = ceilNode || DOM.getRootEl();
-        const checkType = /^\[/.test(selector) ? 'attribute' :
-                          /^\./.test(selector) ? 'class' :
-                          /^\#/.test(selector) ? 'id' :
-                          'tag';
+        const checkType = /^\[/.test(selector)
+            ? 'attribute'
+            : /^\./.test(selector)
+                ? 'class'
+                : /^#/.test(selector)
+                    ? 'id'
+                    : 'tag';
 
         let returnNode = false;
         let attrName, className, idStr, parentId;
@@ -317,9 +320,7 @@ const DOM = {
     trimNodeText (node) {
         if (node.nodeType === Node.TEXT_NODE) {
             const trimmableSides = DOM.trimmableSides(node);
-            let trimmedText = node.textContent
-                                  .replace(/\s{2,}/g, ' ')
-                                  .replace(/\r?\n|\r/g, '');
+            let trimmedText = node.textContent.replace(/\s{2,}/g, ' ').replace(/\r?\n|\r/g, '');
 
             if (trimmableSides.left) {
                 trimmedText = trimmedText.replace(/^\s+?/, '');
@@ -390,7 +391,7 @@ const DOM = {
     },
 
     _cleanSelector(selector) {
-        return selector.replace(/^[\.#]/, '');
+        return selector.replace(/^[.#]/, '');
     }
 };
 

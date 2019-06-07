@@ -29,9 +29,11 @@ const Config = Module({
         getToolbarButtons () {
             const { mediator, configs } = this;
             const contentEditableButtons = mediator.get('contenteditable:toolbar:buttons') || [];
-            const configButtons = contentEditableButtons.length ? contentEditableButtons :
-                                  configs.toolbar.buttons ? configs.toolbar.buttons :
-                                  toolbarConfig.buttons;
+            const configButtons = contentEditableButtons.length
+                ? contentEditableButtons
+                : configs.toolbar.buttons
+                    ? configs.toolbar.buttons
+                    : toolbarConfig.buttons;
 
             let buttons = [];
             configButtons.forEach((configKey) => {

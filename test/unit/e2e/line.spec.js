@@ -3,6 +3,7 @@
 import { e2eSetup, e2eCleanOutput, e2eClickToolbarButton } from '../helpers/e2eSetup';
 import e2eContent from '../helpers/e2eSampleContent';
 import selectionHelper from '../helpers/selection';
+import { loadFixtures } from '../helpers/fixtures.js';
 
 import toolbarConfig from '../../../src/scripts/config/toolbar';
 
@@ -11,7 +12,7 @@ describe('e2e/line', function () {
     let { input, output } = e2eContent;
 
     beforeEach((done) => {
-        loadFixtures('index.html');
+        loadFixtures();
 
         const setupComponents = e2eSetup();
         mediator = setupComponents.mediator;

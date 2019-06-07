@@ -485,7 +485,7 @@ const Selection = Module({
             if (opts.selector) {
                 const elems = contextDocument.querySelectorAll(opts.selector);
                 range.setStartBefore(elems[0]);
-                range.setEndAfter(elems[elems.lenght - 1]);
+                range.setEndAfter(elems[elems.length - 1]);
             } else {
                 range.setStart(rootElem, 0);
                 range.setEndAfter(rootElem.lastChild);

@@ -2,6 +2,8 @@
 import Mediator from '../../../src/scripts/core/Mediator.js';
 import Module from '../../../src/scripts/core/Module.js';
 
+import { loadFixtures } from '../helpers/fixtures.js';
+
 describe('core/Module', () => {
     let mediator, ModuleClass, module;
     let requestHandlers, commandHandlers, eventHandlers;
@@ -10,7 +12,7 @@ describe('core/Module', () => {
     let moduleRequestResponse = 'Module request response';
 
     beforeEach(() => {
-        loadFixtures('index.html');
+        loadFixtures();
 
         requestHandlers = {
             moduleRequestHandler () {

@@ -7,12 +7,13 @@ import zeroWidthSpace from '../../../src/scripts/utils/zeroWidthSpace';
 import formatterSetup from '../helpers/formatterSetup';
 import userInputHelper from '../helpers/userInput';
 import selectionHelper from '../helpers/selection';
+import { loadFixtures } from '../helpers/fixtures.js';
 
 describe('modules/BaseFormatter', function () {
     let mediator, editableEl;
 
     beforeEach((done) => {
-        loadFixtures('index.html');
+        loadFixtures();
 
         const setupComponents = formatterSetup(BaseFormatter, {
             skipBaseFormatter: true

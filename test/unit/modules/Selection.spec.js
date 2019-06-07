@@ -4,13 +4,14 @@ import Mediator from '../../../src/scripts/core/Mediator';
 import Selection from '../../../src/scripts/modules/Selection';
 import Config from '../../../src/scripts/modules/Config';
 import selectionHelper from '../helpers/selection';
+import { loadFixtures } from '../helpers/fixtures.js';
 
 describe('modules/Selection', () => {
     let $editableEl, editableEl, editableElHTML;
     let mediator;
 
     beforeEach(() => {
-        loadFixtures('index.html');
+        loadFixtures();
 
         $editableEl = jQuery('.content-editable');
         editableEl = $editableEl[0];
