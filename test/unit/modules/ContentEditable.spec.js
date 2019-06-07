@@ -3,12 +3,13 @@
 import Mediator from '../../../src/scripts/core/Mediator';
 import ContentEditable from '../../../src/scripts/modules/ContentEditable';
 import mockEvents from '../helpers/mockEvents';
+import { loadFixtures } from '../helpers/fixtures.js';
 
 describe('modules/ContentEditable', () => {
     let contentEditable, eventHandlers, mediator, $editableEl;
 
     beforeEach(() => {
-        loadFixtures('index.html');
+        loadFixtures();
         mediator = new Mediator();
 
         eventHandlers = {

@@ -9,7 +9,7 @@
  * @module modules/ContentEditable
  */
 
- /**
+/**
  * @event contenteditable:focus
  * @desc Emitted by {@link modules/ContentEditable} when focused.
  */

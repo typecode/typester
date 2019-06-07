@@ -8,13 +8,14 @@ import Config from '../../../src/scripts/modules/Config.js';
 
 import mockEvents from '../helpers/mockEvents';
 import selectionHelper from '../helpers/selection';
+import { loadFixtures } from '../helpers/fixtures.js';
 
 describe('modules/Toolbar', function () {
     let mediator, commands;
     let toolbarEl, elStyle, editableEl, flyoutEl;
 
     beforeEach(() => {
-        loadFixtures('index.html');
+        loadFixtures();
 
         editableEl = document.getElementsByClassName('content-editable')[0];
 

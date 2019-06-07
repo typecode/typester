@@ -6,6 +6,7 @@ import toolbarConfig from '../../../src/scripts/config/toolbar';
 import formatterSetup from '../helpers/formatterSetup';
 import userInputHelper from '../helpers/userInput';
 import selectionHelper from '../helpers/selection';
+import { loadFixtures } from '../helpers/fixtures.js';
 
 describe('modules/BlockFormatter', function () {
     let mediator;
@@ -15,7 +16,7 @@ describe('modules/BlockFormatter', function () {
     headerText = 'header text';
 
     beforeEach((done) => {
-        loadFixtures('index.html');
+        loadFixtures();
 
         const setupComponents = formatterSetup(BlockFormatter);
         editableEl = setupComponents.editableEl;

@@ -403,7 +403,7 @@ const BaseFormatter = Module({
                     this.removeEmptyNodes(childNode, { recursive: true, rootIsChild: true });
                 }
 
-                if (!/[\w\.,\/#!$%\^&\*;:{}=\-_`~()\'\"]/.test(childNode.textContent)) {
+                if (!/[\w.,/#!$%^&*;:{}=\-_`~()'"]/.test(childNode.textContent)) {
                     if (
                         (!opts.rootIsChild && !zeroWidthSpace.assert(childNode) && i > 0) ||
                         childNode.nodeType === Node.ELEMENT_NODE

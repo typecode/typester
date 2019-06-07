@@ -24,7 +24,7 @@ import linkDisplayStyles from '../../styles/linkDisplay.scss';
 const LinkFormatter = Module({
     name: 'LinkFormatter',
     props: {
-        urlRegex: /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
+        urlRegex: /[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/,
         currentAnchor: null,
         active: false,
         hasMouse: false,

@@ -4,6 +4,7 @@ import Mediator from '../../../src/scripts/core/Mediator';
 import Canvas from '../../../src/scripts/modules/Canvas';
 
 import selectionHelper from '../helpers/selection';
+import { loadFixtures } from '../helpers/fixtures.js';
 
 describe('modules/Canvas', function () {
     let canvas, mediator, iframe;
@@ -12,7 +13,7 @@ describe('modules/Canvas', function () {
     editableElInnerHTML = '<h1>Test title</h1><p>Test paragraph, <b>with bold text</b></p>';
 
     beforeEach((done) => {
-        loadFixtures('index.html');
+        loadFixtures();
 
         $editableEl = jQuery('.content-editable');
         editableEl = $editableEl[0];

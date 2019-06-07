@@ -1,6 +1,6 @@
 // jshint strict: false
 
- /**
+/**
   * Mouse -
   * Responsible for tracking the up/down state of the mouse button
   * @access protected

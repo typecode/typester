@@ -6,6 +6,7 @@ import toolbarConfig from '../../../src/scripts/config/toolbar';
 import formatterSetup from '../helpers/formatterSetup';
 import userInputHelper from '../helpers/userInput';
 import selectionHelper from '../helpers/selection';
+import { loadFixtures } from '../helpers/fixtures.js';
 
 describe('modules/ListFormatter', function () {
     let mediator;
@@ -25,7 +26,7 @@ describe('modules/ListFormatter', function () {
     };
 
     beforeEach((done) => {
-        loadFixtures('index.html');
+        loadFixtures();
 
         const setupComponents = formatterSetup(ListFormatter);
         editableEl = setupComponents.editableEl;

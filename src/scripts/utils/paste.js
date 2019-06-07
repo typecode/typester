@@ -23,7 +23,7 @@ const pasteUtils = {
             [new RegExp(/<[^>]*docs-internal-guid[^>]*>/gi), ''],
             [new RegExp(/<\/b>(<br[^>]*>)?$/gi), ''],
 
-             // un-html spaces and newlines inserted by OS X
+            // un-html spaces and newlines inserted by OS X
             [new RegExp(/<span class="Apple-converted-space">\s+<\/span>/g), ' '],
             [new RegExp(/<br class="Apple-interchange-newline">/g), '<br>'],
 
@@ -36,10 +36,10 @@ const pasteUtils = {
             //[replace google docs bolds with a span to be replaced once the html is inserted
             [new RegExp(/<span[^>]*font-weight:(bold|700)[^>]*>/gi), '<span class="replace-with bold">'],
 
-             // replace manually entered b/i/a tags with real ones
+            // replace manually entered b/i/a tags with real ones
             [new RegExp(/&lt;(\/?)(i|b|a)&gt;/gi), '<$1$2>'],
 
-             // replace manually a tags with real ones, converting smart-quotes from google docs
+            // replace manually a tags with real ones, converting smart-quotes from google docs
             [new RegExp(/&lt;a(?:(?!href).)+href=(?:&quot;|&rdquo;|&ldquo;|"|“|”)(((?!&quot;|&rdquo;|&ldquo;|"|“|”).)*)(?:&quot;|&rdquo;|&ldquo;|"|“|”)(?:(?!&gt;).)*&gt;/gi), '<a href="$1">'],
 
             // Newlines between paragraphs in html have no syntactic value,
@@ -51,7 +51,7 @@ const pasteUtils = {
             [new RegExp(/<\/?o:[a-z]*>/gi), ''],
 
             // Microsoft Word adds some special elements around list items
-            [new RegExp(/<!\[if !supportLists\]>(((?!<!).)*)<!\[endif]\>/gi), '$1']
+            [new RegExp(/<!\[if !supportLists\]>(((?!<!).)*)<!\[endif]>/gi), '$1']
         ];
     }
 };

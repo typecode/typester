@@ -5,5 +5,8 @@ _notes_/
 docs/site/
 docs/src/
 
+test/integration/screenshots
+test/integration/videos
+
 yarn-error.log
 npm-debug.log
