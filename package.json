@@ -65,6 +65,6 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "dompurify": "^1.0.9"
+    "dompurify": "^2.0.17"
   }
 }
