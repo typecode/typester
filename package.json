@@ -50,7 +50,7 @@
     "handlebars": "^4.1.2",
     "handlebars-loader": "^1.7.1",
     "jsdoc": "^3.6.2",
-    "karma": "^4.1.0",
+    "karma": "^6.3.14",
     "karma-jasmine": "^2.0.1",
     "karma-jquery": "^0.2.4",
     "karma-phantomjs-launcher": "^1.0.4",
